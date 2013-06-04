@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="MySales">
+</Property><Property Name="Solution File" Value="H:\D Productions\New Sales\Sales Project\MySales\MySales.sln">
+</Property><Property Name="User Options File" Value="H:\D Productions\New Sales\Sales Project\MySales\MySales.suo">
+</Property><Property Name="Date" Value="06 January 2012">
+</Property><Property Name="Time" Value="23:00">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="MySales.sln" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.sln">
+</Event><Event ErrorLevel="0" Project="" Source="MySales.suo" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.suo">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\MySales.csproj" Description="Project file successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\MySales.csproj">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\EnterSalesData.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\EnterSalesData.cs">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\EnterSalesData.Designer.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\EnterSalesData.Designer.cs">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\frmSearch.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\frmSearch.cs">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\frmSearch.Designer.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\frmSearch.Designer.cs">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Home.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Home.cs">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Home.Designer.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Home.Designer.cs">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Login.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Login.cs">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Login.Designer.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Login.Designer.cs">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Program.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Program.cs">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Properties\AssemblyInfo.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Properties\Resources.Designer.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Properties\Settings.Designer.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Register.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Register.cs">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Register.Designer.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Register.Designer.cs">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\App.config" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\App.config">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Properties\DataSources\MySales.BO.Product.datasource" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Properties\DataSources\MySales.BO.Product.datasource">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Properties\Settings.settings" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\EnterSalesData.resx" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\EnterSalesData.resx">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\frmSearch.resx" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\frmSearch.resx">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Home.resx" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Home.resx">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Login.resx" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Login.resx">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Properties\Resources.resx" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\Register.resx" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales\Register.resx">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\MySales.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="MySales" Source="MySales\MySales.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="MySales.BL" Source="MySales.BL\MySales.BL.csproj" Description="Project file successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.BL\MySales.BL.csproj">
+</Event><Event ErrorLevel="0" Project="MySales.BL" Source="MySales.BL\ClientBL.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.BL\ClientBL.cs">
+</Event><Event ErrorLevel="0" Project="MySales.BL" Source="MySales.BL\DealerBL.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.BL\DealerBL.cs">
+</Event><Event ErrorLevel="0" Project="MySales.BL" Source="MySales.BL\ProductBL.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.BL\ProductBL.cs">
+</Event><Event ErrorLevel="0" Project="MySales.BL" Source="MySales.BL\Properties\AssemblyInfo.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.BL\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="MySales.BL" Source="MySales.BL\UserBL.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.BL\UserBL.cs">
+</Event><Event ErrorLevel="0" Project="MySales.BL" Source="MySales.BL\UtilityClass.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.BL\UtilityClass.cs">
+</Event><Event ErrorLevel="0" Project="MySales.BL" Source="MySales.BL\MySales.BL.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="MySales.BL" Source="MySales.BL\MySales.BL.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="MySales.DL" Source="MySales.DL\MySales.DL.csproj" Description="Project file successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.DL\MySales.DL.csproj">
+</Event><Event ErrorLevel="0" Project="MySales.DL" Source="MySales.DL\ClientDL.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.DL\ClientDL.cs">
+</Event><Event ErrorLevel="0" Project="MySales.DL" Source="MySales.DL\DBManager.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.DL\DBManager.cs">
+</Event><Event ErrorLevel="0" Project="MySales.DL" Source="MySales.DL\DealerDL.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.DL\DealerDL.cs">
+</Event><Event ErrorLevel="0" Project="MySales.DL" Source="MySales.DL\ProductDL.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.DL\ProductDL.cs">
+</Event><Event ErrorLevel="0" Project="MySales.DL" Source="MySales.DL\Properties\AssemblyInfo.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.DL\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="MySales.DL" Source="MySales.DL\UserDL.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.DL\UserDL.cs">
+</Event><Event ErrorLevel="0" Project="MySales.DL" Source="MySales.DL\MySales.DL.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="MySales.DL" Source="MySales.DL\MySales.DL.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="MySales.BO" Source="MySales.BO\MySales.BO.csproj" Description="Project file successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.BO\MySales.BO.csproj">
+</Event><Event ErrorLevel="0" Project="MySales.BO" Source="MySales.BO\Client.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.BO\Client.cs">
+</Event><Event ErrorLevel="0" Project="MySales.BO" Source="MySales.BO\Dealer.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.BO\Dealer.cs">
+</Event><Event ErrorLevel="0" Project="MySales.BO" Source="MySales.BO\Product.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.BO\Product.cs">
+</Event><Event ErrorLevel="0" Project="MySales.BO" Source="MySales.BO\Properties\AssemblyInfo.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.BO\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="MySales.BO" Source="MySales.BO\User.cs" Description="File successfully backed up as H:\D Productions\New Sales\Sales Project\MySales\Backup\MySales.BO\User.cs">
+</Event><Event ErrorLevel="0" Project="MySales.BO" Source="MySales.BO\MySales.BO.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="MySales.BO" Source="MySales.BO\MySales.BO.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="MySales.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="MySales.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="MySales" Source="MySales\MySales.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="MySales.BL" Source="MySales.BL\MySales.BL.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="MySales.DL" Source="MySales.DL\MySales.DL.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="MySales.BO" Source="MySales.BO\MySales.BO.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
