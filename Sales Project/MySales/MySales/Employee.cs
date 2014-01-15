@@ -171,7 +171,8 @@ namespace MySales
                 SalDetails = new SalaryDetail()
                                  {
                                      CreateDate = DateTime.Today,
-                                     MonthlyGross = Convert.ToDecimal(txtMonthlyGross.Text.Trim())
+                                     MonthlyGross = !string.IsNullOrEmpty(txtMonthlyGross.Text.Trim()) ?
+                                     Convert.ToDecimal(txtMonthlyGross.Text.Trim()) : 0
                                  }
             };
             MessageBox.Show(new EmployeeBL().AddEmployee(emp, 1) == 1
