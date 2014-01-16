@@ -29,6 +29,7 @@ namespace MySales
         {
             //var empList = new EmployeeBL().GetAllEmployees();
             _empList = new EmployeeBL().GetAllEmployees();
+            _empList = _empList.OrderBy(e => e.FirstName).ToList();
             dgvEmp.AutoGenerateColumns = false;
 
             if (dgvEmp.ColumnCount == 0)
@@ -44,6 +45,7 @@ namespace MySales
             dgvEmp.Columns["ID"].DataPropertyName = "ID";
             dgvEmp.Columns["ID"].Visible = false;
             dgvEmp.Columns["Code"].DataPropertyName = "EmpCode";
+            dgvEmp.Columns["Code"].Visible = false;
             dgvEmp.Columns["Name"].DataPropertyName = "FullName";
             dgvEmp.Columns["Designation"].DataPropertyName = "Designation.Desc";
 

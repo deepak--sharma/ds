@@ -22,9 +22,9 @@ namespace MySales
 
         private void FrmGeneratePayrollLoad(object sender, EventArgs e)
         {
-            int year = DateTime.Now.Year;
-            int month = DateTime.Now.Month;
-            int yearCount = 0;
+            var year = DateTime.Now.Year;
+            var month = DateTime.Now.Month;
+            var yearCount = 0;
             if (month == 1)
             {
                 yearCount = year - 1;
@@ -33,7 +33,7 @@ namespace MySales
             {
                 yearCount = year;
             }
-            for (int i = yearCount; i <= year; ++i)
+            for (var i = yearCount; i <= year; ++i)
             {
                 cbYear.Items.Add(i);
             }
@@ -51,18 +51,17 @@ namespace MySales
 
         private void BindGrid()
         {
-           var objEmployeeBl = new EmployeeBL();
+            var objEmployeeBl = new EmployeeBL();
             var lst = objEmployeeBl.GetAllEmployees();
-            foreach (Employee emp in lst)
+            lst = lst.OrderBy(x => x.FirstName).ToList();
+            foreach (var emp in lst)
             {
                 _lstEmployees.Add(emp);
             }
-            if (_lstEmployees.Count > 0)
-            {
-                lbSource.DataSource = _lstEmployees;
-                lbSource.DisplayMember = "FirstName";
-                lbSource.ValueMember = "ID";
-            }
+            if (_lstEmployees.Count <= 0) return;
+            lbSource.DataSource = _lstEmployees;
+            lbSource.DisplayMember = "FirstName";
+            lbSource.ValueMember = "ID";
         }
 
         private void btnGenPayroll_Click(object sender, EventArgs e)

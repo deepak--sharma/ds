@@ -16,6 +16,11 @@ namespace MySales.BL
         }
         public int AddEmployee(Employee employee, Int64 userId)
         {
+            /* 1. Add Employee
+             * 2. Add Employee Salary Details (if any).
+             * 3. Add Employee Advance Details (if any).             
+             */
+
             return new EmployeeDl().AddEmployee(employee, userId);
         }
         public Employee GetSingleEmployee(long empId)
