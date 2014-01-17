@@ -95,15 +95,17 @@ namespace MySales
 
         private void SetupForm()
         {
-            Employee emp = new EmployeeBL().GetSingleEmployee(_empID);
-
-            if (emp != null)
-            {
-                txtFN.Text = emp.FirstName;
-                txtMN.Text = emp.MiddleName;
-                txtLN.Text = emp.LastName;
-
-            }
+            var emp = new EmployeeBL().GetSingleEmployee(_empID);
+            if (emp == null) return;
+            txtFN.Text = emp.FirstName;
+            txtMN.Text = emp.MiddleName;
+            txtLN.Text = emp.LastName;
+            rbM.Checked = emp.Gender == MALE;
+            rbF.Checked = emp.Gender == FEMALE;
+            txtFathersName.Text = emp.FathersName;
+            dateTimePicker1.Value = DateTime.Parse(emp.DateOfBirth);
+            ddlDesig.Text = emp.Designation.Desc;
+            //txtAddC.
         }
 
         private void ddlStateC_SelectedIndexChanged(object sender, EventArgs e)
@@ -160,6 +162,7 @@ namespace MySales
                 FirstName = this.txtFN.Text.Trim(),
                 MiddleName = this.txtMN.Text.Trim(),
                 LastName = this.txtLN.Text.Trim(),
+                FathersName = txtFathersName.Text.Trim(),
                 Gender = strGender,
                 DateOfBirth = this.dateTimePicker1.Value.ToString(),
                 DateOfJoining = DateTime.Now.ToString(),

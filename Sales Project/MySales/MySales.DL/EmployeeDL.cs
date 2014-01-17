@@ -14,9 +14,9 @@ namespace MySales.DL
         private const string SelectAllEmp = @"Select EMPLOYEE.ID,EmpCode,FirstName,MiddleName,LastName,Gender,DateOfBirth,AddressC,AddressP,
                             DateOfJoining,IsActive,Designation,ModifiedBy,CreateDate,ModifiedDate,Designation.ID As Desig_ID,Designation.Desc As Desig_Desc
                             FROM EMPLOYEE INNER JOIN Designation ON Employee.Designation = Designation.ID";
-        private const string AddEmp = @"Insert into Employee (EmpCode,FirstName,MiddleName,LastName,Gender,DateOfBirth,AddressC,AddressP,DateOfJoining,IsActive,Designation,ModifiedBy,CreateDate) values
-                                         (@EmpCode,@FirstName,@MiddleName,@LastName,@Gender,@DateOfBirth,@AddressC,@AddressP,@DateOfJoining,@IsActive,@Designation,@ModifiedBy,@CreateDate)";
-        private const string SelectEmpById = @"Select EMPLOYEE.ID,EmpCode,FirstName,MiddleName,LastName,Gender,DateOfBirth,AddressC,AddressP,
+        private const string AddEmp = @"Insert into Employee (EmpCode,FirstName,MiddleName,LastName,FathersName,Gender,DateOfBirth,AddressC,AddressP,DateOfJoining,IsActive,Designation,ModifiedBy,CreateDate) values
+                                         (@EmpCode,@FirstName,@MiddleName,@LastName,@FathersName,@Gender,@DateOfBirth,@AddressC,@AddressP,@DateOfJoining,@IsActive,@Designation,@ModifiedBy,@CreateDate)";
+        private const string SelectEmpById = @"Select EMPLOYEE.ID,EmpCode,FirstName,MiddleName,LastName,FathersName,Gender,DateOfBirth,AddressC,AddressP,
                             DateOfJoining,IsActive,Designation,ModifiedBy,CreateDate,ModifiedDate,Designation.ID As Desig_ID,Designation.Desc As Desig_Desc
                             FROM EMPLOYEE INNER JOIN Designation ON Employee.Designation = Designation.ID
                             WHERE EMPLOYEE.ID = @empid";
@@ -88,6 +88,7 @@ namespace MySales.DL
                         command.Parameters.Add(new OleDbParameter { ParameterName = "@FirstName", Value = employee.FirstName });
                         command.Parameters.Add(new OleDbParameter { ParameterName = "@MiddleName", Value = employee.MiddleName });
                         command.Parameters.Add(new OleDbParameter { ParameterName = "@LastName", Value = employee.LastName });
+                        command.Parameters.Add(new OleDbParameter { ParameterName = "@FathersName", Value = employee.FathersName });
                         command.Parameters.Add(new OleDbParameter { ParameterName = "@Gender", Value = employee.Gender });
                         command.Parameters.Add(new OleDbParameter { ParameterName = "@DateOfBirth", Value = employee.DateOfBirth });
                         command.Parameters.Add(new OleDbParameter { ParameterName = "@AddressC", Value = employee.AddressC });
@@ -156,6 +157,7 @@ namespace MySales.DL
                                     FirstName = null != dr["FirstName"] ? dr["FirstName"].ToString() : string.Empty,
                                     MiddleName = null != dr["MiddleName"] ? dr["MiddleName"].ToString() : string.Empty,
                                     LastName = null != dr["LastName"] ? dr["LastName"].ToString() : string.Empty,
+                                    FathersName = null != dr["FathersName"] ? dr["FathersName"].ToString() : string.Empty,
                                     Gender = null != dr["Gender"] ? dr["Gender"].ToString() : string.Empty,
                                     DateOfBirth = Convert.ToString(dr["DateOfBirth"]),
                                     AddressC = null != dr["AddressC"] ? dr["AddressC"].ToString() : string.Empty,

@@ -115,6 +115,7 @@ namespace MySales
                 case 4:
                     {
                         long empId = -1;
+                        if (e.RowIndex < 0) break;
                         long.TryParse(Convert.ToString(dgvEmp.Rows[e.RowIndex].Cells[0].Value), out empId);
                         var empFrm = new FrmEmployee(empId);
                         empFrm.ShowDialog();

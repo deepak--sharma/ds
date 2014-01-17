@@ -43,6 +43,7 @@ namespace MySales.BO
         { get; set; }
         public string LastName
         { get; set; }
+        public string FathersName { get; set; }
         public string Gender
         { get; set; }
         public string DateOfBirth
