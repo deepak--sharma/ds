@@ -90,6 +90,7 @@
     <Compile Include="AdvanceDetailsBL.cs" />
     <Compile Include="CityBL.cs" />
     <Compile Include="ClientBL.cs" />
+    <Compile Include="AddressBL.cs" />
     <Compile Include="DealerBL.cs" />
     <Compile Include="DesignationBL.cs" />
     <Compile Include="EmpAttendanceBL.cs" />

@@ -11,6 +11,8 @@ namespace MySales.BO
         #region Constructor
         public Employee()
         {
+            AddressC = new Address();
+            AddressP = new Address();
             Attendance = new EmpAttendance();
             AdvanceDetails = new AdvanceDetail();
             SalDetails = new SalaryDetail();
@@ -48,9 +50,9 @@ namespace MySales.BO
         { get; set; }
         public string DateOfBirth
         { get; set; }
-        public string AddressC
+        public Address AddressC
         { get; set; }
-        public string AddressP
+        public Address AddressP
         { get; set; }
         public string DateOfJoining
         { get; set; }

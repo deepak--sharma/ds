@@ -92,6 +92,7 @@
     <Compile Include="AdvanceDetailDL.cs" />
     <Compile Include="CityDL.cs" />
     <Compile Include="ClientDL.cs" />
+    <Compile Include="AddressDL.cs" />
     <Compile Include="DealerDL.cs" />
     <Compile Include="DesignationDL.cs" />
     <Compile Include="EmpAttendanceDL.cs" />

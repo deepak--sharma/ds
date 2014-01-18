@@ -105,7 +105,14 @@ namespace MySales
             txtFathersName.Text = emp.FathersName;
             dateTimePicker1.Value = DateTime.Parse(emp.DateOfBirth);
             ddlDesig.Text = emp.Designation.Desc;
-            //txtAddC.
+            txtAddC.Text = emp.AddressC.Line1;
+            ddlStateC.SelectedValue = emp.AddressC.StateId;
+            ddlCityC.SelectedValue = emp.AddressC.CityId;
+            txtPincodeC.Text = emp.AddressC.Pincode.ToString();
+            txtAddP.Text = emp.AddressP.Line1;
+            ddlStateP.SelectedValue = emp.AddressP.StateId;
+            ddlCityP.SelectedValue = emp.AddressP.CityId;
+            txtPincodeP.Text = emp.AddressP.Pincode.ToString();
         }
 
         private void ddlStateC_SelectedIndexChanged(object sender, EventArgs e)
@@ -168,9 +175,24 @@ namespace MySales
                 DateOfJoining = DateTime.Now.ToString(),
                 IsActive = true,
                 Designation = new Designation { ID = Convert.ToInt64(this.ddlDesig.SelectedValue) },
-                AddressC = this.txtAddC.Text.Trim() + " " + this.ddlCityC.Text + " " + this.ddlStateC.Text + " " + this.txtPincodeC.Text.Trim(),
-                AddressP = this.txtAddP.Text.Trim() + " " + this.ddlCityP.Text + " " + this.ddlStateP.Text + " " + this.txtPincodeP.Text.Trim()
-                ,
+                /* AddressC = this.txtAddC.Text.Trim() + " " + this.ddlCityC.Text + " " + this.ddlStateC.Text + " " + this.txtPincodeC.Text.Trim(),
+                 AddressP = this.txtAddP.Text.Trim() + " " + this.ddlCityP.Text + " " + this.ddlStateP.Text + " " + this.txtPincodeP.Text.Trim()
+                 */
+                AddressC = new Address()
+                               {
+                                   Line1 = txtAddC.Text.Trim(),
+                                   CityId = (long)ddlCityC.SelectedValue,
+                                   StateId = (long)ddlStateC.SelectedValue,
+                                   Pincode = Convert.ToInt64(string.IsNullOrEmpty(txtPincodeC.Text.Trim()) ? "0" : txtPincodeC.Text.Trim())
+                               },
+                AddressP = new Address()
+                {
+                    Line1 = txtAddP.Text.Trim(),
+                    CityId = (long)ddlCityP.SelectedValue,
+                    StateId = (long)ddlStateP.SelectedValue,
+                    Pincode = Convert.ToInt64(string.IsNullOrEmpty(txtPincodeP.Text.Trim()) ? "0" : txtPincodeP.Text.Trim())
+                }
+               ,
                 SalDetails = new SalaryDetail()
                                  {
                                      CreateDate = DateTime.Today,

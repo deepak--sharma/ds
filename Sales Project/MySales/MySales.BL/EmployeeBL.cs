@@ -21,7 +21,10 @@ namespace MySales.BL
              * 3. Add Employee Salary Details (if any).
              * 4. Add Employee Advance Details (if any).             
              */
-            return new EmployeeDl().AddEmployee(employee, userId);
+            employee.AddressC.Id = new AddressBL().AddAddress(employee.AddressC);
+            employee.AddressP.Id = new AddressBL().AddAddress(employee.AddressP);
+            new EmployeeDl().AddEmployee(employee, userId);
+            return 1;
         }
         public Employee GetSingleEmployee(long empId)
         {
