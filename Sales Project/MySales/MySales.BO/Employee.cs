@@ -58,14 +58,15 @@ namespace MySales.BO
         { get; set; }
         public bool IsActive
         { get; set; }
-
         public Designation Designation { get; set; }
-
         public string FullName
         {
             get;
             set;
         }
+
+        public string MobileNo { get; set; }
+        public string OtherNo { get; set; }
         #endregion
     }
 }

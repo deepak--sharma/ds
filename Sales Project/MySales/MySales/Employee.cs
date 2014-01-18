@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using MySales.BL;
 using MySales.BO;
+using MySales.Utils;
 
 namespace MySales
 {
@@ -113,6 +114,8 @@ namespace MySales
             ddlStateP.SelectedValue = emp.AddressP.StateId;
             ddlCityP.SelectedValue = emp.AddressP.CityId;
             txtPincodeP.Text = emp.AddressP.Pincode.ToString();
+            txtMobileNo.Text = emp.MobileNo;
+            txtOtherNo.Text = emp.OtherNo;
         }
 
         private void ddlStateC_SelectedIndexChanged(object sender, EventArgs e)
@@ -172,12 +175,11 @@ namespace MySales
                 FathersName = txtFathersName.Text.Trim(),
                 Gender = strGender,
                 DateOfBirth = this.dateTimePicker1.Value.ToString(),
+                MobileNo = txtMobileNo.Text.Trim(),
+                OtherNo = txtOtherNo.Text.Trim(),
                 DateOfJoining = DateTime.Now.ToString(),
                 IsActive = true,
                 Designation = new Designation { ID = Convert.ToInt64(this.ddlDesig.SelectedValue) },
-                /* AddressC = this.txtAddC.Text.Trim() + " " + this.ddlCityC.Text + " " + this.ddlStateC.Text + " " + this.txtPincodeC.Text.Trim(),
-                 AddressP = this.txtAddP.Text.Trim() + " " + this.ddlCityP.Text + " " + this.ddlStateP.Text + " " + this.txtPincodeP.Text.Trim()
-                 */
                 AddressC = new Address()
                                {
                                    Line1 = txtAddC.Text.Trim(),
@@ -200,7 +202,7 @@ namespace MySales
                                      Convert.ToDecimal(txtMonthlyGross.Text.Trim()) : 0
                                  }
             };
-            MessageBox.Show(new EmployeeBL().AddEmployee(emp, 1) == 1
+            MessageBox.Show(new EmployeeBL().AddEmployee(emp, 1) == Utility.ActionStatus.SUCCESS
                                 ? "Data saved successfully."
                                 : "Error: Please contact product support.");
         }

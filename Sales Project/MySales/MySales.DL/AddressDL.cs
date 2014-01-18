@@ -15,6 +15,7 @@ namespace MySales.DL
         const string INSERT_ADDRESS = "Insert into [Address] (Line1,State,City,Pincode) Values (@line1,@state,@city,@pin)";
         const string GET_ID = "Select @@Identity";
         const string UPDATE_ADDRESS = "UPDATE [Address] set [Line1]=@line1,[State]=@state,[City]=@city,[Pincode]=@pin where [ID]=@id";
+        private const string DELETE_ADDRESS = "Delete from [Address] where ID=@id";
         public Address GetAddress(Int64 id)
         {
             var address = new Address();
@@ -55,9 +56,9 @@ namespace MySales.DL
             return address;
 
         }
-        public int AddAddress(Address address)
+        public Utility.ActionStatus AddAddress(Address address)
         {
-            var addressId = 0;
+            var code = Utility.ActionStatus.SUCCESS;
             try
             {
                 using (var con = DBManager.GetConnection())
@@ -74,7 +75,7 @@ namespace MySales.DL
                         if (rowsEffected > 0)
                         {
                             cmd.CommandText = GET_ID;
-                            addressId = (int)cmd.ExecuteScalar();
+                            address.Id = Convert.ToInt64(cmd.ExecuteScalar());
                         }
 
                         if (con.State == ConnectionState.Open)
@@ -87,9 +88,26 @@ namespace MySales.DL
             }
             catch
             {
-
+                code = Utility.ActionStatus.FAILURE;
             }
-            return addressId;
+            return code;
+        }
+        public void DeleteAddress(Int64 id)
+        {
+            using (var con = DBManager.GetConnection())
+            {
+                con.Open();
+                using (var cmd = new OleDbCommand(DELETE_ADDRESS, con))
+                {
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.Add(new OleDbParameter("@id", id));
+                    cmd.ExecuteNonQuery();
+                    if (con.State == ConnectionState.Open)
+                    {
+                        con.Close();
+                    }
+                }
+            }
         }
 
         //public Utility.ActionStatus UpdateAdvanceDetails(Employee emp)

@@ -15,9 +15,14 @@ namespace MySales.BL
             return new AddressDL().GetAddress(id);
         }
 
-        public int AddAddress(Address address)
+        public Utility.ActionStatus AddAddress(Address address)
         {
             return new AddressDL().AddAddress(address);
+        }
+
+        public void DeleteAddress(Int64 id)
+        {
+            new AddressDL().DeleteAddress(id);
         }
 
         //public Utility.ActionStatus UpdateAdvanceDetails(Employee emp)
