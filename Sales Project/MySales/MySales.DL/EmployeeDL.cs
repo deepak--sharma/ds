@@ -177,7 +177,7 @@ namespace MySales.DL
                     {
                         cmd.Parameters.Add(new OleDbParameter { ParameterName = "@empid", Value = empId });
                         var dr = cmd.ExecuteReader();
-                        if (dr.HasRows)
+                        if (dr != null && dr.HasRows)
                         {
                             while (dr.Read())
                             {
