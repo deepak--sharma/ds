@@ -35,6 +35,8 @@
             this.dgvEmp = new System.Windows.Forms.DataGridView();
             this.ssMessage = new System.Windows.Forms.StatusStrip();
             this.lblRcdCount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmp)).BeginInit();
@@ -47,7 +49,7 @@
             this.groupBox1.Controls.Add(this.txtSearchFN);
             this.groupBox1.Location = new System.Drawing.Point(18, 20);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(661, 112);
+            this.groupBox1.Size = new System.Drawing.Size(661, 53);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search Filter";
@@ -74,7 +76,7 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.dgvEmp);
-            this.groupBox2.Location = new System.Drawing.Point(18, 152);
+            this.groupBox2.Location = new System.Drawing.Point(18, 124);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(661, 300);
             this.groupBox2.TabIndex = 1;
@@ -91,7 +93,6 @@
             this.dgvEmp.Location = new System.Drawing.Point(7, 20);
             this.dgvEmp.MultiSelect = false;
             this.dgvEmp.Name = "dgvEmp";
-            this.dgvEmp.ReadOnly = true;
             this.dgvEmp.Size = new System.Drawing.Size(648, 274);
             this.dgvEmp.TabIndex = 0;
             this.dgvEmp.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmp_CellClick);
@@ -112,11 +113,33 @@
             this.lblRcdCount.Name = "lblRcdCount";
             this.lblRcdCount.Size = new System.Drawing.Size(0, 17);
             // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(506, 437);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 3;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Visible = false;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(587, 437);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Visible = false;
+            // 
             // ViewModifyEmployees
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(691, 485);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.ssMessage);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -143,5 +166,7 @@
         private System.Windows.Forms.TextBox txtSearchFN;
         private System.Windows.Forms.StatusStrip ssMessage;
         private System.Windows.Forms.ToolStripStatusLabel lblRcdCount;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

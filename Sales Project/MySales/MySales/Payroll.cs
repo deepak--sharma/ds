@@ -37,5 +37,10 @@ namespace MySales
         {
             new ViewModifyEmployees().ShowDialog();
         }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            new ViewModifyEmployees("detail").ShowDialog();
+        }
     }
 }
