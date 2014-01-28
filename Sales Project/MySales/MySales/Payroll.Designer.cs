@@ -34,7 +34,6 @@
             this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.payrollToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monthlyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.advancePaymentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuPayroll.SuspendLayout();
@@ -79,8 +78,7 @@
             // 
             this.payrollToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
-            this.monthlyToolStripMenuItem,
-            this.advancePaymentToolStripMenuItem});
+            this.monthlyToolStripMenuItem});
             this.payrollToolStripMenuItem.Name = "payrollToolStripMenuItem";
             this.payrollToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.payrollToolStripMenuItem.Text = "&Payroll";
@@ -91,12 +89,6 @@
             this.monthlyToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.monthlyToolStripMenuItem.Text = "Process &Monthly Payroll";
             this.monthlyToolStripMenuItem.Click += new System.EventHandler(this.monthlyToolStripMenuItem_Click);
-            // 
-            // advancePaymentToolStripMenuItem
-            // 
-            this.advancePaymentToolStripMenuItem.Name = "advancePaymentToolStripMenuItem";
-            this.advancePaymentToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.advancePaymentToolStripMenuItem.Text = "&Advance Payment";
             // 
             // reportsToolStripMenuItem
             // 
@@ -137,7 +129,6 @@
         private System.Windows.Forms.ToolStripMenuItem listToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem payrollToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem monthlyToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem advancePaymentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reportsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }

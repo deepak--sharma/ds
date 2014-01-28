@@ -12,25 +12,13 @@ namespace MySales.DL
     public class EmployeeDl
     {
         private const string SelectAllEmp = "SELECT Employee.*, Designation.ID As Desig_ID,Designation.Desc As Desig_Desc,Address.ID As CID, Address.Line1 AS CLine1, Address.State AS CState, Address.City AS CCity, Address.Pincode AS CPincode,p.ID As PID,p.Line1 As PLine1,p.State As PState,p.City As PCity,p.Pincode As PPincode FROM ((Address RIGHT JOIN Employee ON Address.ID = Employee.CAddressId) LEFT JOIN Designation ON Employee.Designation = Designation.ID) LEFT JOIN Address AS p ON Employee.PAddressId = p.ID;";
-        /*@"Select EMPLOYEE.ID,EmpCode,FirstName,MiddleName,LastName,Gender,DateOfBirth,CAddressId,PAddressId,
-        DateOfJoining,IsActive,Designation,ModifiedBy,CreateDate,ModifiedDate,Designation.ID As Desig_ID,Designation.Desc 
-        As Desig_Desc,c.Line1 As CLine1,c.State As CState,c.City As CCity,c.Pincode As CPinCode,
-        p.Line1 As PLine1,p.State As PState,p.City As PCity,p.Pincode As PPinCode
-        FROM ((EMPLOYEE INNER JOIN 
-        Designation ON Employee.Designation = Designation.ID)
-        INNER JOIN Address As c ON c.ID=Employee.CAddressId)
-        INNER JOIN Address As p ON p.ID=Employee.PAddressId";*/
 
         private const string AddEmp = @"Insert into Employee (EmpCode,FirstName,MiddleName,LastName,FathersName,Gender,DateOfBirth,MobileNo,OtherNo,CAddressId,PAddressId,DateOfJoining,IsActive,Designation,ModifiedBy,CreateDate) values
                                          (@EmpCode,@FirstName,@MiddleName,@LastName,@FathersName,@Gender,@DateOfBirth,@MobileNo,@OtherNo,@CAddressId,@PAddressId,@DateOfJoining,@IsActive,@Designation,@ModifiedBy,@CreateDate)";
 
         private const string SelectEmpById =
             "SELECT Employee.*, Designation.ID As Desig_ID,Designation.Desc As Desig_Desc,Address.ID As CID, Address.Line1 AS CLine1, Address.State AS CState, Address.City AS CCity, Address.Pincode AS CPincode,p.ID As PID,p.Line1 As PLine1,p.State As PState,p.City As PCity,p.Pincode As PPincode FROM ((Address RIGHT JOIN Employee ON Address.ID = Employee.CAddressId) LEFT JOIN Designation ON Employee.Designation = Designation.ID) LEFT JOIN Address AS p ON Employee.PAddressId = p.ID WHERE EMPLOYEE.ID = @empid;";
-        /*@"Select EMPLOYEE.ID,EmpCode,FirstName,MiddleName,LastName,FathersName,Gender,DateOfBirth,AddressC,AddressP,
-                            DateOfJoining,IsActive,Designation,ModifiedBy,CreateDate,ModifiedDate,Designation.ID As Desig_ID,Designation.Desc As Desig_Desc
-                            FROM EMPLOYEE INNER JOIN Designation ON Employee.Designation = Designation.ID
-                            WHERE EMPLOYEE.ID = @empid";
-        */
+
         public List<Employee> GetAllEmployees()
         {
             var lstEmployee = new List<Employee>();
