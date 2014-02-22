@@ -9,13 +9,26 @@ using System.Text;
 using System.Windows.Forms;
 using MySales.BL;
 using MySales.BO;
+using MySales.Utils;
 
 namespace MySales
 {
     public partial class ViewModifyEmployees : Form
     {
         List<Employee> _empList = new List<Employee>();
-        private string formMode = string.Empty;
+        private readonly string _formMode = string.Empty;
+        private const string EmpId = "ID";
+        private const string Code = "Code";
+        private const string EmpName = "Name";
+        private const string Designation = "Designation";
+        private const string Modify = "Modify";
+        private const string Delete = "Delete";
+        private const string Present = "Present";
+        private const string Absent = "Absent";
+        private const string OtHrs = "OT";
+        private const string AdvanceAmt = "AdvanceAmt";
+        private const string AdvanceDeduct = "AdvanceDeduct";
+        private const string AdvanceBal = "AdvanceBal";
         public ViewModifyEmployees()
         {
             InitializeComponent();
@@ -23,16 +36,18 @@ namespace MySales
         public ViewModifyEmployees(string mode)
         {
             InitializeComponent();
-            formMode = mode;
+            _formMode = mode;
         }
 
+        private int year, month;
         private void ViewModifyEmployees_Load(object sender, EventArgs e)
         {
-            SetupEmployeesList();
-            if (!string.IsNullOrEmpty(formMode) && formMode == "detail")
+            if (!string.IsNullOrEmpty(_formMode) && _formMode == "detail")
             {
                 ChangeFormMode();
+
             }
+            SetupEmployeesList();
         }
         private void ChangeFormMode()
         {
@@ -41,52 +56,25 @@ namespace MySales
             btnSave.Visible = true;
             label2.Visible = true;
             label3.Visible = true;
-            label3.Text = "December";
-            var year = DateTime.Now.Year;
-            var month = DateTime.Now.Month;
+            year = DateTime.Now.Year;
+            month = DateTime.Now.Month;
             if (month == 1)
             {
                 month = 12;
-                year = year - 1;
             }
-            label3.Text = MonthNameFromInt(month) + " / " + year.ToString();
-        }
-        private string MonthNameFromInt(int month)
-        {
-            switch (month)
+            else
             {
-                case 1:
-                    return "January";
-                case 2:
-                    return "February";
-                case 3:
-                    return "March";
-                case 4:
-                    return "April";
-                case 5:
-                    return "May";
-                case 6:
-                    return "June";
-                case 7:
-                    return "July";
-                case 8:
-                    return "August";
-                case 9:
-                    return "September";
-                case 10:
-                    return "October";
-                case 11:
-                    return "November";
-                case 12:
-                    return "December";
-                default:
-                    return string.Empty;
+                month = month - 1;
             }
+            label3.Text = Utility.MonthNameFromInt(month) + " / " + year;
         }
 
         private void SetupEmployeesList()
         {
-            _empList = new EmployeeBL().GetAllEmployees();
+            var empBl = new EmployeeBL();
+            _empList = string.IsNullOrEmpty(_formMode)
+                           ? empBl.GetAllEmployees()
+                           : empBl.GetAdvanceEmplDetails(month, year);
             _empList = _empList.OrderBy(e => e.FirstName).ToList();
             dgvEmp.AutoGenerateColumns = false;
 
@@ -94,82 +82,98 @@ namespace MySales
             {
                 dgvEmp.Columns.Add(new DataGridViewTextBoxColumn()
                 {
-                    Name = "ID",
+                    Name = EmpId,
                     HeaderText = "ID",
                     Visible = false,
                     DataPropertyName = "ID"
                 });
                 dgvEmp.Columns.Add(new DataGridViewTextBoxColumn()
                 {
-                    Name = "Code",
+                    Name = Code,
                     HeaderText = "Code",
                     Visible = false,
                     DataPropertyName = "EmpCode"
                 });
                 dgvEmp.Columns.Add(new DataGridViewTextBoxColumn()
                 {
-                    Name = "Name",
+                    Name = EmpName,
                     HeaderText = "Name",
                     DataPropertyName = "FullName",
-                    ReadOnly = true
+                    ReadOnly = true,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
                 });
-                dgvEmp.Columns.Add(new DataGridViewTextBoxColumn()
+
+                if (string.IsNullOrEmpty(_formMode))
                 {
-                    Name = "Designation",
-                    HeaderText = "Designation",
-                    DataPropertyName = "Designation.Desc",
-                    ReadOnly = true
-                });
-                if (string.IsNullOrEmpty(formMode))
-                {
+                    dgvEmp.Columns.Add(new DataGridViewTextBoxColumn()
+                    {
+                        Name = Designation,
+                        HeaderText = "Designation",
+                        DataPropertyName = "Designation.Desc",
+                        ReadOnly = true,
+                        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                    });
                     dgvEmp.Columns.Add(new DataGridViewButtonColumn
                                            {
                                                Text = "Modify Details",
-                                               Name = "Modify",
+                                               Name = Modify,
                                                UseColumnTextForButtonValue = true,
                                            });
                     dgvEmp.Columns.Add(new DataGridViewButtonColumn
                                            {
                                                Text = "Delete",
-                                               Name = "Delete",
+                                               Name = Delete,
                                                UseColumnTextForButtonValue = true,
                                            });
                 }
 
-                if (!string.IsNullOrEmpty(formMode) && formMode == "detail")
+                if (!string.IsNullOrEmpty(_formMode) && _formMode == "detail")
                 {
+
                     dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
                             {
                                 HeaderText = "Days Present",
-                                Name = "Present",
+                                Name = Present,
                                 MaxInputLength = 2,
                                 ReadOnly = false,
+                                DataPropertyName = "Attendance.WorkDays"
                             });
                     dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
                     {
                         HeaderText = "Days Absent",
-                        Name = "Absent",
+                        Name = Absent,
                         MaxInputLength = 2,
                         ReadOnly = false,
+                        DataPropertyName = "Attendance.LeaveDays"
                     });
                     dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
                     {
                         HeaderText = "OT Hours",
-                        Name = "OT",
+                        Name = OtHrs,
                         ReadOnly = false,
+                        DataPropertyName = "Attendance.Overtime"
                     });
-                    dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
+                    /*dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
                     {
                         HeaderText = "Total Advance Amount",
-                        Name = "AdvanceAmt",
+                        Name = AdvanceAmt,
                         ReadOnly = false,
+                        DataPropertyName = "AdvanceDetails.TotalAdvance"
                     });
                     dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
                     {
                         HeaderText = "Advance Deuction",
-                        Name = "AdvanceDeduct",
+                        Name = AdvanceDeduct,
                         ReadOnly = false,
+                        DataPropertyName = "AdvanceDetails.AdvanceDeduction"
                     });
+                    dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
+                    {
+                        HeaderText = "Advance Balance",
+                        Name = AdvanceBal,
+                        ReadOnly = true,
+                        DataPropertyName = "AdvanceDetails.Balance"
+                    });*/
                 }
             }
             dgvEmp.DataSource = _empList;
@@ -233,6 +237,10 @@ namespace MySales
 
         private void dgvEmp_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (!string.IsNullOrEmpty(_formMode) && _formMode == "detail")
+            {
+                return;
+            }
             switch (e.ColumnIndex)
             {
                 case 4:
@@ -245,6 +253,65 @@ namespace MySales
                     }
                     break;
             }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            /*Steps
+             * 1. Save Attendance details.
+             * 2. Save Advance Details.
+             * 3. If anything goes wrong thaen Rollback both.
+             */
+            foreach (DataGridViewRow dr in dgvEmp.Rows)
+            {
+                var advanceDetails = new AdvanceDetail()
+                                         {
+                                             PMonth = month,
+                                             PYear = year,
+                                             TotalAdvance = Convert.ToDecimal(dr.Cells[AdvanceAmt].Value),
+                                             Balance = Convert.ToDecimal(dr.Cells[AdvanceAmt].Value),
+                                             AdvanceDeduction = Convert.ToDecimal(dr.Cells[AdvanceDeduct].Value),
+                                             EmpID = Convert.ToInt64(dr.Cells[EmpId].Value),
+                                             CreateDate = DateTime.Now
+                                         };
+                var advanceDetailsAdded = new AdvanceDetailsBL().AddAdvanceDetails(advanceDetails) ==
+                                          Utility.ActionStatus.SUCCESS;
+                if (advanceDetailsAdded)
+                {
+                    var attendanceDetail = new EmpAttendance()
+                                               {
+                                                   EmpID = Convert.ToInt64(dr.Cells[EmpId].Value),
+                                                   WorkDays = Convert.ToInt64(dr.Cells[Present].Value),
+                                                   LeaveDays = Convert.ToInt64(dr.Cells[Absent].Value),
+                                                   Overtime = Convert.ToDecimal(dr.Cells[OtHrs].Value),
+                                                   Month = month,
+                                                   Year = year,
+                                                   TotalDays = DateTime.DaysInMonth(year, month),
+                                                   CreateDate = DateTime.Now
+                                               };
+                    var attendanceDetailsAdded = new EmpAttendanceBL().AddAttendanceDetails(attendanceDetail) ==
+                                                 Utility.ActionStatus.SUCCESS;
+                    if (!attendanceDetailsAdded)
+                    {
+                        /*1. Delete Advance Details
+                          2. Delete Attendance details
+                         */
+                        MessageBox.Show("Some technical error occured please contact sys admin or try again later.");
+                        break;
+                    }
+                }
+                else
+                {
+                    /*Delete Advance Details*/
+                    MessageBox.Show("Some technical error occured please contact sys admin or try again later.");
+                    break;
+                }
+            }
+        }
+
+        private void CreateAttendancePlaceHolders()
+        {
+
         }
     }
 }

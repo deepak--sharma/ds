@@ -10,10 +10,19 @@ namespace MySales.BL
 {
     public class EmployeeBL
     {
+        private readonly EmployeeDl _empDl = new EmployeeDl();
         public List<Employee> GetAllEmployees()
         {
-            var objEmployeeDl = new EmployeeDl();
-            return objEmployeeDl.GetAllEmployees();
+            return _empDl.GetAllEmployees();
+        }
+        public List<Employee> GetAdvanceEmplDetails(int payrollMonth, int payrollYear)
+        {
+            return _empDl.GetEmpAdvanceDetails(payrollMonth, payrollYear);
+        }
+        private Utility.ActionStatus InsertAdvanceEmplDetails(int payrollMonth, int payrollYear)
+        {
+            var result = Utility.ActionStatus.SUCCESS;
+            return result;
         }
         public Utility.ActionStatus AddEmployee(Employee employee, Int64 userId)
         {
@@ -34,7 +43,7 @@ namespace MySales.BL
                 addressBl.DeleteAddress(employee.AddressP.Id);
                 return Utility.ActionStatus.FAILURE;
             }
-            result = new EmployeeDl().AddEmployee(employee, userId);
+            result = _empDl.AddEmployee(employee, userId);
             if (result == Utility.ActionStatus.FAILURE)
             {
                 //Call DeleteAddress for both types
@@ -46,7 +55,7 @@ namespace MySales.BL
         }
         public Employee GetSingleEmployee(long empId)
         {
-            return new EmployeeDl().GetSingleEmployee(empId);
+            return _empDl.GetSingleEmployee(empId);
         }
     }
 }

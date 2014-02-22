@@ -12,6 +12,7 @@ namespace MySales.DL
     public class EmpAttendanceDL
     {
         private const string SELECT_ATT = "Select [ID],[TotalDays],[WorkDays],[LeaveDays],[Overtime],[CreateDate],[ModifiedDate] from [Emp_Attendance] where [EmpID] = @empID And [PayrollMonth]=@mnt And [PayrollYear]=@yr";
+        private const string INSERT_ATT = "Insert into Emp_Attendance (EmpID,PayrollMonth,PayrollYear,TotalDays,WorkDays,LeaveDays,Overtime,CreateDate,ModifiedDate) values (@empid,@mon,@yr,@td,@wd,@ld,@ot,@cd,@md);";
         public EmpAttendance GetEmpAttendance(long empID, int month, int year)
         {
             EmpAttendance empAttDetails = new EmpAttendance();
@@ -58,6 +59,89 @@ namespace MySales.DL
             }
 
             return empAttDetails;
+        }
+
+        public Utility.ActionStatus AddAttendanceDetails(EmpAttendance att)
+        {
+            var code = Utility.ActionStatus.SUCCESS;
+            try
+            {
+                using (var con = DBManager.GetConnection())
+                {
+                    con.Open();
+                    using (var cmd = new OleDbCommand(INSERT_ATT, con))
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            OleDbType = OleDbType.Numeric,
+                            ParameterName = "@empid",
+                            Value = att.EmpID
+                        });
+
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            OleDbType = OleDbType.Numeric,
+                            ParameterName = "@mon",
+                            Value = att.Month
+                        });
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            OleDbType = OleDbType.Numeric,
+                            ParameterName = "@yr",
+                            Value = att.Year
+                        });
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            OleDbType = OleDbType.Numeric,
+                            ParameterName = "@td",
+                            Value = att.TotalDays
+                        });
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            OleDbType = OleDbType.Numeric,
+                            ParameterName = "@wd",
+                            Value = att.WorkDays
+                        });
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            OleDbType = OleDbType.Numeric,
+                            ParameterName = "@ld",
+                            Value = att.LeaveDays
+                        });
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            OleDbType = OleDbType.Numeric,
+                            ParameterName = "@ot",
+                            Value = att.Overtime
+                        });
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            OleDbType = OleDbType.DBDate,
+                            ParameterName = "@cd",
+                            Value = att.CreateDate
+                        });
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            OleDbType = OleDbType.DBDate,
+                            ParameterName = "@md",
+                            Value = DBNull.Value
+                        });
+                        var rowsEffected = cmd.ExecuteNonQuery();
+                        code = rowsEffected > 0 ? Utility.ActionStatus.SUCCESS : Utility.ActionStatus.FAILURE;
+                        if (con.State == ConnectionState.Open)
+                        {
+                            con.Close();
+                        }
+                    }
+                }
+
+            }
+            catch
+            {
+                code = Utility.ActionStatus.FAILURE;
+            }
+            return code;
         }
     }
 }

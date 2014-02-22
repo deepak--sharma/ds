@@ -27,5 +27,6 @@ namespace MySales.BO
         { get; set; }
         public DateTime ModifiedDate
         { get; set; }
+        public char AttAction { get; set; }
     }
 }

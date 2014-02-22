@@ -82,7 +82,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(18, 124);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(661, 300);
+            this.groupBox2.Size = new System.Drawing.Size(844, 300);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Employee List";
@@ -91,13 +91,12 @@
             // 
             this.dgvEmp.AllowUserToAddRows = false;
             this.dgvEmp.AllowUserToDeleteRows = false;
-            this.dgvEmp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvEmp.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dgvEmp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEmp.Location = new System.Drawing.Point(7, 20);
+            this.dgvEmp.Location = new System.Drawing.Point(17, 20);
             this.dgvEmp.MultiSelect = false;
             this.dgvEmp.Name = "dgvEmp";
-            this.dgvEmp.Size = new System.Drawing.Size(648, 274);
+            this.dgvEmp.Size = new System.Drawing.Size(812, 274);
             this.dgvEmp.TabIndex = 0;
             this.dgvEmp.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmp_CellClick);
             this.dgvEmp.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvEmp_CellFormatting);
@@ -108,7 +107,7 @@
             this.lblRcdCount});
             this.ssMessage.Location = new System.Drawing.Point(0, 463);
             this.ssMessage.Name = "ssMessage";
-            this.ssMessage.Size = new System.Drawing.Size(691, 22);
+            this.ssMessage.Size = new System.Drawing.Size(874, 22);
             this.ssMessage.TabIndex = 2;
             this.ssMessage.Text = "statusStrip1";
             // 
@@ -127,6 +126,7 @@
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Visible = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
             // 
@@ -164,7 +164,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(691, 485);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(874, 485);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnCancel);
@@ -172,6 +173,7 @@
             this.Controls.Add(this.ssMessage);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.MaximizeBox = false;
             this.Name = "ViewModifyEmployees";
             this.Text = "View/Modify Employees";
             this.Load += new System.EventHandler(this.ViewModifyEmployees_Load);
