@@ -12,7 +12,9 @@ namespace MySales.DL
     public class EmpAttendanceDL
     {
         private const string SELECT_ATT = "Select [ID],[TotalDays],[WorkDays],[LeaveDays],[Overtime],[CreateDate],[ModifiedDate] from [Emp_Attendance] where [EmpID] = @empID And [PayrollMonth]=@mnt And [PayrollYear]=@yr";
+        private const string SELECT_ALL_ATT = "Select [ID],[TotalDays],[WorkDays],[LeaveDays],[Overtime],[CreateDate],[ModifiedDate] from [Emp_Attendance] where [EmpID] In (@empID) And [PayrollMonth]=@mnt And [PayrollYear]=@yr";
         private const string INSERT_ATT = "Insert into Emp_Attendance (EmpID,PayrollMonth,PayrollYear,TotalDays,WorkDays,LeaveDays,Overtime,CreateDate,ModifiedDate) values (@empid,@mon,@yr,@td,@wd,@ld,@ot,@cd,@md);";
+        private const string InsertBlankRecordsForCurrentPayroll = "Insert into Emp_Attendance (EmpID,PayrollMonth,PayrollYear,CreateDate) values (@eid,@pm,@py,@cd)";
         public EmpAttendance GetEmpAttendance(long empID, int month, int year)
         {
             EmpAttendance empAttDetails = new EmpAttendance();
@@ -142,6 +144,106 @@ namespace MySales.DL
                 code = Utility.ActionStatus.FAILURE;
             }
             return code;
+        }
+
+        public List<EmpAttendance> GetAllEmpAttendance(string empIds, int month, int year)
+        {
+            var lstAtt = new List<EmpAttendance>();
+            try
+            {
+                var idParams = empIds.Split(',');
+                var parameters = new string[idParams.Length];
+
+
+
+                using (var con = DBManager.GetConnection())
+                {
+                    con.Open();
+                    using (var cmd = new OleDbCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.Clear();
+                        for (var i = 0; i < idParams.Length; i++)
+                        {
+                            parameters[i] = "@p" + i;
+                            cmd.Parameters.AddWithValue(parameters[i], idParams[i]);
+                        }
+                        cmd.Parameters.Add(new OleDbParameter { ParameterName = "@mnt", Value = month });
+                        cmd.Parameters.Add(new OleDbParameter { ParameterName = "@yr", Value = year });
+                        cmd.CommandText = "Select [ID],[EmpID],[TotalDays],[WorkDays],[LeaveDays],[Overtime],[CreateDate],[ModifiedDate] from [Emp_Attendance] where [EmpID] In (" + string.Join(",", parameters) + ") And [PayrollMonth]=@mnt And [PayrollYear]=@yr";
+                        var dr = cmd.ExecuteReader();
+                        if (dr != null && dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                var empAttDetails = new EmpAttendance()
+                                                        {
+                                                            EmpID = dr["EmpID"] == DBNull.Value ? 0 : Convert.ToInt64(dr["EmpID"]),
+                                                            ID = dr["ID"] == DBNull.Value ? 0 : Convert.ToInt64(dr["ID"]),
+                                                            TotalDays = dr["TotalDays"] == DBNull.Value ? 0 : Convert.ToInt64(dr["TotalDays"]),
+                                                            Month = month,
+                                                            Year = year,
+                                                            WorkDays = dr["WorkDays"] == DBNull.Value ? 0 : Convert.ToInt64(dr["WorkDays"]),
+                                                            LeaveDays = dr["LeaveDays"] == DBNull.Value ? 0 : Convert.ToInt64(dr["LeaveDays"]),
+                                                            Overtime = dr["Overtime"] == DBNull.Value ? 0 : Convert.ToInt64(dr["Overtime"]),
+                                                            CreateDate =
+                                                                dr["CreateDate"] == DBNull.Value
+                                                                    ? DateTime.MinValue
+                                                                    : Convert.ToDateTime(dr["CreateDate"]),
+                                                            ModifiedDate =
+                                                                dr["ModifiedDate"] == DBNull.Value
+                                                                    ? DateTime.MinValue
+                                                                    : Convert.ToDateTime(dr["ModifiedDate"]),
+                                                        };
+                                lstAtt.Add(empAttDetails);
+
+                            }
+                        }
+                        else
+                        {
+                            dr.Close();
+                            cmd.Connection = con;
+                            cmd.CommandText = InsertBlankRecordsForCurrentPayroll;
+                            foreach (var t in idParams)
+                            {
+                                cmd.Parameters.Clear();
+                                cmd.Parameters.Add(new OleDbParameter()
+                                                       {
+                                                           ParameterName = "@eid",
+                                                           Value = Convert.ToInt64(t),
+                                                           OleDbType = OleDbType.Numeric
+                                                       });
+                                cmd.Parameters.Add(new OleDbParameter()
+                                {
+                                    ParameterName = "@pm",
+                                    Value = month,
+                                    OleDbType = OleDbType.Numeric
+                                });
+                                cmd.Parameters.Add(new OleDbParameter()
+                                {
+                                    ParameterName = "@py",
+                                    Value = year,
+                                    OleDbType = OleDbType.Numeric
+                                });
+                                cmd.Parameters.Add(new OleDbParameter()
+                                {
+                                    ParameterName = "@cd",
+                                    Value = DateTime.Now,
+                                    OleDbType = OleDbType.Date
+                                });
+
+                                var status = cmd.ExecuteNonQuery();
+                            }
+                            GetAllEmpAttendance(empIds, month, year);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return lstAtt;
         }
     }
 }

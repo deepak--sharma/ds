@@ -42,12 +42,12 @@ namespace MySales
         private int year, month;
         private void ViewModifyEmployees_Load(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(_formMode) && _formMode == "detail")
+            if (!string.IsNullOrEmpty(_formMode) && _formMode == "att")
             {
                 ChangeFormMode();
 
             }
-            SetupEmployeesList();
+            SetupEmployeesGrid();
         }
         private void ChangeFormMode()
         {
@@ -127,7 +127,7 @@ namespace MySales
                                            });
                 }
 
-                if (!string.IsNullOrEmpty(_formMode) && _formMode == "detail")
+                if (!string.IsNullOrEmpty(_formMode) && _formMode == "att")
                 {
 
                     dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
@@ -174,6 +174,144 @@ namespace MySales
                         ReadOnly = true,
                         DataPropertyName = "AdvanceDetails.Balance"
                     });*/
+                }
+            }
+            dgvEmp.DataSource = _empList;
+            if (_empList != null)
+            {
+                lblRcdCount.Text = _empList.Count().ToString() + " record(s) found";
+            }
+            else
+            {
+                lblRcdCount.Text = "0 record(s) found";
+            }
+
+        }
+
+        private void SetupEmployeesGrid()
+        {
+            var empBl = new EmployeeBL();
+            /* _empList = string.IsNullOrEmpty(_formMode)
+                            ? empBl.GetAllEmployees()
+                            : empBl.GetAdvanceEmplDetails(month, year);*/
+            switch (_formMode)
+            {
+                case "":
+                    _empList = empBl.GetAllEmployees();
+                    break;
+                case "att":
+                    //get employees + atendance details
+                    _empList = empBl.GetEmpAttendance(month, year);
+                    break;
+                case "adv":
+                    //get employees + advance details
+                    break;
+            }
+            if (_empList.Count == 0)
+            {
+                MessageBox.Show("Something went wrong! Please try again later or contact application support");
+                return;
+            }
+            _empList = _empList.OrderBy(e => e.FirstName).ToList();
+            dgvEmp.AutoGenerateColumns = false;
+
+            if (dgvEmp.ColumnCount == 0)
+            {
+                dgvEmp.Columns.Add(new DataGridViewTextBoxColumn()
+                {
+                    Name = EmpId,
+                    HeaderText = "ID",
+                    Visible = false,
+                    DataPropertyName = "ID"
+                });
+                dgvEmp.Columns.Add(new DataGridViewTextBoxColumn()
+                {
+                    Name = Code,
+                    HeaderText = "Code",
+                    Visible = false,
+                    DataPropertyName = "EmpCode"
+                });
+                dgvEmp.Columns.Add(new DataGridViewTextBoxColumn()
+                {
+                    Name = EmpName,
+                    HeaderText = "Name",
+                    DataPropertyName = "FullName",
+                    ReadOnly = true,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                });
+
+                if (string.IsNullOrEmpty(_formMode))
+                {
+                    dgvEmp.Columns.Add(new DataGridViewTextBoxColumn()
+                    {
+                        Name = Designation,
+                        HeaderText = "Designation",
+                        DataPropertyName = "Designation.Desc",
+                        ReadOnly = true,
+                        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                    });
+                    dgvEmp.Columns.Add(new DataGridViewButtonColumn
+                    {
+                        Text = "Modify Details",
+                        Name = Modify,
+                        UseColumnTextForButtonValue = true,
+                    });
+                    dgvEmp.Columns.Add(new DataGridViewButtonColumn
+                    {
+                        Text = "Delete",
+                        Name = Delete,
+                        UseColumnTextForButtonValue = true,
+                    });
+                }
+                else if (!string.IsNullOrEmpty(_formMode) && _formMode == "att")
+                {
+                    dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
+                                           {
+                                               HeaderText = "Days Present",
+                                               Name = Present,
+                                               MaxInputLength = 2,
+                                               ReadOnly = false,
+                                               DataPropertyName = "Attendance.WorkDays"
+                                           });
+                    dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
+                                           {
+                                               HeaderText = "Days Absent",
+                                               Name = Absent,
+                                               MaxInputLength = 2,
+                                               ReadOnly = false,
+                                               DataPropertyName = "Attendance.LeaveDays"
+                                           });
+                    dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
+                                           {
+                                               HeaderText = "OT Hours",
+                                               Name = OtHrs,
+                                               ReadOnly = false,
+                                               DataPropertyName = "Attendance.Overtime"
+                                           });
+                }
+                else if (!string.IsNullOrEmpty(_formMode) && _formMode == "adv")
+                {
+                    dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
+                    {
+                        HeaderText = "Total Advance Amount",
+                        Name = AdvanceAmt,
+                        ReadOnly = false,
+                        DataPropertyName = "AdvanceDetails.TotalAdvance"
+                    });
+                    dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
+                    {
+                        HeaderText = "Advance Deuction",
+                        Name = AdvanceDeduct,
+                        ReadOnly = false,
+                        DataPropertyName = "AdvanceDetails.AdvanceDeduction"
+                    });
+                    dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
+                    {
+                        HeaderText = "Advance Balance",
+                        Name = AdvanceBal,
+                        ReadOnly = true,
+                        DataPropertyName = "AdvanceDetails.Balance"
+                    });
                 }
             }
             dgvEmp.DataSource = _empList;
@@ -237,7 +375,7 @@ namespace MySales
 
         private void dgvEmp_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (!string.IsNullOrEmpty(_formMode) && _formMode == "detail")
+            if (!string.IsNullOrEmpty(_formMode) && _formMode == "att")
             {
                 return;
             }

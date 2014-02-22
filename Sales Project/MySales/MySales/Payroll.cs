@@ -40,7 +40,7 @@ namespace MySales
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            new ViewModifyEmployees("detail").ShowDialog();
+            new ViewModifyEmployees("att").ShowDialog();
         }
     }
 }
