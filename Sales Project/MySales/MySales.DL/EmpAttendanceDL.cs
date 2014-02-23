@@ -14,7 +14,8 @@ namespace MySales.DL
         private const string SELECT_ATT = "Select [ID],[TotalDays],[WorkDays],[LeaveDays],[Overtime],[CreateDate],[ModifiedDate] from [Emp_Attendance] where [EmpID] = @empID And [PayrollMonth]=@mnt And [PayrollYear]=@yr";
         private const string SELECT_ALL_ATT = "Select [ID],[TotalDays],[WorkDays],[LeaveDays],[Overtime],[CreateDate],[ModifiedDate] from [Emp_Attendance] where [EmpID] In (@empID) And [PayrollMonth]=@mnt And [PayrollYear]=@yr";
         private const string INSERT_ATT = "Insert into Emp_Attendance (EmpID,PayrollMonth,PayrollYear,TotalDays,WorkDays,LeaveDays,Overtime,CreateDate,ModifiedDate) values (@empid,@mon,@yr,@td,@wd,@ld,@ot,@cd,@md);";
-        private const string InsertBlankRecordsForCurrentPayroll = "Insert into Emp_Attendance (EmpID,PayrollMonth,PayrollYear,CreateDate) values (@eid,@pm,@py,@cd)";
+        private const string UpdateAttendance = "Update Emp_Attendance set TotalDays=@td,WorkDays=@wd,LeaveDays=@ld,Overtime=@ot,ModifiedDate=@md where [ID] = @attId";
+        private const string InsertBlankAttendanceRecordsForCurrentPayroll = "Insert into Emp_Attendance (EmpID,PayrollMonth,PayrollYear,CreateDate) values (@eid,@pm,@py,@cd)";
         public EmpAttendance GetEmpAttendance(long empID, int month, int year)
         {
             EmpAttendance empAttDetails = new EmpAttendance();
@@ -174,6 +175,13 @@ namespace MySales.DL
                         var dr = cmd.ExecuteReader();
                         if (dr != null && dr.HasRows)
                         {
+                            //var dt = new DataTable();
+                            //dt.Load(dr);
+                            //if (idParams.Length != dt.Rows.Count)
+                            //{
+                            //    //Write code here to extract those Ids from idParams which do not exist in db
+                            //}
+
                             while (dr.Read())
                             {
                                 var empAttDetails = new EmpAttendance()
@@ -203,7 +211,7 @@ namespace MySales.DL
                         {
                             dr.Close();
                             cmd.Connection = con;
-                            cmd.CommandText = InsertBlankRecordsForCurrentPayroll;
+                            cmd.CommandText = InsertBlankAttendanceRecordsForCurrentPayroll;
                             foreach (var t in idParams)
                             {
                                 cmd.Parameters.Clear();
@@ -244,6 +252,68 @@ namespace MySales.DL
                 throw e;
             }
             return lstAtt;
+        }
+
+        public Utility.ActionStatus UpdateAttendanceDetails(EmpAttendance empAtt)
+        {
+            var state = Utility.ActionStatus.SUCCESS;
+            try
+            {
+                using (var con = DBManager.GetConnection())
+                {
+                    con.Open();
+                    using (var cmd = new OleDbCommand(UpdateAttendance, con))
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add(new OleDbParameter()
+                                               {
+                                                   ParameterName = "@td",
+                                                   Value = empAtt.TotalDays,
+                                                   OleDbType = OleDbType.BigInt
+                                               });
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            ParameterName = "@wd",
+                            Value = empAtt.WorkDays,
+                            OleDbType = OleDbType.BigInt
+                        });
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            ParameterName = "@ld",
+                            Value = empAtt.LeaveDays,
+                            OleDbType = OleDbType.BigInt
+                        });
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            ParameterName = "@ot",
+                            Value = empAtt.Overtime,
+                            OleDbType = OleDbType.Numeric
+                        });
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            ParameterName = "@md",
+                            Value = empAtt.ModifiedDate,
+                            OleDbType = OleDbType.Date
+                        });
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            ParameterName = "@attId",
+                            Value = empAtt.ID,
+                            OleDbType = OleDbType.BigInt
+                        });
+                        var rowsEffected = cmd.ExecuteNonQuery();
+                        if (rowsEffected <= 0)
+                        {
+                            state = Utility.ActionStatus.FAILURE;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                state = Utility.ActionStatus.FAILURE;
+            }
+            return state;
         }
     }
 }

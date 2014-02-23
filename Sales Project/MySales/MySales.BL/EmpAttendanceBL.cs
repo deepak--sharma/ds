@@ -34,5 +34,13 @@ namespace MySales.BL
         {
             return _empAttendanceDl.AddAttendanceDetails(att);
         }
+
+
+        public Utility.ActionStatus UpdateAttendanceDetails(EmpAttendance empAttendance)
+        {
+            //var state = Utility.ActionStatus.SUCCESS;
+
+            return _empAttendanceDl.UpdateAttendanceDetails(empAttendance);
+        }
     }
 }

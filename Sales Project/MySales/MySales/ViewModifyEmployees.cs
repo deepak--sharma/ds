@@ -29,6 +29,7 @@ namespace MySales
         private const string AdvanceAmt = "AdvanceAmt";
         private const string AdvanceDeduct = "AdvanceDeduct";
         private const string AdvanceBal = "AdvanceBal";
+        private const string AttId = "AttId";
         public ViewModifyEmployees()
         {
             InitializeComponent();
@@ -266,6 +267,14 @@ namespace MySales
                 else if (!string.IsNullOrEmpty(_formMode) && _formMode == "att")
                 {
                     dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
+                    {
+                        Name = AttId,
+                        HeaderText = AttId,
+                        Visible = false,
+                        ReadOnly = false,
+                        DataPropertyName = "Attendance.ID"
+                    });
+                    dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
                                            {
                                                HeaderText = "Days Present",
                                                Name = Present,
@@ -331,7 +340,7 @@ namespace MySales
             if (dgvEmp.Rows[e.RowIndex].DataBoundItem != null &&
                 dgvEmp.Columns[e.ColumnIndex].DataPropertyName.Contains("."))
             {
-                e.Value = BindProperty(dgvEmp.Rows[e.RowIndex].DataBoundItem, dgvEmp.Columns[e.ColumnIndex].DataPropertyName);
+                e.Value = e.Value ?? BindProperty(dgvEmp.Rows[e.RowIndex].DataBoundItem, dgvEmp.Columns[e.ColumnIndex].DataPropertyName);
             }
 
         }
@@ -397,12 +406,28 @@ namespace MySales
         {
             /*Steps
              * 1. Save Attendance details.
-             * 2. Save Advance Details.
+             * 2.
              * 3. If anything goes wrong thaen Rollback both.
              */
+            if (!string.IsNullOrEmpty(_formMode))
+            {
+                switch (_formMode)
+                {
+                    case "att":
+                        //Update Attendance details here
+                        UpdateAttendance();
+                        break;
+                    case "adv":
+                        //Update Advance details here
+                        break;
+                }
+            }
+        }
+        private void UpdateAttendance()
+        {
             foreach (DataGridViewRow dr in dgvEmp.Rows)
             {
-                var advanceDetails = new AdvanceDetail()
+                /*var advanceDetails = new AdvanceDetail()
                                          {
                                              PMonth = month,
                                              PYear = year,
@@ -413,43 +438,36 @@ namespace MySales
                                              CreateDate = DateTime.Now
                                          };
                 var advanceDetailsAdded = new AdvanceDetailsBL().AddAdvanceDetails(advanceDetails) ==
-                                          Utility.ActionStatus.SUCCESS;
-                if (advanceDetailsAdded)
+                                          Utility.ActionStatus.SUCCESS;*/
+
+                var attendanceDetail = new EmpAttendance()
                 {
-                    var attendanceDetail = new EmpAttendance()
-                                               {
-                                                   EmpID = Convert.ToInt64(dr.Cells[EmpId].Value),
-                                                   WorkDays = Convert.ToInt64(dr.Cells[Present].Value),
-                                                   LeaveDays = Convert.ToInt64(dr.Cells[Absent].Value),
-                                                   Overtime = Convert.ToDecimal(dr.Cells[OtHrs].Value),
-                                                   Month = month,
-                                                   Year = year,
-                                                   TotalDays = DateTime.DaysInMonth(year, month),
-                                                   CreateDate = DateTime.Now
-                                               };
-                    var attendanceDetailsAdded = new EmpAttendanceBL().AddAttendanceDetails(attendanceDetail) ==
-                                                 Utility.ActionStatus.SUCCESS;
-                    if (!attendanceDetailsAdded)
-                    {
-                        /*1. Delete Advance Details
-                          2. Delete Attendance details
-                         */
-                        MessageBox.Show("Some technical error occured please contact sys admin or try again later.");
-                        break;
-                    }
-                }
-                else
+                    ID = Convert.ToInt64(dr.Cells[AttId].EditedFormattedValue),
+                    EmpID = Convert.ToInt64(dr.Cells[EmpId].Value),
+                    WorkDays = Convert.ToInt64(dr.Cells[Present].Value),
+                    LeaveDays = Convert.ToInt64(dr.Cells[Absent].Value),
+                    Overtime = Convert.ToDecimal(dr.Cells[OtHrs].Value),
+                    Month = month,
+                    Year = year,
+                    TotalDays = DateTime.DaysInMonth(year, month),
+                    ModifiedDate = DateTime.Now
+                };
+                var attendanceDetailsAdded = new EmpAttendanceBL().UpdateAttendanceDetails(attendanceDetail) ==
+                                             Utility.ActionStatus.SUCCESS;
+                if (!attendanceDetailsAdded)
                 {
-                    /*Delete Advance Details*/
+                    /*1. Delete Advance Details
+                      2. Delete Attendance details
+                     */
                     MessageBox.Show("Some technical error occured please contact sys admin or try again later.");
                     break;
                 }
+                else
+                {
+                    MessageBox.Show("Attendance details updated successfully.");
+                }
+
             }
-        }
-
-        private void CreateAttendancePlaceHolders()
-        {
-
         }
     }
 }
