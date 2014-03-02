@@ -48,13 +48,13 @@ namespace MySales.BO
         public string FathersName { get; set; }
         public string Gender
         { get; set; }
-        public string DateOfBirth
+        public DateTime? DateOfBirth
         { get; set; }
         public Address AddressC
         { get; set; }
         public Address AddressP
         { get; set; }
-        public string DateOfJoining
+        public DateTime DateOfJoining
         { get; set; }
         public bool IsActive
         { get; set; }

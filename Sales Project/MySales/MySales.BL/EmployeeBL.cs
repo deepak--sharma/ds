@@ -24,7 +24,7 @@ namespace MySales.BL
             var result = Utility.ActionStatus.SUCCESS;
             return result;
         }
-        public Utility.ActionStatus AddEmployee(Employee employee, Int64 userId)
+        public Utility.ActionStatus AddUpdateEmployee(Employee employee, Int64 userId)
         {
             /* 
              * 1. Add Employee Current and Permanent Addresses.
@@ -34,8 +34,8 @@ namespace MySales.BL
              */
             var addressBl = new AddressBL();
             var result = Utility.ActionStatus.SUCCESS;
-            var cStatus = addressBl.AddAddress(employee.AddressC);
-            var pStatus = addressBl.AddAddress(employee.AddressP);
+            var cStatus = addressBl.AddUpdateAddress(employee.AddressC);
+            var pStatus = addressBl.AddUpdateAddress(employee.AddressP);
             if (cStatus == Utility.ActionStatus.FAILURE || pStatus == Utility.ActionStatus.FAILURE)
             {
                 //Call DeleteAddress for both types
@@ -43,7 +43,7 @@ namespace MySales.BL
                 addressBl.DeleteAddress(employee.AddressP.Id);
                 return Utility.ActionStatus.FAILURE;
             }
-            result = _empDl.AddEmployee(employee, userId);
+            result = _empDl.AddUpdateEmployee(employee, userId);
             if (result == Utility.ActionStatus.FAILURE)
             {
                 //Call DeleteAddress for both types
@@ -82,7 +82,7 @@ namespace MySales.BL
                 //Insert blank attendance records for each emp
                 foreach (var employee in empList)
                 {
-                    
+
                 }
             }
             var empAttList = from a in empList

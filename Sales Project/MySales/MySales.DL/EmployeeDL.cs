@@ -11,18 +11,22 @@ namespace MySales.DL
 {
     public class EmployeeDl
     {
+        #region Private constants
         private const string SelectAllEmp = "SELECT Employee.*, Designation.ID As Desig_ID,Designation.Desc As Desig_Desc,Address.ID As CID, Address.Line1 AS CLine1, Address.State AS CState, Address.City AS CCity, Address.Pincode AS CPincode,p.ID As PID,p.Line1 As PLine1,p.State As PState,p.City As PCity,p.Pincode As PPincode FROM ((Address RIGHT JOIN Employee ON Address.ID = Employee.CAddressId) LEFT JOIN Designation ON Employee.Designation = Designation.ID) LEFT JOIN Address AS p ON Employee.PAddressId = p.ID;";
 
-        private const string AddEmp = @"Insert into Employee (EmpCode,FirstName,MiddleName,LastName,FathersName,Gender,DateOfBirth,MobileNo,OtherNo,CAddressId,PAddressId,DateOfJoining,IsActive,Designation,ModifiedBy,CreateDate) values
-                                         (@EmpCode,@FirstName,@MiddleName,@LastName,@FathersName,@Gender,@DateOfBirth,@MobileNo,@OtherNo,@CAddressId,@PAddressId,@DateOfJoining,@IsActive,@Designation,@ModifiedBy,@CreateDate)";
+        private const string AddEmp = @"Insert into Employee (FirstName,MiddleName,LastName,FathersName,Gender,DateOfBirth,MobileNo,OtherNo,DateOfJoining,Designation,ModifiedBy,CAddressId,PAddressId,EmpCode,IsActive,CreateDate) values
+                                         (@FirstName,@MiddleName,@LastName,@FathersName,@Gender,@DateOfBirth,@MobileNo,@OtherNo,@DateOfJoining,@Designation,@ModifiedBy,@CAddressId,@PAddressId,@EmpCode,@IsActive,@CreateDate)";
 
         private const string SelectEmpById =
             "SELECT Employee.*, Designation.ID As Desig_ID,Designation.Desc As Desig_Desc,Address.ID As CID, Address.Line1 AS CLine1, Address.State AS CState, Address.City AS CCity, Address.Pincode AS CPincode,p.ID As PID,p.Line1 As PLine1,p.State As PState,p.City As PCity,p.Pincode As PPincode FROM ((Address RIGHT JOIN Employee ON Address.ID = Employee.CAddressId) LEFT JOIN Designation ON Employee.Designation = Designation.ID) LEFT JOIN Address AS p ON Employee.PAddressId = p.ID WHERE EMPLOYEE.ID = @empid;";
 
         private const string SelectEmpAdvDetails =
             "SELECT Employee.ID,Employee.EmpCode,Employee.FirstName,Employee.MiddleName,Employee.LastName, Emp_Attendance.ID As AttID,Emp_Attendance.WorkDays,Emp_Attendance.LeaveDays,Emp_Attendance.Overtime, Emp_Advance_Details.ID As AdvID,Emp_Advance_Details.TotalAdvance,Emp_Advance_Details.AdvanceDeduction,Emp_Advance_Details.Balance FROM (Employee LEFT JOIN Emp_Advance_Details ON Employee.ID = Emp_Advance_Details.EmpID) LEFT JOIN Emp_Attendance ON Employee.ID = Emp_Attendance.EmpID WHERE Emp_Attendance.PayrollMonth=@pm And Emp_Attendance.PayrollYear=@yr;";
-
         private const string SelectAllActiveEmployees = "SELECT ID FROM EMPLOYEE WHERE ISACTIVE=TRUE";
+        private const string UpdateEmployee = "Update Employee set FirstName=@FirstName,MiddleName=@MiddleName,LastName=@LastName,FathersName=@FathersName,Gender=@Gender,DateOfBirth=@DateOfBirth,MobileNo=@MobileNo,OtherNo=@OtherNo,DateOfJoining=@DateOfJoining,Designation=@Designation,ModifiedBy=@ModifiedBy,CAddressId=@CAddressId,PAddressId=@PAddressId,ModifiedDate=@ModifiedDate where ID=@ID";
+        #endregion
+
+        #region Public Methods
         public List<Employee> GetAllEmployees()
         {
             var lstEmployee = new List<Employee>();
@@ -46,7 +50,7 @@ namespace MySales.DL
                                     MiddleName = DBNull.Value != dr["MiddleName"] ? dr["MiddleName"].ToString() : string.Empty,
                                     LastName = DBNull.Value != dr["LastName"] ? dr["LastName"].ToString() : string.Empty,
                                     Gender = DBNull.Value != dr["Gender"] ? dr["Gender"].ToString() : string.Empty,
-                                    DateOfBirth = Convert.ToString(dr["DateOfBirth"]),
+                                    DateOfBirth = DBNull.Value != dr["DateOfBirth"] ? DateTime.Parse(Convert.ToString(dr["DateOfBirth"])) : DateTime.Now,
                                     AddressC = new Address()
                                                    {
                                                        Id = DBNull.Value != dr["CID"] ? Convert.ToInt64(dr["CID"]) : 0,
@@ -63,7 +67,7 @@ namespace MySales.DL
                                         StateId = DBNull.Value != dr["PState"] ? Convert.ToInt64(dr["PState"]) : 0,
                                         Pincode = DBNull.Value != dr["PPincode"] ? Convert.ToInt64(dr["PPincode"]) : 0
                                     },
-                                    DateOfJoining = Convert.ToString(dr["DateOfJoining"]),
+                                    DateOfJoining = DBNull.Value != dr["DateOfJoining"] ? DateTime.Parse(Convert.ToString(dr["DateOfJoining"])) : DateTime.Now,
                                     IsActive = Convert.ToBoolean(dr["IsActive"]),
                                     Designation = new Designation
                                     {
@@ -153,7 +157,7 @@ namespace MySales.DL
         }
 
 
-        public Utility.ActionStatus AddEmployee(Employee employee, Int64 userId)
+        public Utility.ActionStatus AddUpdateEmployee(Employee employee, Int64 userId)
         {
             var result = Utility.ActionStatus.SUCCESS;
             try
@@ -161,27 +165,127 @@ namespace MySales.DL
                 using (var con = DBManager.GetConnection())
                 {
                     con.Open();
-                    using (var command = new OleDbCommand(AddEmp, con))
+                    using (var cmd = new OleDbCommand())
                     {
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@EmpCode", Value = employee.EmpCode });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@FirstName", Value = employee.FirstName });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@MiddleName", Value = employee.MiddleName });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@LastName", Value = employee.LastName });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@FathersName", Value = employee.FathersName });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@Gender", Value = employee.Gender });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@DateOfBirth", Value = employee.DateOfBirth });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@MobileNo", Value = employee.MobileNo });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@OtherNo", Value = employee.OtherNo });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@CAddressId", Value = employee.AddressC.Id });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@PAddressId", Value = employee.AddressP.Id });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@DateOfJoining", Value = employee.DateOfJoining });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@IsActive", Value = employee.IsActive });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@Designation", Value = employee.Designation.ID });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@ModifiedBy", Value = userId });
-                        command.Parameters.Add(new OleDbParameter { ParameterName = "@CreateDate", Value = DateTime.Now.ToString() });
-                        //command.Parameters.Add(new OleDbParameter { ParameterName = "@ModifiedDate", Value = DBNull.Value });
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add(new OleDbParameter
+                                               {
+                                                   ParameterName = "@FirstName",
+                                                   Value = employee.FirstName,
+                                                   OleDbType = OleDbType.VarChar
+                                               });
+                        cmd.Parameters.Add(new OleDbParameter
+                                               {
+                                                   ParameterName = "@MiddleName",
+                                                   Value = employee.MiddleName,
+                                                   OleDbType = OleDbType.VarChar
+                                               });
+                        cmd.Parameters.Add(new OleDbParameter
+                                               {
+                                                   ParameterName = "@LastName",
+                                                   Value = employee.LastName,
+                                                   OleDbType = OleDbType.VarChar
+                                               });
+                        cmd.Parameters.Add(new OleDbParameter
+                                               {
+                                                   ParameterName = "@FathersName",
+                                                   Value = employee.FathersName,
+                                                   OleDbType = OleDbType.VarChar
+                                               });
+                        cmd.Parameters.Add(new OleDbParameter
+                                               {
+                                                   ParameterName = "@Gender",
+                                                   Value = employee.Gender,
+                                                   OleDbType = OleDbType.VarChar
+                                               });
+                        cmd.Parameters.Add(new OleDbParameter
+                                               {
+                                                   ParameterName = "@DateOfBirth",
+                                                   Value = employee.DateOfBirth,
+                                                   OleDbType = OleDbType.Date
+                                               });
+                        cmd.Parameters.Add(new OleDbParameter
+                                               {
+                                                   ParameterName = "@MobileNo",
+                                                   Value = employee.MobileNo,
+                                                   OleDbType = OleDbType.VarChar
+                                               });
+                        cmd.Parameters.Add(new OleDbParameter
+                                               {
+                                                   ParameterName = "@OtherNo",
+                                                   Value = employee.OtherNo,
+                                                   OleDbType = OleDbType.VarChar
+                                               });
+                        cmd.Parameters.Add(new OleDbParameter
+                                               {
+                                                   ParameterName = "@DateOfJoining",
+                                                   Value = employee.DateOfJoining,
+                                                   OleDbType = OleDbType.Date
+                                               });
+                        cmd.Parameters.Add(new OleDbParameter
+                                               {
+                                                   ParameterName = "@Designation",
+                                                   Value = employee.Designation.ID,
+                                                   OleDbType = OleDbType.BigInt
+                                               });
+                        cmd.Parameters.Add(new OleDbParameter
+                                               {
+                                                   ParameterName = "@ModifiedBy",
+                                                   Value = userId,
+                                                   OleDbType = OleDbType.BigInt
+                                               });
+                        cmd.Parameters.Add(new OleDbParameter
+                                               {
+                                                   ParameterName = "@CAddressId",
+                                                   Value = employee.AddressC.Id
+                                               });
+                        cmd.Parameters.Add(new OleDbParameter
+                                               {
+                                                   ParameterName = "@PAddressId",
+                                                   Value = employee.AddressP.Id
+                                               });
+                        cmd.Connection = con;
+                        if (employee.Id > 0)
+                        {
+                            //Update employee record.
+                            cmd.CommandText = UpdateEmployee;
+                            cmd.Parameters.Add(new OleDbParameter
+                            {
+                                ParameterName = "@ModifiedDate",
+                                Value = DateTime.Now,
+                                OleDbType = OleDbType.Date
+                            });
+                            cmd.Parameters.Add(new OleDbParameter
+                                                   {
+                                                       ParameterName = "@ID",
+                                                       Value = employee.Id
+                                                       //OleDbType = OleDbType.BigInt
+                                                   });
 
-                        var queryResult = command.ExecuteNonQuery();
+                        }
+                        else
+                        {
+                            //Add new employee record.
+                            cmd.CommandText = AddEmp;
+                            cmd.Parameters.Add(new OleDbParameter
+                                                   {
+                                                       ParameterName = "@EmpCode",
+                                                       Value = employee.EmpCode
+                                                   });
+                            cmd.Parameters.Add(new OleDbParameter
+                                                   {
+                                                       ParameterName = "@IsActive",
+                                                       Value = employee.IsActive
+                                                   });
+                            cmd.Parameters.Add(new OleDbParameter
+                                                   {
+                                                       ParameterName = "@CreateDate",
+                                                       Value = DateTime.Now,
+                                                       OleDbType = OleDbType.Date
+                                                   });
+                        }
+
+                        var queryResult = cmd.ExecuteNonQuery();
                         if (queryResult <= 0)
                         {
                             result = Utility.ActionStatus.FAILURE;
@@ -247,7 +351,7 @@ namespace MySales.DL
                                     OtherNo = DBNull.Value != dr["OtherNo"] ? dr["OtherNo" +
                                                                                  "" +
                                                                                  ""].ToString() : string.Empty,
-                                    DateOfBirth = Convert.ToString(dr["DateOfBirth"]),
+                                    DateOfBirth = DBNull.Value != dr["DateOfBirth"] ? DateTime.Parse(Convert.ToString(dr["DateOfBirth"])) : DateTime.Now,
                                     AddressC = new Address()
                                     {
                                         Id = DBNull.Value != dr["CID"] ? Convert.ToInt64(dr["CID"]) : 0,
@@ -264,7 +368,7 @@ namespace MySales.DL
                                         StateId = DBNull.Value != dr["PState"] ? Convert.ToInt64(dr["PState"]) : 0,
                                         Pincode = DBNull.Value != dr["PPincode"] ? Convert.ToInt64(dr["PPincode"]) : 0
                                     },
-                                    DateOfJoining = Convert.ToString(dr["DateOfJoining"]),
+                                    DateOfJoining = DBNull.Value != dr["DateOfJoining"] ? DateTime.Parse(Convert.ToString(dr["DateOfJoining"])) : DateTime.Now,
                                     IsActive = Convert.ToBoolean(dr["IsActive"]),
                                     Designation = new Designation
                                     {
@@ -319,5 +423,6 @@ namespace MySales.DL
 
             return result;
         }
+        #endregion
     }
 }

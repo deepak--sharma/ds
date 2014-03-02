@@ -27,6 +27,8 @@ namespace MySales
         }
         StateBL objStateBL = new StateBL();
         CityBL objCityBL = new CityBL();
+        private long _currentAddressId = 0;
+        private long _permanentAddressId = 0;
 
         private void FillDesignation()
         {
@@ -104,7 +106,7 @@ namespace MySales
             rbM.Checked = emp.Gender == MALE;
             rbF.Checked = emp.Gender == FEMALE;
             txtFathersName.Text = emp.FathersName;
-            dateTimePicker1.Value = DateTime.Parse(emp.DateOfBirth);
+            dateTimePicker1.Value = emp.DateOfBirth ?? DateTime.Now;
             ddlDesig.Text = emp.Designation.Desc;
             txtAddC.Text = emp.AddressC.Line1;
             ddlStateC.SelectedValue = emp.AddressC.StateId;
@@ -116,6 +118,8 @@ namespace MySales
             txtPincodeP.Text = emp.AddressP.Pincode.ToString();
             txtMobileNo.Text = emp.MobileNo;
             txtOtherNo.Text = emp.OtherNo;
+            _currentAddressId = emp.AddressC.Id;
+            _permanentAddressId = emp.AddressP.Id;
         }
 
         private void ddlStateC_SelectedIndexChanged(object sender, EventArgs e)
@@ -168,20 +172,22 @@ namespace MySales
             }
             var emp = new Employee
             {
-                EmpCode = GetEmployeeCode(),
+                Id = _empID,
+                EmpCode = _empID <= 0 ? GetEmployeeCode() : string.Empty,
                 FirstName = this.txtFN.Text.Trim(),
                 MiddleName = this.txtMN.Text.Trim(),
                 LastName = this.txtLN.Text.Trim(),
                 FathersName = txtFathersName.Text.Trim(),
                 Gender = strGender,
-                DateOfBirth = this.dateTimePicker1.Value.ToString(),
+                DateOfBirth = this.dateTimePicker1.Value,
                 MobileNo = txtMobileNo.Text.Trim(),
                 OtherNo = txtOtherNo.Text.Trim(),
-                DateOfJoining = DateTime.Now.ToString(),
+                DateOfJoining = DateTime.Now,
                 IsActive = true,
                 Designation = new Designation { ID = Convert.ToInt64(this.ddlDesig.SelectedValue) },
                 AddressC = new Address()
                                {
+                                   Id = _currentAddressId,
                                    Line1 = txtAddC.Text.Trim(),
                                    CityId = (long)ddlCityC.SelectedValue,
                                    StateId = (long)ddlStateC.SelectedValue,
@@ -189,6 +195,7 @@ namespace MySales
                                },
                 AddressP = new Address()
                 {
+                    Id = _permanentAddressId,
                     Line1 = txtAddP.Text.Trim(),
                     CityId = (long)ddlCityP.SelectedValue,
                     StateId = (long)ddlStateP.SelectedValue,
@@ -202,9 +209,10 @@ namespace MySales
                                      Convert.ToDecimal(txtMonthlyGross.Text.Trim()) : 0
                                  }
             };
-            MessageBox.Show(new EmployeeBL().AddEmployee(emp, 1) == Utility.ActionStatus.SUCCESS
+            MessageBox.Show(new EmployeeBL().AddUpdateEmployee(emp, 1) == Utility.ActionStatus.SUCCESS
                                 ? "Data saved successfully."
                                 : "Error: Please contact product support.");
+            this.Close();
         }
 
         private void btnClearForm_Click(object sender, EventArgs e)

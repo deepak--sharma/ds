@@ -397,6 +397,8 @@ namespace MySales
                         long.TryParse(Convert.ToString(dgvEmp.Rows[e.RowIndex].Cells[0].Value), out empId);
                         var empFrm = new FrmEmployee(empId);
                         empFrm.ShowDialog();
+                        //Refresh main form
+                        ViewModifyEmployees_Load(sender, e);
                     }
                     break;
             }
