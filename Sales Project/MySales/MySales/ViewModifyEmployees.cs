@@ -427,6 +427,7 @@ namespace MySales
         }
         private void UpdateAttendance()
         {
+            var successCtr = 0;
             foreach (DataGridViewRow dr in dgvEmp.Rows)
             {
                 /*var advanceDetails = new AdvanceDetail()
@@ -456,20 +457,18 @@ namespace MySales
                 };
                 var attendanceDetailsAdded = new EmpAttendanceBL().UpdateAttendanceDetails(attendanceDetail) ==
                                              Utility.ActionStatus.SUCCESS;
-                if (!attendanceDetailsAdded)
+                if (attendanceDetailsAdded)
                 {
-                    /*1. Delete Advance Details
-                      2. Delete Attendance details
-                     */
-                    MessageBox.Show("Some technical error occured please contact sys admin or try again later.");
-                    break;
-                }
-                else
-                {
-                    MessageBox.Show("Attendance details updated successfully.");
+                    successCtr += 1;
                 }
 
             }
+            if (successCtr == dgvEmp.Rows.Count)
+            {
+                // MessageBox.Show("Some technical error occured please contact sys admin or try again later.");
+                MessageBox.Show("Attendance details updated successfully.");
+            }
+
         }
     }
 }
