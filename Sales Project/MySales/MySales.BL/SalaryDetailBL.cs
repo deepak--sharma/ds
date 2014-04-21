@@ -13,5 +13,9 @@ namespace MySales.BL
         {
             return new SalaryDetailDL().GetMonthlyGross(empID);
         }
+        public int AddUpdateSalaryDetails(Employee emp)
+        {
+            return new SalaryDetailDL().AddUpdateSalaryDetails(emp);
+        }
     }
 }

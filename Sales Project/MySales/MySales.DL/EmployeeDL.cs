@@ -12,13 +12,13 @@ namespace MySales.DL
     public class EmployeeDl
     {
         #region Private constants
-        private const string SelectAllEmp = "SELECT Employee.*, Designation.ID As Desig_ID,Designation.Desc As Desig_Desc,Address.ID As CID, Address.Line1 AS CLine1, Address.State AS CState, Address.City AS CCity, Address.Pincode AS CPincode,p.ID As PID,p.Line1 As PLine1,p.State As PState,p.City As PCity,p.Pincode As PPincode FROM ((Address RIGHT JOIN Employee ON Address.ID = Employee.CAddressId) LEFT JOIN Designation ON Employee.Designation = Designation.ID) LEFT JOIN Address AS p ON Employee.PAddressId = p.ID;";
+        private const string SelectAllEmp = "SELECT Employee.*, Designation.ID AS Desig_ID, Designation.Desc AS Desig_Desc, Address.ID AS CID, Address.Line1 AS CLine1, Address.State AS CState, Address.City AS CCity, Address.Pincode AS CPincode, p.ID AS PID, p.Line1 AS PLine1, p.State AS PState, p.City AS PCity, p.Pincode AS PPincode, sal.ID AS SalID,sal.MonthlyGross FROM (((Address RIGHT JOIN Employee ON Address.ID = Employee.CAddressId) LEFT JOIN Designation ON Employee.Designation = Designation.ID) LEFT JOIN Address AS p ON Employee.PAddressId = p.ID) LEFT JOIN Emp_Salary_Details AS sal ON Employee.ID = sal.EmpID;";
 
         private const string AddEmp = @"Insert into Employee (FirstName,MiddleName,LastName,FathersName,Gender,DateOfBirth,MobileNo,OtherNo,DateOfJoining,Designation,ModifiedBy,CAddressId,PAddressId,EmpCode,IsActive,CreateDate) values
                                          (@FirstName,@MiddleName,@LastName,@FathersName,@Gender,@DateOfBirth,@MobileNo,@OtherNo,@DateOfJoining,@Designation,@ModifiedBy,@CAddressId,@PAddressId,@EmpCode,@IsActive,@CreateDate)";
 
         private const string SelectEmpById =
-            "SELECT Employee.*, Designation.ID As Desig_ID,Designation.Desc As Desig_Desc,Address.ID As CID, Address.Line1 AS CLine1, Address.State AS CState, Address.City AS CCity, Address.Pincode AS CPincode,p.ID As PID,p.Line1 As PLine1,p.State As PState,p.City As PCity,p.Pincode As PPincode FROM ((Address RIGHT JOIN Employee ON Address.ID = Employee.CAddressId) LEFT JOIN Designation ON Employee.Designation = Designation.ID) LEFT JOIN Address AS p ON Employee.PAddressId = p.ID WHERE EMPLOYEE.ID = @empid;";
+            "SELECT Employee.*, Designation.ID AS Desig_ID, Designation.Desc AS Desig_Desc, Address.ID AS CID, Address.Line1 AS CLine1, Address.State AS CState, Address.City AS CCity, Address.Pincode AS CPincode, p.ID AS PID, p.Line1 AS PLine1, p.State AS PState, p.City AS PCity, p.Pincode AS PPincode, sal.ID AS SalID,sal.MonthlyGross FROM (((Address RIGHT JOIN Employee ON Address.ID = Employee.CAddressId) LEFT JOIN Designation ON Employee.Designation = Designation.ID) LEFT JOIN Address AS p ON Employee.PAddressId = p.ID) LEFT JOIN Emp_Salary_Details AS sal ON Employee.ID = sal.EmpID WHERE EMPLOYEE.ID = @empid;";
 
         private const string SelectEmpAdvDetails =
             "SELECT Employee.ID,Employee.EmpCode,Employee.FirstName,Employee.MiddleName,Employee.LastName, Emp_Attendance.ID As AttID,Emp_Attendance.WorkDays,Emp_Attendance.LeaveDays,Emp_Attendance.Overtime, Emp_Advance_Details.ID As AdvID,Emp_Advance_Details.TotalAdvance,Emp_Advance_Details.AdvanceDeduction,Emp_Advance_Details.Balance FROM (Employee LEFT JOIN Emp_Advance_Details ON Employee.ID = Emp_Advance_Details.EmpID) LEFT JOIN Emp_Attendance ON Employee.ID = Emp_Attendance.EmpID WHERE Emp_Attendance.PayrollMonth=@pm And Emp_Attendance.PayrollYear=@yr;";
@@ -74,6 +74,11 @@ namespace MySales.DL
                                         ID = string.IsNullOrEmpty(Convert.ToString(dr["Desig_ID"])) ? long.Parse(dr["Desig_ID"].ToString().Trim()) : 0,
                                         Desc = DBNull.Value != dr["Desig_Desc"] ? Convert.ToString(dr["Desig_Desc"]) : string.Empty
                                     },
+                                    SalDetails = new SalaryDetail()
+                                                     {
+                                                         ID = dr["SalID"] != DBNull.Value ? Convert.ToInt64(dr["SalID"].ToString().Trim()) : 0,
+                                                         MonthlyGross = dr["MonthlyGross"] != DBNull.Value ? decimal.Parse(dr["MonthlyGross"].ToString().Trim()) : 0
+                                                     },
                                     FullName = GetFullName(Convert.ToString(dr["FirstName"]), Convert.ToString(dr["MiddleName"]), Convert.ToString(dr["LastName"]))
 
                                 };
@@ -374,6 +379,11 @@ namespace MySales.DL
                                     {
                                         ID = string.IsNullOrEmpty(Convert.ToString(dr["Desig_ID"])) ? long.Parse(dr["Desig_ID"].ToString().Trim()) : 0,
                                         Desc = DBNull.Value != dr["Desig_Desc"] ? Convert.ToString(dr["Desig_Desc"]) : string.Empty
+                                    },
+                                    SalDetails = new SalaryDetail()
+                                    {
+                                        ID = dr["SalID"] != DBNull.Value ? Convert.ToInt64(dr["SalID"].ToString().Trim()) : 0,
+                                        MonthlyGross = dr["MonthlyGross"] != DBNull.Value ? decimal.Parse(dr["MonthlyGross"].ToString().Trim()) : 0
                                     },
                                     FullName = GetFullName(Convert.ToString(dr["FirstName"]), Convert.ToString(dr["MiddleName"]), Convert.ToString(dr["LastName"]))
 

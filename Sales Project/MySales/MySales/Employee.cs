@@ -27,8 +27,9 @@ namespace MySales
         }
         StateBL objStateBL = new StateBL();
         CityBL objCityBL = new CityBL();
-        private long _currentAddressId = 0;
-        private long _permanentAddressId = 0;
+        private long _currentAddressId;
+        private long _permanentAddressId;
+        private long _salaryId;
 
         private void FillDesignation()
         {
@@ -120,6 +121,8 @@ namespace MySales
             txtOtherNo.Text = emp.OtherNo;
             _currentAddressId = emp.AddressC.Id;
             _permanentAddressId = emp.AddressP.Id;
+            _salaryId = emp.SalDetails.ID;
+            txtMonthlyGross.Text = emp.SalDetails.MonthlyGross.ToString();
         }
 
         private void ddlStateC_SelectedIndexChanged(object sender, EventArgs e)
@@ -204,7 +207,8 @@ namespace MySales
                ,
                 SalDetails = new SalaryDetail()
                                  {
-                                     CreateDate = DateTime.Today,
+                                     ID = _salaryId,
+                                     CreateDate = DateTime.Now,
                                      MonthlyGross = !string.IsNullOrEmpty(txtMonthlyGross.Text.Trim()) ?
                                      Convert.ToDecimal(txtMonthlyGross.Text.Trim()) : 0
                                  }

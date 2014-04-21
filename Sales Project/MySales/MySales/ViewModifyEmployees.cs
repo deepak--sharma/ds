@@ -411,20 +411,19 @@ namespace MySales
              * 2.
              * 3. If anything goes wrong thaen Rollback both.
              */
-            if (!string.IsNullOrEmpty(_formMode))
+            if (string.IsNullOrEmpty(_formMode)) return;
+            switch (_formMode)
             {
-                switch (_formMode)
-                {
-                    case "att":
-                        //Update Attendance details here
-                        UpdateAttendance();
-                        break;
-                    case "adv":
-                        //Update Advance details here
-                        break;
-                }
+                case "att":
+                    //Update Attendance details here
+                    UpdateAttendance();
+                    break;
+                case "adv":
+                    //Update Advance details here
+                    break;
             }
         }
+
         private void UpdateAttendance()
         {
             var successCtr = 0;
@@ -445,11 +444,11 @@ namespace MySales
 
                 var attendanceDetail = new EmpAttendance()
                 {
-                    ID = Convert.ToInt64(dr.Cells[AttId].EditedFormattedValue),
-                    EmpID = Convert.ToInt64(dr.Cells[EmpId].Value),
-                    WorkDays = Convert.ToInt64(dr.Cells[Present].Value),
-                    LeaveDays = Convert.ToInt64(dr.Cells[Absent].Value),
-                    Overtime = Convert.ToDecimal(dr.Cells[OtHrs].Value),
+                    ID = Convert.ToInt64(dr.Cells[AttId].Value ?? dr.Cells[AttId].EditedFormattedValue),
+                    EmpID = Convert.ToInt64(dr.Cells[EmpId].Value ?? dr.Cells[EmpId].EditedFormattedValue),
+                    WorkDays = Convert.ToInt64(dr.Cells[Present].Value ?? dr.Cells[Present].EditedFormattedValue),
+                    LeaveDays = Convert.ToInt64(dr.Cells[Absent].Value ?? dr.Cells[Absent].EditedFormattedValue),
+                    Overtime = Convert.ToDecimal(dr.Cells[OtHrs].Value ?? dr.Cells[OtHrs].EditedFormattedValue),
                     Month = month,
                     Year = year,
                     TotalDays = DateTime.DaysInMonth(year, month),
@@ -469,6 +468,21 @@ namespace MySales
                 MessageBox.Show("Attendance details updated successfully.");
             }
 
+        }
+
+        private void dgvEmp_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_formMode) && _formMode != "att")
+            {
+                return;
+            }
+            var newVal = dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value ?? string.Empty;
+            long tmpVal = 0;
+            if (!Int64.TryParse(newVal.ToString(), out tmpVal))
+            {
+                MessageBox.Show("Please enter a valid number");
+                dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = tmpVal;
+            }
         }
     }
 }

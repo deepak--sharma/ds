@@ -43,6 +43,7 @@ namespace MySales.BL
                 addressBl.DeleteAddress(employee.AddressP.Id);
                 return Utility.ActionStatus.FAILURE;
             }
+            var salStatus = new SalaryDetailBL().AddUpdateSalaryDetails(employee);
             result = _empDl.AddUpdateEmployee(employee, userId);
             if (result == Utility.ActionStatus.FAILURE)
             {

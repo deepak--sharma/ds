@@ -100,6 +100,7 @@
             this.dgvEmp.TabIndex = 0;
             this.dgvEmp.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmp_CellClick);
             this.dgvEmp.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvEmp_CellFormatting);
+            this.dgvEmp.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmp_CellValueChanged);
             // 
             // ssMessage
             // 
