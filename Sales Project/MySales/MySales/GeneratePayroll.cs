@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using MySales.BL;
 using MySales.BO;
+using MySales.Utils;
 
 namespace MySales
 {
@@ -22,30 +23,7 @@ namespace MySales
 
         private void FrmGeneratePayrollLoad(object sender, EventArgs e)
         {
-            var year = DateTime.Now.Year;
-            var month = DateTime.Now.Month;
-            var yearCount = 0;
-            if (month == 1)
-            {
-                yearCount = year - 1;
-            }
-            else
-            {
-                yearCount = year;
-            }
-            for (var i = yearCount; i <= year; ++i)
-            {
-                cbYear.Items.Add(i);
-            }
-            if (month == 1)
-            {
-                cbMonth.SelectedIndex = 11;
-            }
-            else
-            {
-                cbMonth.SelectedIndex = month - 2;
-            }
-            cbYear.SelectedIndex = 0;
+            Utility.SetPayrollMonthYearDropdownList(cbMonth, cbYear);
             BindGrid();
         }
 

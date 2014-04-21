@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace MySales.Utils
 {
@@ -98,5 +99,78 @@ namespace MySales.Utils
                     return 0;
             }
         }
+        /// <summary>
+        /// This function sets month and year value to a value prior to current month.
+        /// </summary>
+        /// <param name="cbMonth">Object of month combobox</param>
+        /// <param name="cbYear">Object of year combobox</param>
+        public static void SetPayrollMonthYearDropdownList(ComboBox cbMonth, ComboBox cbYear, bool viewPayroll = false)
+        {
+            var year = DateTime.Now.Year;
+            var month = DateTime.Now.Month;
+            var yearCount = 0;
+            if (month == 1)
+            {
+                yearCount = year - 1;
+            }
+            else if (viewPayroll)
+            {
+                yearCount = year - 5;
+            }
+            else
+            {
+                yearCount = year;
+            }
+            for (var i = yearCount; i <= year; ++i)
+            {
+                cbYear.Items.Add(i);
+            }
+            if (month == 1)
+            {
+                cbMonth.SelectedIndex = 11;
+            }
+            else
+            {
+                cbMonth.SelectedIndex = month - 2;
+            }
+            cbYear.SelectedIndex = cbYear.Items.Count - 1;
+        }
+
+        public static void dgvEmp_CellFormatting(DataGridView dgvEmp, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvEmp.Rows[e.RowIndex].DataBoundItem != null &&
+                dgvEmp.Columns[e.ColumnIndex].DataPropertyName.Contains("."))
+            {
+                e.Value = e.Value ?? BindProperty(dgvEmp.Rows[e.RowIndex].DataBoundItem, dgvEmp.Columns[e.ColumnIndex].DataPropertyName);
+            }
+
+        }
+        private static string BindProperty(object property, string propertyName)
+        {
+            string retValue = "";
+
+            if (propertyName.Contains("."))
+            {
+                string leftPropertyName;
+                leftPropertyName = propertyName.Substring(0, propertyName.IndexOf("."));
+                var arrayProperties = property.GetType().GetProperties();
+
+                foreach (var propertyInfo in arrayProperties.Where(propertyInfo => propertyInfo.Name == leftPropertyName))
+                {
+                    retValue = BindProperty(
+                        propertyInfo.GetValue(property, null),
+                        propertyName.Substring(propertyName.IndexOf(".") + 1));
+                    break;
+                }
+            }
+            else
+            {
+                var propertyType = property.GetType();
+                var propertyInfo = propertyType.GetProperty(propertyName);
+                retValue = propertyInfo.GetValue(property, null).ToString();
+            }
+            return retValue;
+        }
+
     }
 }

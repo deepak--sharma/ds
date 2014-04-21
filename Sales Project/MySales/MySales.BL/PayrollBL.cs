@@ -102,5 +102,25 @@ namespace MySales.BL
             return new PayrollDL().AddPayroll(objPayroll);
         }
 
+        public List<Employee> FetchPayrollData(int month, int year, Utility.PayrollStatus status, bool isActive)
+        {
+            var lstEmp = new EmployeeDl().GetAllEmployees();
+            var lstPayroll = new PayrollDL().FetchPayrollData(month, year, status, isActive);
+            var payrollData = from a in lstEmp
+                              join b in lstPayroll on a.Id equals b.EmpID
+                              select new Employee()
+                                         {
+                                             PayrollDetails = b,
+                                             Id = a.Id,
+                                             EmpCode = a.EmpCode,
+                                             FirstName = a.FirstName,
+                                             MiddleName = a.MiddleName,
+                                             LastName = a.LastName,
+                                             FullName = a.FullName
+
+                                         };
+            return payrollData.ToList();
+        }
+
     }
 }

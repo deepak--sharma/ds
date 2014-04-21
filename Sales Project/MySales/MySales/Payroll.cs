@@ -42,5 +42,10 @@ namespace MySales
         {
             new ViewModifyEmployees("att").ShowDialog();
         }
+
+        private void payrollDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new PayrollReport().ShowDialog();
+        }
     }
 }

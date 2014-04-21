@@ -337,39 +337,10 @@ namespace MySales
 
         private void dgvEmp_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dgvEmp.Rows[e.RowIndex].DataBoundItem != null &&
-                dgvEmp.Columns[e.ColumnIndex].DataPropertyName.Contains("."))
-            {
-                e.Value = e.Value ?? BindProperty(dgvEmp.Rows[e.RowIndex].DataBoundItem, dgvEmp.Columns[e.ColumnIndex].DataPropertyName);
-            }
+            Utility.dgvEmp_CellFormatting(dgvEmp, e);
 
         }
-        private string BindProperty(object property, string propertyName)
-        {
-            string retValue = "";
 
-            if (propertyName.Contains("."))
-            {
-                string leftPropertyName;
-                leftPropertyName = propertyName.Substring(0, propertyName.IndexOf("."));
-                var arrayProperties = property.GetType().GetProperties();
-
-                foreach (var propertyInfo in arrayProperties.Where(propertyInfo => propertyInfo.Name == leftPropertyName))
-                {
-                    retValue = BindProperty(
-                        propertyInfo.GetValue(property, null),
-                        propertyName.Substring(propertyName.IndexOf(".") + 1));
-                    break;
-                }
-            }
-            else
-            {
-                var propertyType = property.GetType();
-                var propertyInfo = propertyType.GetProperty(propertyName);
-                retValue = propertyInfo.GetValue(property, null).ToString();
-            }
-            return retValue;
-        }
 
         private void txtSearchFN_KeyUp(object sender, KeyEventArgs e)
         {
