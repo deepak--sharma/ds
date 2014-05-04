@@ -28,51 +28,67 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gbResult = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gbFilter = new System.Windows.Forms.GroupBox();
+            this.btnGo = new System.Windows.Forms.Button();
             this.cbMonth = new System.Windows.Forms.ComboBox();
             this.cbYear = new System.Windows.Forms.ComboBox();
             this.lblMonth = new System.Windows.Forms.Label();
             this.lblYear = new System.Windows.Forms.Label();
-            this.btnGo = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
+            this.gbNoResult = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.gbResult.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.groupBox2.SuspendLayout();
+            this.gbFilter.SuspendLayout();
+            this.gbNoResult.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // gbResult
             // 
-            this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 95);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(593, 361);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Payable Salary Details";
+            this.gbResult.Controls.Add(this.dataGridView1);
+            this.gbResult.Location = new System.Drawing.Point(24, 95);
+            this.gbResult.Name = "gbResult";
+            this.gbResult.Size = new System.Drawing.Size(593, 361);
+            this.gbResult.TabIndex = 0;
+            this.gbResult.TabStop = false;
+            this.gbResult.Text = "Payable Salary Details";
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(6, 19);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(581, 336);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             // 
-            // groupBox2
+            // gbFilter
             // 
-            this.groupBox2.Controls.Add(this.btnGo);
-            this.groupBox2.Controls.Add(this.cbMonth);
-            this.groupBox2.Controls.Add(this.cbYear);
-            this.groupBox2.Controls.Add(this.lblMonth);
-            this.groupBox2.Controls.Add(this.lblYear);
-            this.groupBox2.Location = new System.Drawing.Point(24, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(581, 77);
-            this.groupBox2.TabIndex = 9;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Select";
+            this.gbFilter.Controls.Add(this.btnGo);
+            this.gbFilter.Controls.Add(this.cbMonth);
+            this.gbFilter.Controls.Add(this.cbYear);
+            this.gbFilter.Controls.Add(this.lblMonth);
+            this.gbFilter.Controls.Add(this.lblYear);
+            this.gbFilter.Location = new System.Drawing.Point(24, 12);
+            this.gbFilter.Name = "gbFilter";
+            this.gbFilter.Size = new System.Drawing.Size(593, 77);
+            this.gbFilter.TabIndex = 9;
+            this.gbFilter.TabStop = false;
+            this.gbFilter.Text = "Select";
+            // 
+            // btnGo
+            // 
+            this.btnGo.Location = new System.Drawing.Point(412, 28);
+            this.btnGo.Name = "btnGo";
+            this.btnGo.Size = new System.Drawing.Size(75, 23);
+            this.btnGo.TabIndex = 8;
+            this.btnGo.Text = "Go";
+            this.btnGo.UseVisualStyleBackColor = true;
+            this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
             // 
             // cbMonth
             // 
@@ -123,43 +139,57 @@
             this.lblYear.TabIndex = 6;
             this.lblYear.Text = "Year";
             // 
-            // btnGo
+            // gbNoResult
             // 
-            this.btnGo.Location = new System.Drawing.Point(412, 28);
-            this.btnGo.Name = "btnGo";
-            this.btnGo.Size = new System.Drawing.Size(75, 23);
-            this.btnGo.TabIndex = 8;
-            this.btnGo.Text = "Go";
-            this.btnGo.UseVisualStyleBackColor = true;
-            this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
+            this.gbNoResult.Controls.Add(this.label1);
+            this.gbNoResult.Location = new System.Drawing.Point(27, 103);
+            this.gbNoResult.Name = "gbNoResult";
+            this.gbNoResult.Size = new System.Drawing.Size(587, 361);
+            this.gbNoResult.TabIndex = 1;
+            this.gbNoResult.TabStop = false;
+            this.gbNoResult.Text = "No Result";
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(91, 92);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(402, 66);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Sorry!!! No Data Found For Selected Month And Year";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PayrollReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(617, 468);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(632, 473);
+            this.Controls.Add(this.gbResult);
+            this.Controls.Add(this.gbFilter);
+            this.Controls.Add(this.gbNoResult);
             this.Name = "PayrollReport";
-            this.Text = "Payroll Report For Month \"d\"";
+            this.Text = "Payroll Report";
             this.Load += new System.EventHandler(this.PayrollReport_Load);
-            this.groupBox1.ResumeLayout(false);
+            this.gbResult.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.gbFilter.ResumeLayout(false);
+            this.gbFilter.PerformLayout();
+            this.gbNoResult.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox gbResult;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox gbFilter;
         private System.Windows.Forms.Button btnGo;
         private System.Windows.Forms.ComboBox cbMonth;
         private System.Windows.Forms.ComboBox cbYear;
         private System.Windows.Forms.Label lblMonth;
         private System.Windows.Forms.Label lblYear;
+        private System.Windows.Forms.GroupBox gbNoResult;
+        private System.Windows.Forms.Label label1;
     }
 }

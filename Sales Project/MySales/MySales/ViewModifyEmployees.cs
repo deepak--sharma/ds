@@ -370,8 +370,22 @@ namespace MySales
                         empFrm.ShowDialog();
                         //Refresh main form
                         ViewModifyEmployees_Load(sender, e);
+                        break;
                     }
-                    break;
+                case 5:
+                    {
+                        var result = MessageBox.Show("Are you sure you want to delete this employee?", caption: "Please confirm", buttons: MessageBoxButtons.YesNo);
+                        switch (result)
+                        {
+                            case DialogResult.Yes:
+
+                                break;
+                            case DialogResult.No:
+                                return;
+                        }
+                        break;
+                    }
+
             }
         }
 

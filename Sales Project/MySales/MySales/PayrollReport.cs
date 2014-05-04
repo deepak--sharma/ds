@@ -21,6 +21,17 @@ namespace MySales
         {
             var lst = new PayrollBL().FetchPayrollData(Convert.ToInt32(cbMonth.SelectedIndex) + 1,
                 Convert.ToInt32(cbYear.SelectedItem.ToString()), Utility.PayrollStatus.CALCULATED, true);
+            if (lst.Any())
+            {
+                gbResult.Visible = true;
+                gbNoResult.Visible = false;
+            }
+            else
+            {
+                gbResult.Visible = false;
+                gbNoResult.Visible = true;
+                return;
+            }
             dataGridView1.AutoGenerateColumns = false;
             if (dataGridView1.Columns.Count == 0)
             {
@@ -59,8 +70,9 @@ namespace MySales
 
         private void PayrollReport_Load(object sender, EventArgs e)
         {
+            gbResult.Visible = false;
+            gbNoResult.Visible = false;
             Utility.SetPayrollMonthYearDropdownList(cbMonth, cbYear, true);
-
         }
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
