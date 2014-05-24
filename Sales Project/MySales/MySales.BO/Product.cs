@@ -11,7 +11,7 @@ namespace MySales.BO
         { 
             
         }
-        public long ID { get; set; }
+        public long Id { get; set; }
         public string Item { get; set; }
         public Client Client { get; set; }
         public Dealer Dealer { get; set; }

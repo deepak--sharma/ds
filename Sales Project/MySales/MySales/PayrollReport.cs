@@ -19,7 +19,7 @@ namespace MySales
         }
         private void BindPayrollData()
         {
-            var lst = new PayrollBL().FetchPayrollData(Convert.ToInt32(cbMonth.SelectedIndex) + 1,
+            var lst = new PayrollBl().FetchPayrollData(Convert.ToInt32(cbMonth.SelectedIndex) + 1,
                 Convert.ToInt32(cbYear.SelectedItem.ToString()), Utility.PayrollStatus.CALCULATED, true);
             if (lst.Any())
             {

@@ -9,7 +9,7 @@ using MySales.Utils;
 
 namespace MySales.DL
 {
-    public class DealerDL
+    public class DealerDl
     {
 
         private const string DealerInsertQuery = "Insert into Dealer (ID,Name,Address,Description,CreationDate) values (@id,@name,@add,@desc,@dt)";
@@ -21,18 +21,18 @@ namespace MySales.DL
             int statusCode = -1;
             try
             {
-                theDealer.ID = GetNextDealerID();
-                if (theDealer.ID < 1)
+                theDealer.Id = GetNextDealerId();
+                if (theDealer.Id < 1)
                 {
                     return statusCode;
                 }
-                using (OleDbConnection con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(DealerInsertQuery, con))
+                    using (var cmd = new OleDbCommand(DealerInsertQuery, con))
                     {
                         cmd.Parameters.Clear();
-                        cmd.Parameters.Add(new OleDbParameter("@id", theDealer.ID));
+                        cmd.Parameters.Add(new OleDbParameter("@id", theDealer.Id));
                         cmd.Parameters.Add(new OleDbParameter("@name", theDealer.Name));
                         cmd.Parameters.Add(new OleDbParameter("@add", theDealer.Address));
                         cmd.Parameters.Add(new OleDbParameter("@desc", theDealer.Description));
@@ -52,22 +52,22 @@ namespace MySales.DL
             return statusCode;
         }
 
-        public long GetNextDealerID()
+        public long GetNextDealerId()
         {
-            long _DealerID = 1;
+            long dealerId = 1;
             try
             {
-                using (OleDbConnection con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(SelectMaxDealer, con))
+                    using (var cmd = new OleDbCommand(SelectMaxDealer, con))
                     {
-                        Object statusCode = cmd.ExecuteScalar();
+                        var statusCode = cmd.ExecuteScalar();
                         if (statusCode != DBNull.Value)
                         {
                             //_DealerID = (long)statusCode + 1;
-                            long.TryParse(statusCode.ToString(), out _DealerID);
-                            _DealerID += 1;
+                            long.TryParse(statusCode.ToString(), out dealerId);
+                            dealerId += 1;
                         }
                     }
                     if (con.State == ConnectionState.Open)
@@ -80,36 +80,40 @@ namespace MySales.DL
             {
                 throw ex;
             }
-            return _DealerID;
+            return dealerId;
         }
 
 
         public List<Dealer> GetDealerNames()
         {
-            List<Dealer> lstDealer = new List<Dealer>();
+            var lstDealer = new List<Dealer>();
             try
             {
-                using (OleDbConnection con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(SelectDealerNames, con))
+                    using (var cmd = new OleDbCommand(SelectDealerNames, con))
                     {
-                        OleDbDataReader dr = cmd.ExecuteReader();
-                        if (dr.HasRows)
+                        var dr = cmd.ExecuteReader();
+                        if (dr != null)
                         {
-                            while (dr.Read())
+                            if (dr.HasRows)
                             {
-                                Dealer objDealer = new Dealer();
-                                objDealer.Name = dr["Name"].ToString();
-                                //objDealer.ID = lon dr["ID"];
-                                long _id = 0;
-                                long.TryParse(dr["ID"].ToString().Trim(), out _id);
-                                objDealer.ID = _id;
-                                lstDealer.Add(objDealer);
+                                while (dr.Read())
+                                {
+                                    var objDealer = new Dealer();
+                                    objDealer.Name = dr["Name"].ToString();
+                                    //objDealer.ID = lon dr["ID"];
+                                    long id = 0;
+                                    long.TryParse(dr["ID"].ToString().Trim(), out id);
+                                    objDealer.Id = id;
+                                    lstDealer.Add(objDealer);
+                                }
                             }
+
+                            dr.Close();
+                            dr.Dispose();
                         }
-                        dr.Close();
-                        dr.Dispose();
                     }
                     if (con.State == ConnectionState.Open)
                     {

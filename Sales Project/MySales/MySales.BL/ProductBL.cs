@@ -7,22 +7,15 @@ using MySales.DL;
 
 namespace MySales.BL
 {
-    public class ProductBL
+    public class ProductBl
     {
         public string CreateProduct(Product theProduct)
         {
-            string status = "START";
+            var status = "START";
             try
             {
-                int code = (new ProductDL()).InsertProduct(theProduct, UserBL.userID);
-                if (code < 1)
-                {
-                    status = "ERROR";
-                }
-                else
-                {
-                    status = "SUCCESS";
-                }
+                var code = (new ProductDl()).InsertProduct(theProduct, UserBl.UserId);
+                status = code < 1 ? "ERROR" : "SUCCESS";
             }
             catch (Exception ex)
             {
@@ -33,8 +26,8 @@ namespace MySales.BL
 
         public List<Product> GetAllProducts()
         {
-            ProductDL objProductDL = new ProductDL();
-            return objProductDL.GetAllProducts();
+            var objProductDl = new ProductDl();
+            return objProductDl.GetAllProducts();
         }
     }
 }

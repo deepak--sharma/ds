@@ -29,7 +29,7 @@ namespace MySales
         private void btnLogin_Click(object sender, EventArgs e)
         {
             //if (IsUserValid())            
-            if (new UserBL().IsUserValid(this.txtUsername.Text.Trim(), this.txtPassword.Text.Trim(), out UserBL.userID))
+            if (new UserBl().IsUserValid(this.txtUsername.Text.Trim(), this.txtPassword.Text.Trim(), out UserBl.UserId))
             {
                 this.Hide();
                 //Home theHome = new Home();

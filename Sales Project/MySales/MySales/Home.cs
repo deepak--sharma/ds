@@ -38,7 +38,7 @@ namespace MySales
 
         private void lnkResetPwd_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            UserBL.MODE = 2;
+            UserBl.Mode = 2;
             this.Hide();
             Register regScreen = new Register();
             regScreen.Show();

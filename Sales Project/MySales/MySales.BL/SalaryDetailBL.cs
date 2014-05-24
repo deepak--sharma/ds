@@ -7,15 +7,15 @@ using MySales.DL;
 
 namespace MySales.BL
 {
-    public class SalaryDetailBL
+    public class SalaryDetailBl
     {
-        public SalaryDetail GetMonthlyGross(Int64 empID)
+        public SalaryDetail GetMonthlyGross(Int64 empId)
         {
-            return new SalaryDetailDL().GetMonthlyGross(empID);
+            return new SalaryDetailDl().GetMonthlyGross(empId);
         }
         public int AddUpdateSalaryDetails(Employee emp)
         {
-            return new SalaryDetailDL().AddUpdateSalaryDetails(emp);
+            return new SalaryDetailDl().AddUpdateSalaryDetails(emp);
         }
     }
 }

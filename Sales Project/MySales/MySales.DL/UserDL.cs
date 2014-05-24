@@ -9,39 +9,39 @@ using MySales.Utils;
 
 namespace MySales.DL
 {
-    public class UserDL
+    public class UserDl
     {
 
         #region Constants
-        private const string SELECT_USER_QUERY = "select * from [User Account] where Username=@un";
-        private const string SELECT_MAX_USER = "Select MAX(ID) FROM [User Account]";
-        private const string INSERT_USER_QUERY = "Insert into [User Account] ([ID],[Username],[Password]) Values (@ID,@un,@pwd)";
-        private const string UPDATE_USER_QUERY = "UPDATE [User Account] SET  [User Account].Password = @pwd WHERE  [User Account].ID=@id"; 
+        private const string SelectUserQuery = "select * from [User Account] where Username=@un";
+        private const string SelectMaxUser = "Select MAX(ID) FROM [User Account]";
+        private const string InsertUserQuery = "Insert into [User Account] ([ID],[Username],[Password]) Values (@ID,@un,@pwd)";
+        private const string UpdateUserQuery = "UPDATE [User Account] SET  [User Account].Password = @pwd WHERE  [User Account].ID=@id"; 
         #endregion
         public User GetUserByUsername(string un)
         {
             //bool _isUserValid = false;            
             User theUser = null;
             
-            using (OleDbConnection con = DBManager.GetConnection())
+            using (var con = DbManager.GetConnection())
             {
                 con.Open();
-                using (OleDbCommand cmd = new OleDbCommand())
+                using (var cmd = new OleDbCommand())
                 {
                     cmd.Parameters.Clear();
-                    cmd.CommandText = SELECT_USER_QUERY;
+                    cmd.CommandText = SelectUserQuery;
                     cmd.Connection = con;
                     cmd.Parameters.Add(new OleDbParameter("@un", un));
                     //using (OleDbDataReader drUsers = new OleDbDataReader(cmd))
-                    OleDbDataReader drUsers = cmd.ExecuteReader();
-                    if (drUsers.HasRows)
+                    var drUsers = cmd.ExecuteReader();
+                    if (drUsers != null && drUsers.HasRows)
                     {
                         theUser = new User();
                         while (drUsers.Read())
                         {
-                            long userID = -1;
-                            long.TryParse(drUsers["ID"].ToString().Trim(), out userID);                            
-                            theUser.UserID = userID;
+                            long userId = -1;
+                            long.TryParse(drUsers["ID"].ToString().Trim(), out userId);                            
+                            theUser.UserId = userId;
                             theUser.Username = drUsers["Username"].ToString().Trim();
                             theUser.Password = drUsers["Password"].ToString().Trim();                            
                         }
@@ -58,17 +58,17 @@ namespace MySales.DL
                 
         public int CreateUser(User theUser)
         {
-            int statusCode = -1;
+            var statusCode = -1;
             try
             {
-                theUser.UserID = GetNextUserID();
-                using (OleDbConnection con = DBManager.GetConnection())
+                theUser.UserId = GetNextUserId();
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(INSERT_USER_QUERY, con))
+                    using (var cmd = new OleDbCommand(InsertUserQuery, con))
                     {
                         cmd.Parameters.Clear();
-                        cmd.Parameters.Add(new OleDbParameter("@id", theUser.UserID));
+                        cmd.Parameters.Add(new OleDbParameter("@id", theUser.UserId));
                         cmd.Parameters.Add(new OleDbParameter("@un", theUser.Username));
                         cmd.Parameters.Add(new OleDbParameter("@pwd", theUser.Password));                        
                         statusCode = cmd.ExecuteNonQuery();
@@ -89,16 +89,16 @@ namespace MySales.DL
 
         public int UpdateUser(User theUser)
         {
-            int statusCode = -1;
+            var statusCode = -1;
             try
             {                
-                using (OleDbConnection con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(UPDATE_USER_QUERY, con))
+                    using (var cmd = new OleDbCommand(UpdateUserQuery, con))
                     {
                         cmd.Parameters.Clear();
-                        cmd.Parameters.Add(new OleDbParameter("@id", theUser.UserID));
+                        cmd.Parameters.Add(new OleDbParameter("@id", theUser.UserId));
                         cmd.Parameters.Add(new OleDbParameter("@pwd", theUser.Password));
                         statusCode = cmd.ExecuteNonQuery();
                     }
@@ -116,22 +116,22 @@ namespace MySales.DL
 
         }
 
-        private long GetNextUserID()
+        private static long GetNextUserId()
         {
-            long _productID = 1;
+            long productId = 1;
             try
             {
-                using (OleDbConnection con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(SELECT_MAX_USER, con))
+                    using (var cmd = new OleDbCommand(SelectMaxUser, con))
                     {
-                        Object statusCode = cmd.ExecuteScalar();
+                        var statusCode = cmd.ExecuteScalar();
                         if (statusCode != DBNull.Value)
                         {
                             //_productID = (long)statusCode + 1;
-                            long.TryParse(statusCode.ToString(), out _productID);
-                            _productID += 1;
+                            long.TryParse(statusCode.ToString(), out productId);
+                            productId += 1;
                         }
                     }
                     if (con.State == ConnectionState.Open)
@@ -145,7 +145,7 @@ namespace MySales.DL
                 throw ex;
             }
 
-            return _productID;
+            return productId;
         }
     }
 }

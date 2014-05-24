@@ -7,7 +7,7 @@ namespace MySales.BO
 {
     public class Designation
     {
-        public long ID { get; set; }
+        public long Id { get; set; }
         public string Desc { get; set; }
     }
 }

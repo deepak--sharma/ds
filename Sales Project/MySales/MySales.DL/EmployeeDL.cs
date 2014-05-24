@@ -32,7 +32,7 @@ namespace MySales.DL
             var lstEmployee = new List<Employee>();
             try
             {
-                using (var con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
                     using (var cmd = new OleDbCommand(SelectAllEmp, con))
@@ -71,12 +71,12 @@ namespace MySales.DL
                                     IsActive = Convert.ToBoolean(dr["IsActive"]),
                                     Designation = new Designation
                                     {
-                                        ID = string.IsNullOrEmpty(Convert.ToString(dr["Desig_ID"])) ? long.Parse(dr["Desig_ID"].ToString().Trim()) : 0,
+                                        Id = string.IsNullOrEmpty(Convert.ToString(dr["Desig_ID"])) ? long.Parse(dr["Desig_ID"].ToString().Trim()) : 0,
                                         Desc = DBNull.Value != dr["Desig_Desc"] ? Convert.ToString(dr["Desig_Desc"]) : string.Empty
                                     },
                                     SalDetails = new SalaryDetail()
                                                      {
-                                                         ID = dr["SalID"] != DBNull.Value ? Convert.ToInt64(dr["SalID"].ToString().Trim()) : 0,
+                                                         Id = dr["SalID"] != DBNull.Value ? Convert.ToInt64(dr["SalID"].ToString().Trim()) : 0,
                                                          MonthlyGross = dr["MonthlyGross"] != DBNull.Value ? decimal.Parse(dr["MonthlyGross"].ToString().Trim()) : 0
                                                      },
                                     FullName = GetFullName(Convert.ToString(dr["FirstName"]), Convert.ToString(dr["MiddleName"]), Convert.ToString(dr["LastName"]))
@@ -104,7 +104,7 @@ namespace MySales.DL
             var lstEmployee = new List<Employee>();
             try
             {
-                using (var con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
                     using (var cmd = new OleDbCommand(SelectEmpAdvDetails, con))
@@ -128,7 +128,7 @@ namespace MySales.DL
                                     ,
                                     AdvanceDetails = new AdvanceDetail()
                                                          {
-                                                             ID = dr["AdvID"] != DBNull.Value && !string.IsNullOrEmpty(dr["AdvID"].ToString()) ? long.Parse(dr["AdvID"].ToString().Trim()) : 0,
+                                                             Id = dr["AdvID"] != DBNull.Value && !string.IsNullOrEmpty(dr["AdvID"].ToString()) ? long.Parse(dr["AdvID"].ToString().Trim()) : 0,
                                                              TotalAdvance = dr["TotalAdvance"] != DBNull.Value ? decimal.Parse(dr["TotalAdvance"].ToString().Trim()) : 0,
                                                              AdvanceDeduction = dr["AdvanceDeduction"] != DBNull.Value ? decimal.Parse(dr["AdvanceDeduction"].ToString().Trim()) : 0,
                                                              Balance = dr["Balance"] != DBNull.Value ? decimal.Parse(dr["Balance"].ToString().Trim()) : 0,
@@ -137,7 +137,7 @@ namespace MySales.DL
                                     ,
                                     Attendance = new EmpAttendance()
                                                      {
-                                                         ID = dr["AttID"] != DBNull.Value ? long.Parse(dr["AttID"].ToString().Trim()) : 0,
+                                                         Id = dr["AttID"] != DBNull.Value ? long.Parse(dr["AttID"].ToString().Trim()) : 0,
                                                          WorkDays = dr["WorkDays"] != DBNull.Value ? long.Parse(dr["WorkDays"].ToString().Trim()) : 0,
                                                          LeaveDays = dr["LeaveDays"] != DBNull.Value ? long.Parse(dr["LeaveDays"].ToString().Trim()) : 0,
                                                          Overtime = dr["Overtime"] != DBNull.Value ? long.Parse(dr["Overtime"].ToString().Trim()) : 0,
@@ -167,7 +167,7 @@ namespace MySales.DL
             var result = Utility.ActionStatus.SUCCESS;
             try
             {
-                using (var con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
                     using (var cmd = new OleDbCommand())
@@ -230,7 +230,7 @@ namespace MySales.DL
                         cmd.Parameters.Add(new OleDbParameter
                                                {
                                                    ParameterName = "@Designation",
-                                                   Value = employee.Designation.ID,
+                                                   Value = employee.Designation.Id,
                                                    OleDbType = OleDbType.BigInt
                                                });
                         cmd.Parameters.Add(new OleDbParameter
@@ -307,10 +307,9 @@ namespace MySales.DL
         }
 
 
-        private string GetFullName(string fn, string mn, string ln)
+        private static string GetFullName(string fn, string mn, string ln)
         {
-            string fullname = string.Empty;
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.Append(fn.Trim());
             if (!string.IsNullOrEmpty(mn))
             {
@@ -322,7 +321,7 @@ namespace MySales.DL
                 sb.Append(" ");
                 sb.Append(ln.Trim());
             }
-            fullname = sb.ToString();
+            var fullname = sb.ToString();
             return fullname;
         }
 
@@ -331,7 +330,7 @@ namespace MySales.DL
             Employee theEmployee = null;
             try
             {
-                using (var con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
                     using (var cmd = new OleDbCommand(SelectEmpById, con))
@@ -342,7 +341,6 @@ namespace MySales.DL
                         {
                             while (dr.Read())
                             {
-                                var tempDT = DateTime.MinValue;
                                 theEmployee = new Employee
                                 {
                                     Id = DBNull.Value != dr["ID"] && string.Empty != dr["ID"].ToString().Trim() ? long.Parse(dr["ID"].ToString().Trim()) : 0,
@@ -353,9 +351,7 @@ namespace MySales.DL
                                     FathersName = DBNull.Value != dr["FathersName"] ? dr["FathersName"].ToString() : string.Empty,
                                     Gender = DBNull.Value != dr["Gender"] ? dr["Gender"].ToString() : string.Empty,
                                     MobileNo = DBNull.Value != dr["MobileNo"] ? dr["MobileNo"].ToString() : string.Empty,
-                                    OtherNo = DBNull.Value != dr["OtherNo"] ? dr["OtherNo" +
-                                                                                 "" +
-                                                                                 ""].ToString() : string.Empty,
+                                    OtherNo = DBNull.Value != dr["OtherNo"] ? dr["OtherNo"].ToString() : string.Empty,
                                     DateOfBirth = DBNull.Value != dr["DateOfBirth"] ? DateTime.Parse(Convert.ToString(dr["DateOfBirth"])) : DateTime.Now,
                                     AddressC = new Address()
                                     {
@@ -377,12 +373,12 @@ namespace MySales.DL
                                     IsActive = Convert.ToBoolean(dr["IsActive"]),
                                     Designation = new Designation
                                     {
-                                        ID = string.IsNullOrEmpty(Convert.ToString(dr["Desig_ID"])) ? long.Parse(dr["Desig_ID"].ToString().Trim()) : 0,
+                                        Id = string.IsNullOrEmpty(Convert.ToString(dr["Desig_ID"])) ? long.Parse(dr["Desig_ID"].ToString().Trim()) : 0,
                                         Desc = DBNull.Value != dr["Desig_Desc"] ? Convert.ToString(dr["Desig_Desc"]) : string.Empty
                                     },
                                     SalDetails = new SalaryDetail()
                                     {
-                                        ID = dr["SalID"] != DBNull.Value ? Convert.ToInt64(dr["SalID"].ToString().Trim()) : 0,
+                                        Id = dr["SalID"] != DBNull.Value ? Convert.ToInt64(dr["SalID"].ToString().Trim()) : 0,
                                         MonthlyGross = dr["MonthlyGross"] != DBNull.Value ? decimal.Parse(dr["MonthlyGross"].ToString().Trim()) : 0
                                     },
                                     FullName = GetFullName(Convert.ToString(dr["FirstName"]), Convert.ToString(dr["MiddleName"]), Convert.ToString(dr["LastName"]))
@@ -409,7 +405,7 @@ namespace MySales.DL
             var result = Utility.ActionStatus.SUCCESS;
             try
             {
-                using (var con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
                     using (var cmd = new OleDbCommand(SelectAllActiveEmployees, con))

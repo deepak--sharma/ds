@@ -9,7 +9,7 @@ using System.Data;
 
 namespace MySales.DL
 {
-    public class AddressDL
+    public class AddressDl
     {
         #region Private Constants
         const string GET_ADDRESS = "SELECT [ID],[Line1],[State],[City],[Pincode] from [Address] where [ID] = @id";
@@ -25,7 +25,7 @@ namespace MySales.DL
             var address = new Address();
             try
             {
-                using (var con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
                     using (var cmd = new OleDbCommand(GET_ADDRESS, con))
@@ -65,7 +65,7 @@ namespace MySales.DL
             var code = Utility.ActionStatus.SUCCESS;
             try
             {
-                using (var con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
                     using (var cmd = new OleDbCommand())
@@ -109,7 +109,7 @@ namespace MySales.DL
         }
         public void DeleteAddress(Int64 id)
         {
-            using (var con = DBManager.GetConnection())
+            using (var con = DbManager.GetConnection())
             {
                 con.Open();
                 using (var cmd = new OleDbCommand(DELETE_ADDRESS, con))

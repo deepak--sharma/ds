@@ -8,7 +8,7 @@ using MySales.DL;
 
 namespace MySales.BL
 {
-    public class PayrollBL
+    public class PayrollBl
     {
         /* Algorithm:-
          * Monthly Inputs for Payroll Process:-
@@ -36,55 +36,55 @@ namespace MySales.BL
          */
         public Utility.ActionStatus PayrollCalculator(Employee emp, int month, int year)
         {
-            Utility.ActionStatus state = Utility.ActionStatus.SUCCESS;
+            var state = Utility.ActionStatus.SUCCESS;
             try
             {
                 decimal salaryAmt1 = 0;
                 decimal salaryAmt2 = 0;
-                decimal salaryAmt3 = 0;
                 decimal netPayableSal = 0;
-                decimal OTAmt = 0;
-                AdvanceDetailsBL objAdvanceDetailsBL = new AdvanceDetailsBL();
-                Payroll objPayroll = new Payroll();
-                decimal lAdvDedAmt = emp.AdvanceDetails.AdvanceDeduction;
-                emp.Attendance = new EmpAttendanceBL().GetEmpAttendance(emp.Id, month, year);
-                Int64 lLeaveDays = emp.Attendance.LeaveDays;
-                decimal lOTHrs = emp.Attendance.Overtime;
-                emp.AdvanceDetails = objAdvanceDetailsBL.GetAdvDetails(emp.Id);
-                emp.SalDetails = new SalaryDetailBL().GetMonthlyGross(emp.Id);
-                int daysInMonth = DateTime.DaysInMonth(year, month);
+                decimal otAmt = 0;
+                var objAdvanceDetailsBl = new AdvanceDetailsBl();
+                var objPayroll = new Payroll();
+                var lAdvDedAmt = emp.AdvanceDetails.AdvanceDeduction;
+                emp.Attendance = new EmpAttendanceBl().GetEmpAttendance(emp.Id, month, year);
+                var lLeaveDays = emp.Attendance.LeaveDays;
+                var lOtHrs = emp.Attendance.Overtime;
+                emp.AdvanceDetails = objAdvanceDetailsBl.GetAdvDetails(emp.Id);
+                emp.SalDetails = new SalaryDetailBl().GetMonthlyGross(emp.Id);
+                var daysInMonth = DateTime.DaysInMonth(year, month);
                 emp.Attendance.WorkDays = daysInMonth - lLeaveDays;
                 salaryAmt1 = (emp.SalDetails.MonthlyGross / daysInMonth) * emp.Attendance.WorkDays;
-                OTAmt = (emp.SalDetails.MonthlyGross / 8) * lOTHrs;
-                salaryAmt2 = salaryAmt1 + OTAmt;
+                otAmt = (emp.SalDetails.MonthlyGross / 8) * lOtHrs;
+                salaryAmt2 = salaryAmt1 + otAmt;
                 if (emp.AdvanceDetails.Balance > 0)
                 {
-                    if (emp.AdvanceDetails.Balance >= emp.AdvanceDetails.AdvanceDeduction)
+                    decimal salaryAmt3 = 0;
+                    if (emp.AdvanceDetails.Balance >= lAdvDedAmt)
                     {
-                        salaryAmt3 = salaryAmt2 - emp.AdvanceDetails.AdvanceDeduction;
-                        emp.AdvanceDetails.Balance = emp.AdvanceDetails.TotalAdvance - emp.AdvanceDetails.AdvanceDeduction;
+                        salaryAmt3 = salaryAmt2 - lAdvDedAmt;
+                        emp.AdvanceDetails.Balance = emp.AdvanceDetails.TotalAdvance - lAdvDedAmt;
                     }
                     else
                     {
                         salaryAmt3 = salaryAmt2 - emp.AdvanceDetails.Balance;
                         emp.AdvanceDetails.Balance = 0;
                     }
-                    objAdvanceDetailsBL.UpdateAdvanceDetails(emp);
+                    objAdvanceDetailsBl.UpdateAdvanceDetails(emp);
                     netPayableSal = salaryAmt3;
                 }
                 else
                 {
                     netPayableSal = salaryAmt2;
                 }
-                objPayroll.EmpID = emp.Id;
+                objPayroll.EmpId = emp.Id;
                 objPayroll.DaysWorked = emp.Attendance.WorkDays;
                 objPayroll.PYear = year;
                 objPayroll.PMonth = month;
-                objPayroll.NetPayable = netPayableSal;
+                objPayroll.NetPayable = decimal.Round(netPayableSal, 0);
                 objPayroll.CreateDate = DateTime.Now;
                 objPayroll.IsActive = true;
-                objPayroll.AdvanceDedAmt = emp.AdvanceDetails.AdvanceDeduction;
-                objPayroll.OvertimeAmt = OTAmt;
+                objPayroll.AdvanceDedAmt = lAdvDedAmt;
+                objPayroll.OvertimeAmt = otAmt;
                 objPayroll.Status = Utility.PayrollStatus.CALCULATED;
                 state = AddPayroll(objPayroll);
 
@@ -99,15 +99,15 @@ namespace MySales.BL
 
         public Utility.ActionStatus AddPayroll(Payroll objPayroll)
         {
-            return new PayrollDL().AddPayroll(objPayroll);
+            return new PayrollDl().AddPayroll(objPayroll);
         }
 
         public List<Employee> FetchPayrollData(int month, int year, Utility.PayrollStatus status, bool isActive)
         {
             var lstEmp = new EmployeeDl().GetAllEmployees();
-            var lstPayroll = new PayrollDL().FetchPayrollData(month, year, status, isActive);
+            var lstPayroll = new PayrollDl().FetchPayrollData(month, year, status, isActive);
             var payrollData = from a in lstEmp
-                              join b in lstPayroll on a.Id equals b.EmpID
+                              join b in lstPayroll on a.Id equals b.EmpId
                               select new Employee()
                                          {
                                              PayrollDetails = b,

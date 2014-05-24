@@ -72,7 +72,7 @@ namespace MySales
 
         private void SetupEmployeesList()
         {
-            var empBl = new EmployeeBL();
+            var empBl = new EmployeeBl();
             _empList = string.IsNullOrEmpty(_formMode)
                            ? empBl.GetAllEmployees()
                            : empBl.GetAdvanceEmplDetails(month, year);
@@ -191,7 +191,7 @@ namespace MySales
 
         private void SetupEmployeesGrid()
         {
-            var empBl = new EmployeeBL();
+            var empBl = new EmployeeBl();
             /* _empList = string.IsNullOrEmpty(_formMode)
                             ? empBl.GetAllEmployees()
                             : empBl.GetAdvanceEmplDetails(month, year);*/
@@ -429,8 +429,8 @@ namespace MySales
 
                 var attendanceDetail = new EmpAttendance()
                 {
-                    ID = Convert.ToInt64(dr.Cells[AttId].Value ?? dr.Cells[AttId].EditedFormattedValue),
-                    EmpID = Convert.ToInt64(dr.Cells[EmpId].Value ?? dr.Cells[EmpId].EditedFormattedValue),
+                    Id = Convert.ToInt64(dr.Cells[AttId].Value ?? dr.Cells[AttId].EditedFormattedValue),
+                    EmpId = Convert.ToInt64(dr.Cells[EmpId].Value ?? dr.Cells[EmpId].EditedFormattedValue),
                     WorkDays = Convert.ToInt64(dr.Cells[Present].Value ?? dr.Cells[Present].EditedFormattedValue),
                     LeaveDays = Convert.ToInt64(dr.Cells[Absent].Value ?? dr.Cells[Absent].EditedFormattedValue),
                     Overtime = Convert.ToDecimal(dr.Cells[OtHrs].Value ?? dr.Cells[OtHrs].EditedFormattedValue),
@@ -439,7 +439,7 @@ namespace MySales
                     TotalDays = DateTime.DaysInMonth(year, month),
                     ModifiedDate = DateTime.Now
                 };
-                var attendanceDetailsAdded = new EmpAttendanceBL().UpdateAttendanceDetails(attendanceDetail) ==
+                var attendanceDetailsAdded = new EmpAttendanceBl().UpdateAttendanceDetails(attendanceDetail) ==
                                              Utility.ActionStatus.SUCCESS;
                 if (attendanceDetailsAdded)
                 {

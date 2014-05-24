@@ -10,23 +10,23 @@ using MySales.Utils;
 namespace MySales.DL
 {
 
-    public class ClientDL
+    public class ClientDl
     {
         private const string ClientInsertQuery = "Insert into Client (ID,Name,Address,Description,CreationDate) values (@id,@name,@add,@desc,@dt)";
         private const string SelectMaxClient = "Select MAX(ID) FROM CLIENT";
         private const string SelectClientNames = "Select Distinct(Name),ID from Client order by Name asc";
         public int InsertClient(Client theClient)
         {
-            int statusCode = -1;
+            var statusCode = -1;
             try
-            {                
-                using (OleDbConnection con = DBManager.GetConnection())
+            {
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(ClientInsertQuery, con))
+                    using (var cmd = new OleDbCommand(ClientInsertQuery, con))
                     {
                         cmd.Parameters.Clear();
-                        cmd.Parameters.Add(new OleDbParameter("@id", theClient.ID));
+                        cmd.Parameters.Add(new OleDbParameter("@id", theClient.Id));
                         cmd.Parameters.Add(new OleDbParameter("@name", theClient.Name));
                         cmd.Parameters.Add(new OleDbParameter("@add", theClient.Address));
                         cmd.Parameters.Add(new OleDbParameter("@desc", theClient.Description));
@@ -46,22 +46,22 @@ namespace MySales.DL
             return statusCode;
         }
 
-        public long GetNextClientID()
+        public long GetNextClientId()
         {
-            long _clientID = 1;
+            long clientId = 1;
             try
             {
-                using (OleDbConnection con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(SelectMaxClient, con))
+                    using (var cmd = new OleDbCommand(SelectMaxClient, con))
                     {
-                        Object statusCode = cmd.ExecuteScalar();
+                        var statusCode = cmd.ExecuteScalar();
                         if (statusCode != DBNull.Value)
                         {
                             //_clientID = (long)statusCode + 1;
-                            long.TryParse(statusCode.ToString(), out _clientID);
-                            _clientID += 1;
+                            long.TryParse(statusCode.ToString(), out clientId);
+                            clientId += 1;
                         }
                     }
                     if (con.State == ConnectionState.Open)
@@ -74,35 +74,41 @@ namespace MySales.DL
             {
                 throw ex;
             }
-            return _clientID;
+            return clientId;
         }
 
         public List<Client> GetClientNames()
         {
-            List<Client> lstClient = new List<Client>();
+            var lstClient = new List<Client>();
             try
             {
-                using (OleDbConnection con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(SelectClientNames, con))
+                    using (var cmd = new OleDbCommand(SelectClientNames, con))
                     {
-                        OleDbDataReader dr = cmd.ExecuteReader();
-                        if (dr.HasRows)
+                        var dr = cmd.ExecuteReader();
+                        if (dr != null)
                         {
-                            while (dr.Read())
+                            if (dr.HasRows)
                             {
-                                Client objClient = new Client();
-                                objClient.Name = dr["Name"].ToString();
-                                //objClient.ID = lon dr["ID"];
-                                long _id = 0;
-                                long.TryParse(dr["ID"].ToString().Trim(), out _id);
-                                objClient.ID = _id;
-                                lstClient.Add(objClient);
+                                while (dr.Read())
+                                {
+                                    var objClient = new Client
+                                                {
+                                                    Name = dr["Name"].ToString()
+                                                };
+                                    //objClient.ID = lon dr["ID"];
+                                    long id = 0;
+                                    long.TryParse(dr["ID"].ToString().Trim(), out id);
+                                    objClient.Id = id;
+                                    lstClient.Add(objClient);
+                                }
                             }
+
+                            dr.Close();
+                            dr.Dispose();
                         }
-                        dr.Close();
-                        dr.Dispose();
                     }
                     if (con.State == ConnectionState.Open)
                     {

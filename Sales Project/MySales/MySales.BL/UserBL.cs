@@ -6,51 +6,44 @@ using MySales.BO;
 using MySales.DL;
 namespace MySales.BL
 {
-    public class UserBL
+    public class UserBl
     {
-        public static long userID;
+        public static long UserId;
         /*
             MODE Values
          *  1. ADD
          *  2. UPDATE
          */
-        public static int MODE = 1;
-        public bool IsUserValid(string userName, string password, out long userID)
+        public static int Mode = 1;
+        public bool IsUserValid(string userName, string password, out long userId)
         {
-            bool _isUserValid = false;
-            userID = 1;
-            User theUser = new UserDL().GetUserByUsername(userName);
+            var isUserValid = false;
+            userId = 1;
+            var theUser = new UserDl().GetUserByUsername(userName);
             if (theUser != null)
             {
-                userID = theUser.UserID;
+                userId = theUser.UserId;
                 if (password.Equals(UtilityClass.Decrypt(theUser.Password)))
-                { _isUserValid = true; }
+                { isUserValid = true; }
             }
-            return _isUserValid;
+            return isUserValid;
         }
 
 
         public User GetUserByuserName(string un)
         {
             User theUser = null;
-            theUser = new UserDL().GetUserByUsername(un);
+            theUser = new UserDl().GetUserByUsername(un);
             return theUser;
         }
 
         public string CreateUser(User theUser)
         {
-            string status = "START";
+            var status = "START";
             try
             {
-                int code = (new UserDL()).CreateUser(theUser);
-                if (code < 1)
-                {
-                    status = "ERROR";
-                }
-                else
-                {
-                    status = "SUCCESS";
-                }
+                var code = (new UserDl()).CreateUser(theUser);
+                status = code < 1 ? "ERROR" : "SUCCESS";
             }
             catch (Exception ex)
             {
@@ -61,19 +54,12 @@ namespace MySales.BL
 
         public string ChangePassword(User theUser)
         {
-            string status = "START";
+            var status = "START";
             try
             {
-                theUser.UserID = userID;
-                int code = (new UserDL()).UpdateUser(theUser);
-                if (code < 1)
-                {
-                    status = "ERROR";
-                }
-                else
-                {
-                    status = "SUCCESS";
-                }
+                theUser.UserId = UserId;
+                var code = (new UserDl()).UpdateUser(theUser);
+                status = code < 1 ? "ERROR" : "SUCCESS";
             }
             catch (Exception ex)
             {

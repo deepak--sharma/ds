@@ -8,22 +8,19 @@ namespace MySales.BO
     public class State
     {
         #region Private members
-        private City _city;
+
         #endregion
         #region Constructor
         public State()
         {
-            _city = new City();
+            City = new City();
         }
         #endregion
         #region Public Properties
 
-        public City City
-        {
-            get { return _city; }
-            set { _city = value; }
-        }
-        public long ID { get; set; }
+        public City City { get; set; }
+
+        public long Id { get; set; }
         public String Name { get; set; }
         #endregion
 

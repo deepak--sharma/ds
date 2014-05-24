@@ -7,9 +7,9 @@ namespace MySales.BO
 {
     public class Payroll
     {
-        public long ID
+        public long Id
         { get; set; }
-        public long EmpID
+        public long EmpId
         { get; set; }
         public decimal OvertimeAmt
         { get; set; }
@@ -23,7 +23,7 @@ namespace MySales.BO
         { get; set; }
         public int PYear
         { get; set; }
-        public MySales.Utils.Utility.PayrollStatus Status
+        public Utils.Utility.PayrollStatus Status
         { get; set; }
         public bool IsActive
         { get; set; }

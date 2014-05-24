@@ -7,13 +7,11 @@ using MySales.DL;
 
 namespace MySales.BL
 {
-    public class CityBL
+    public class CityBl
     {
         public List<City> GetCityList()
         {
-            List<City> cities = new List<City>();
-
-            cities = new CityDL().GetCityList();
+            var cities = new CityDl().GetCityList();
             return cities;
         }
     }

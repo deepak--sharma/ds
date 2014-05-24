@@ -7,13 +7,11 @@ using MySales.DL;
 
 namespace MySales.BL
 {
-    public class StateBL
+    public class StateBl
     {
         public List<State> GetStateList()
         {
-            List<State> states = new List<State>();
-
-            states = new StateDL().GetStateList();
+            var states = new StateDl().GetStateList();
             return states;
         }
     }

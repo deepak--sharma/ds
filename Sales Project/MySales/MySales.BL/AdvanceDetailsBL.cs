@@ -8,19 +8,19 @@ using MySales.Utils;
 
 namespace MySales.BL
 {
-    public class AdvanceDetailsBL
+    public class AdvanceDetailsBl
     {
-        private AdvanceDetailDL _advanceDetailDl = new AdvanceDetailDL();
-        public AdvanceDetail GetAdvDetails(Int64 empID)
+        private readonly AdvanceDetailDl _advanceDetailDl = new AdvanceDetailDl();
+        public AdvanceDetail GetAdvDetails(Int64 empId)
         {
-            return _advanceDetailDl.GetAdvDetails(empID);
+            return _advanceDetailDl.GetAdvDetails(empId);
 
         }
 
 
         public Utility.ActionStatus UpdateAdvanceDetails(Employee emp)
         {
-            Utility.ActionStatus code = Utility.ActionStatus.SUCCESS;
+            var code = Utility.ActionStatus.SUCCESS;
             try
             {
                 code = _advanceDetailDl.UpdateAdvanceDetails(emp);

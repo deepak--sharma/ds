@@ -4,23 +4,16 @@ using System;
 using System.Collections.Generic;
 namespace MySales.BL
 {
-    public class ClientBL
+    public class ClientBl
     {
 
         public string CreateClient(Client theClient)
         {
-            string status = "START";
+            var status = "START";
             try
             {
-                int code = (new ClientDL()).InsertClient(theClient);
-                if (code < 1)
-                {
-                    status = "ERROR";
-                }
-                else
-                {
-                    status = "SUCCESS";
-                }
+                var code = (new ClientDl()).InsertClient(theClient);
+                status = code < 1 ? "ERROR" : "SUCCESS";
             }
             catch (Exception ex)
             {
@@ -31,10 +24,10 @@ namespace MySales.BL
 
         public string GetClientNames(ref List<Client> lstClient)
         {
-            string status = "START";
+            var status = "START";
             try
             {
-                lstClient = new ClientDL().GetClientNames();
+                lstClient = new ClientDl().GetClientNames();
                 if (lstClient != null && lstClient.Count > 0)
                 {
                     status = "SUCCESS";
@@ -53,18 +46,18 @@ namespace MySales.BL
 
         }
 
-        public long GetNextClientID()
+        public long GetNextClientId()
         {
-            long _id = 0;
+            long id = 0;
             try
             {
-                _id = new ClientDL().GetNextClientID();
+                id = new ClientDl().GetNextClientId();
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
-            return _id;
+            return id;
 
         }
     }

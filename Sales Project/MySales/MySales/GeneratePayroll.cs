@@ -29,7 +29,7 @@ namespace MySales
 
         private void BindGrid()
         {
-            var objEmployeeBl = new EmployeeBL();
+            var objEmployeeBl = new EmployeeBl();
             var lst = objEmployeeBl.GetAllEmployees();
             lst = lst.OrderBy(x => x.FirstName).ToList();
             foreach (var emp in lst)
@@ -46,7 +46,7 @@ namespace MySales
         {
             var lstEmp = lbSource.Items.Cast<Employee>().ToList();
 
-            foreach (var emp in from emp in lstEmp let status = new PayrollBL().PayrollCalculator(emp, Convert.ToInt32(cbMonth.SelectedIndex) + 1, Convert.ToInt32(cbYear.SelectedItem.ToString())) where status == Utils.Utility.ActionStatus.SUCCESS select emp)
+            foreach (var emp in from emp in lstEmp let status = new PayrollBl().PayrollCalculator(emp, Convert.ToInt32(cbMonth.SelectedIndex) + 1, Convert.ToInt32(cbYear.SelectedItem.ToString())) where status == Utils.Utility.ActionStatus.SUCCESS select emp)
             {
                 _lstEmployees.Remove(emp);
                 Application.DoEvents();

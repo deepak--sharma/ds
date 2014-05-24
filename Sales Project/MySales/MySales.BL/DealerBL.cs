@@ -5,22 +5,15 @@ using System.Collections.Generic;
 
 namespace MySales.BL
 {
-    public class DealerBL
+    public class DealerBl
     {
         public string CreateDealer(Dealer theDealer)
         {
-            string status = "START";
+            var status = "START";
             try
             {
-                int code = (new DealerDL()).InsertDealer(theDealer);
-                if (code < 1)
-                {
-                    status = "ERROR";
-                }
-                else
-                {
-                    status = "SUCCESS";
-                }
+                var code = (new DealerDl()).InsertDealer(theDealer);
+                status = code < 1 ? "ERROR" : "SUCCESS";
             }
             catch (Exception ex)
             {
@@ -31,10 +24,10 @@ namespace MySales.BL
 
         public string GetDealerNames(ref List<Dealer> lstDealer)
         {
-            string status = "START";
+            var status = "START";
             try
             {
-                lstDealer = new DealerDL().GetDealerNames();
+                lstDealer = new DealerDl().GetDealerNames();
                 if (lstDealer != null && lstDealer.Count > 0)
                 {
                     status = "SUCCESS";
@@ -53,18 +46,18 @@ namespace MySales.BL
 
         }
 
-        public long GetNextDealerID()
+        public long GetNextDealerId()
         {
-            long _id = 0;
+            var id = 0;
             try
             {
-                _id = new DealerDL().GetNextDealerID();
+                id = (int) new DealerDl().GetNextDealerId();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return _id;
+            return id;
         }
     }
 }

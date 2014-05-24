@@ -54,13 +54,13 @@ namespace MySales
             theUser.Username = txtUN.Text.Trim();
             theUser.Password = UtilityClass.Encrypt(txtPwd.Text.Trim());
             string status = "";
-            switch (UserBL.MODE)
+            switch (UserBl.Mode)
             {
                 case 1:
-                    status = new UserBL().CreateUser(theUser);
+                    status = new UserBl().CreateUser(theUser);
                     break;
                 case 2:
-                    status = new UserBL().ChangePassword(theUser);
+                    status = new UserBl().ChangePassword(theUser);
                     break;
             }
             
@@ -79,7 +79,7 @@ namespace MySales
 
         private void Register_Load(object sender, EventArgs e)
         {
-            switch (UserBL.MODE)
+            switch (UserBl.Mode)
             {
                 case 1:
                     this.Text = "Register";

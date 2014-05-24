@@ -16,15 +16,15 @@ namespace MySales
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            User theUser = new UserBL().GetUserByuserName(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+            User theUser = new UserBl().GetUserByuserName(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
             if (theUser != null)
             {
                 Application.Run(new MySales.Login());
-                UserBL.MODE = 2;
+                UserBl.Mode = 2;
             }
             else
             {
-                UserBL.MODE = 1;
+                UserBl.Mode = 1;
                 Application.Run(new Register());
             }
         }

@@ -9,24 +9,24 @@ using System.Data;
 
 namespace MySales.DL
 {
-    public class SalaryDetailDL
+    public class SalaryDetailDl
     {
-        const string GET_GROSS_SALARY = "SELECT [MonthlyGross] from [Emp_Salary_Details] where [EmpID] = @empID";
-        const string ADD_EMP_SALARY = "INSERT INTO [Emp_Salary_Details] (EmpID,MonthlyGross,CreateDate) values (@EmpID,@MonthlyGross,@CreateDate)";
+        const string GetGrossSalary = "SELECT [MonthlyGross] from [Emp_Salary_Details] where [EmpID] = @empID";
+        const string AddEmpSalary = "INSERT INTO [Emp_Salary_Details] (EmpID,MonthlyGross,CreateDate) values (@EmpID,@MonthlyGross,@CreateDate)";
         private const string UpdateSalary = "UPDATE [Emp_Salary_Details] set MonthlyGross = @mg, ModifiedDate = @md where ID = @id";
 
-        public SalaryDetail GetMonthlyGross(Int64 empID)
+        public SalaryDetail GetMonthlyGross(Int64 empId)
         {
-            SalaryDetail salaryDetail = new SalaryDetail();
+            var salaryDetail = new SalaryDetail();
             try
             {
-                using (OleDbConnection con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(GET_GROSS_SALARY, con))
+                    using (var cmd = new OleDbCommand(GetGrossSalary, con))
                     {
                         cmd.Parameters.Clear();
-                        cmd.Parameters.Add(new OleDbParameter("@empID", empID));
+                        cmd.Parameters.Add(new OleDbParameter("@empID", empId));
                         salaryDetail.MonthlyGross = Convert.ToDecimal(cmd.ExecuteScalar());
 
                         if (con.State == ConnectionState.Open)
@@ -49,23 +49,23 @@ namespace MySales.DL
         {
             try
             {
-                using (var con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
                     using (var command = new OleDbCommand())
                     {
                         command.Connection = con;
                         command.Parameters.Clear();
-                        if (emp.SalDetails.ID > 0)
+                        if (emp.SalDetails.Id > 0)
                         {
                             command.CommandText = UpdateSalary;
                             command.Parameters.Add(new OleDbParameter { ParameterName = "@mg", Value = emp.SalDetails.MonthlyGross });
                             command.Parameters.Add(new OleDbParameter { ParameterName = "@md", Value = DateTime.Now, OleDbType = OleDbType.Date });
-                            command.Parameters.Add(new OleDbParameter { ParameterName = "@id", Value = emp.SalDetails.ID });
+                            command.Parameters.Add(new OleDbParameter { ParameterName = "@id", Value = emp.SalDetails.Id });
                         }
                         else
                         {
-                            command.CommandText = ADD_EMP_SALARY;
+                            command.CommandText = AddEmpSalary;
                             command.Parameters.Add(new OleDbParameter { ParameterName = "@EmpID", Value = emp.Id });
                             command.Parameters.Add(new OleDbParameter { ParameterName = "@MonthlyGross", Value = emp.SalDetails.MonthlyGross });
                             command.Parameters.Add(new OleDbParameter { ParameterName = "@CreateDate", Value = emp.SalDetails.CreateDate, OleDbType = OleDbType.Date });

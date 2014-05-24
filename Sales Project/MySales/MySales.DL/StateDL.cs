@@ -9,31 +9,31 @@ using System.Data;
 
 namespace MySales.DL
 {
-    public class StateDL
+    public class StateDl
     {
         #region Private Constants
-        const String SELECT_STATE = "SELECT [ID],[STATENAME] FROM [STATE]";
+        const String SelectState = "SELECT [ID],[STATENAME] FROM [STATE]";
         #endregion
 
         #region Public Methods
         public List<State> GetStateList()
         {
-            List<State> states = new List<State>();
+            var states = new List<State>();
             try
             {
-                using (OleDbConnection con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(SELECT_STATE, con))
+                    using (var cmd = new OleDbCommand(SelectState, con))
                     {
-                        OleDbDataReader dr = cmd.ExecuteReader();
-                        if (dr.HasRows)
+                        var dr = cmd.ExecuteReader();
+                        if (dr != null && dr.HasRows)
                         {
                             while (dr.Read())
                             {
-                                State theState = new State
+                                var theState = new State
                                 {
-                                    ID = null != dr["ID"] && string.Empty != dr["ID"].ToString().Trim() ? long.Parse(dr["ID"].ToString().Trim()) : 0,
+                                    Id = null != dr["ID"] && string.Empty != dr["ID"].ToString().Trim() ? long.Parse(dr["ID"].ToString().Trim()) : 0,
                                     Name = null != dr["StateName"] ? dr["StateName"].ToString() : string.Empty
                                 };
                                 states.Add(theState);

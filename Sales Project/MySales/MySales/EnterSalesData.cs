@@ -91,12 +91,12 @@ namespace MySales
             }
 
 
-            ClientBL objClientBL = new ClientBL();
+            ClientBl objClientBL = new ClientBl();
             try
             {
                 if (clientID == 0)
                 {
-                    theClient.ID = objClientBL.GetNextClientID();
+                    theClient.Id = objClientBL.GetNextClientId();
                     theClient.Name = this.txtClient.Text.Trim();
                     theClient.Address = "NA";
                     theClient.Description = this.txtClient.Text.Trim();
@@ -106,7 +106,7 @@ namespace MySales
                 }
                 else
                 {
-                    theClient.ID = clientID;
+                    theClient.Id = clientID;
                     clientCreated = true;
                 }
 
@@ -123,10 +123,10 @@ namespace MySales
             bool dealerCreated = false;
             try
             {
-                DealerBL objDealerBL = new DealerBL();
+                DealerBl objDealerBL = new DealerBl();
                 if (dealerID == 0)
                 {
-                    theDealer.ID = objDealerBL.GetNextDealerID();
+                    theDealer.Id = objDealerBL.GetNextDealerId();
                     theDealer.Name = this.txtDealer.Text.Trim();
                     theDealer.Address = "NA";
                     theDealer.Description = this.txtDealer.Text.Trim();
@@ -136,7 +136,7 @@ namespace MySales
                 }
                 else
                 {
-                    theDealer.ID = dealerID;
+                    theDealer.Id = dealerID;
                     dealerCreated = true;
                 }
 
@@ -169,7 +169,7 @@ namespace MySales
                 theProduct.Amount = amount;
                 float.TryParse(this.txtBalance.Text.Trim(), out balance);
                 theProduct.Balance = balance;
-                string strStatus = new ProductBL().CreateProduct(theProduct);
+                string strStatus = new ProductBl().CreateProduct(theProduct);
                 productCreated = strStatus == "SUCCESS";
 
             }
@@ -185,7 +185,7 @@ namespace MySales
             try
             {
                 AutoCompleteStringCollection clientNames = new AutoCompleteStringCollection();
-                string strStatus = new ClientBL().GetClientNames(ref lstClient);
+                string strStatus = new ClientBl().GetClientNames(ref lstClient);
                 switch (strStatus)
                 {
                     case "SUCCESS":
@@ -212,7 +212,7 @@ namespace MySales
             try
             {
                 AutoCompleteStringCollection dealerNames = new AutoCompleteStringCollection();
-                string strStatus = new DealerBL().GetDealerNames(ref lstDealer);
+                string strStatus = new DealerBl().GetDealerNames(ref lstDealer);
                 switch (strStatus)
                 {
                     case "SUCCESS":
@@ -242,7 +242,7 @@ namespace MySales
                 var selectedClient = from c in lstClient
                                      where c.Name == txtClient.Text.Trim()
                                      select c;
-                clientID = selectedClient.First().ID;
+                clientID = selectedClient.First().Id;
             }
         }
 
@@ -254,7 +254,7 @@ namespace MySales
                 var selectedDealer = from c in lstDealer
                                      where c.Name == txtDealer.Text.Trim()
                                      select c;
-                dealerID = selectedDealer.First().ID;
+                dealerID = selectedDealer.First().Id;
             }
         }
 

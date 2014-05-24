@@ -7,9 +7,9 @@ namespace MySales.BO
 {
     public class EmpAttendance
     {
-        public long ID
+        public long Id
         { get; set; }
-        public long EmpID
+        public long EmpId
         { get; set; }
         public int Month
         { get; set; }

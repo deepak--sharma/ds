@@ -8,15 +8,15 @@ using MySales.Utils;
 
 namespace MySales.BL
 {
-    public class EmpAttendanceBL
+    public class EmpAttendanceBl
     {
-        private EmpAttendanceDL _empAttendanceDl = new EmpAttendanceDL();
-        public EmpAttendance GetEmpAttendance(long empID, int month, int year)
+        private readonly EmpAttendanceDl _empAttendanceDl = new EmpAttendanceDl();
+        public EmpAttendance GetEmpAttendance(long empId, int month, int year)
         {
-            EmpAttendance empAttDetails = new EmpAttendance();
+            var empAttDetails = new EmpAttendance();
             try
             {
-                empAttDetails = _empAttendanceDl.GetEmpAttendance(empID, month, year);
+                empAttDetails = _empAttendanceDl.GetEmpAttendance(empId, month, year);
             }
             catch (Exception)
             {

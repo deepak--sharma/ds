@@ -7,48 +7,46 @@ using System.Data.OleDb;
 using System.Configuration;
 namespace MySales.Utils
 {
-    public class DBManager
+    public class DbManager
     {
-        public DBManager()
+        public DbManager()
         {
             //_con = ConfigurationManager.ConnectionStrings["LocalAccessDB"].ConnectionString.Trim();
         }
 
 
-        private static string _con = ConfigurationManager.ConnectionStrings["LocalAccessDB"].ConnectionString.Trim();
+        private static readonly string Con = ConfigurationManager.ConnectionStrings["LocalAccessDB"].ConnectionString.Trim();
 
         public static OleDbConnection GetConnection()
         {
-            if (_con == "") return null;
-            else
-                return new OleDbConnection(_con);
-        }
-        private OleDbCommand GetCommand(string commandText, OleDbConnection con)
-        {
-            OleDbCommand cmd = new OleDbCommand(commandText, con);
-            if (cmd == null) return null;
-            else return cmd;
-        }
-        private OleDbDataAdapter GetDataAdapter(OleDbCommand cmd)
-        {
-            OleDbDataAdapter dataAdapter = new OleDbDataAdapter(cmd);
-            if (dataAdapter == null) return null;
-            else return dataAdapter;
+            return Con == "" ? null : new OleDbConnection(Con);
         }
 
-        public void GetFilledDataset(DataSet inputDS, OleDbDataAdapter inputDataAdapter)
+        private static OleDbCommand GetCommand(string commandText, OleDbConnection con)
         {
-            inputDataAdapter.Fill(inputDS);
+            var cmd = new OleDbCommand(commandText, con);
+            return cmd;
         }
-        public void GetFilledDataset(DataSet inputDS, string commandText)
+
+        private static OleDbDataAdapter GetDataAdapter(OleDbCommand cmd)
         {
-            using (OleDbConnection con = GetConnection())
+            var dataAdapter = new OleDbDataAdapter(cmd);
+            return dataAdapter;
+        }
+
+        public void GetFilledDataset(DataSet inputDs, OleDbDataAdapter inputDataAdapter)
+        {
+            inputDataAdapter.Fill(inputDs);
+        }
+        public void GetFilledDataset(DataSet inputDs, string commandText)
+        {
+            using (var con = GetConnection())
             {
-                using (OleDbCommand cmd = GetCommand(commandText, con))
+                using (var cmd = GetCommand(commandText, con))
                 {
-                    using (OleDbDataAdapter adapter = GetDataAdapter(cmd))
+                    using (var adapter = GetDataAdapter(cmd))
                     {
-                        adapter.Fill(inputDS);
+                        adapter.Fill(inputDs);
                     }
                 }
             }
@@ -56,13 +54,13 @@ namespace MySales.Utils
 
         public int ExecuteQuery(OleDbCommand cmd)
         {
-            using (OleDbConnection con = GetConnection())
+            using (var con = GetConnection())
             {
                 con.Open();
                 using (cmd)
                 {
 
-                    Object code = cmd.ExecuteScalar();
+                    var code = cmd.ExecuteScalar();
                     return (int)code;
                 }
             }
@@ -70,12 +68,12 @@ namespace MySales.Utils
 
         public int ExecuteScalar(string query)
         {
-            using (OleDbConnection con = GetConnection())
+            using (var con = GetConnection())
             {
                 con.Open();
-                using (OleDbCommand cmd = GetCommand(query, con))
+                using (var cmd = GetCommand(query, con))
                 {
-                    Object code = cmd.ExecuteScalar();
+                    var code = cmd.ExecuteScalar();
                     return (int)code;
                 }
             }

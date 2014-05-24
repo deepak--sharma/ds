@@ -9,34 +9,34 @@ using System.Data;
 
 namespace MySales.DL
 {
-    public class EmpAttendanceDL
+    public class EmpAttendanceDl
     {
-        private const string SELECT_ATT = "Select [ID],[TotalDays],[WorkDays],[LeaveDays],[Overtime],[CreateDate],[ModifiedDate] from [Emp_Attendance] where [EmpID] = @empID And [PayrollMonth]=@mnt And [PayrollYear]=@yr";
-        private const string SELECT_ALL_ATT = "Select [ID],[TotalDays],[WorkDays],[LeaveDays],[Overtime],[CreateDate],[ModifiedDate] from [Emp_Attendance] where [EmpID] In (@empID) And [PayrollMonth]=@mnt And [PayrollYear]=@yr";
-        private const string INSERT_ATT = "Insert into Emp_Attendance (EmpID,PayrollMonth,PayrollYear,TotalDays,WorkDays,LeaveDays,Overtime,CreateDate,ModifiedDate) values (@empid,@mon,@yr,@td,@wd,@ld,@ot,@cd,@md);";
+        private const string SelectAtt = "Select [ID],[TotalDays],[WorkDays],[LeaveDays],[Overtime],[CreateDate],[ModifiedDate] from [Emp_Attendance] where [EmpID] = @empID And [PayrollMonth]=@mnt And [PayrollYear]=@yr";
+        private const string SelectAllAtt = "Select [ID],[TotalDays],[WorkDays],[LeaveDays],[Overtime],[CreateDate],[ModifiedDate] from [Emp_Attendance] where [EmpID] In (@empID) And [PayrollMonth]=@mnt And [PayrollYear]=@yr";
+        private const string InsertAtt = "Insert into Emp_Attendance (EmpID,PayrollMonth,PayrollYear,TotalDays,WorkDays,LeaveDays,Overtime,CreateDate,ModifiedDate) values (@empid,@mon,@yr,@td,@wd,@ld,@ot,@cd,@md);";
         private const string UpdateAttendance = "Update Emp_Attendance set TotalDays=@td,WorkDays=@wd,LeaveDays=@ld,Overtime=@ot,ModifiedDate=@md where [ID] = @attId";
         private const string InsertBlankAttendanceRecordsForCurrentPayroll = "Insert into Emp_Attendance (EmpID,PayrollMonth,PayrollYear,CreateDate) values (@eid,@pm,@py,@cd)";
-        public EmpAttendance GetEmpAttendance(long empID, int month, int year)
+        public EmpAttendance GetEmpAttendance(long empId, int month, int year)
         {
-            EmpAttendance empAttDetails = new EmpAttendance();
+            var empAttDetails = new EmpAttendance();
             try
             {
-                using (OleDbConnection con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (OleDbCommand cmd = new OleDbCommand(SELECT_ATT, con))
+                    using (var cmd = new OleDbCommand(SelectAtt, con))
                     {
                         cmd.Parameters.Clear();
-                        cmd.Parameters.Add(new OleDbParameter("@empID", empID));
+                        cmd.Parameters.Add(new OleDbParameter("@empID", empId));
                         cmd.Parameters.Add(new OleDbParameter("@mnt", month));
                         cmd.Parameters.Add(new OleDbParameter("@yr", year));
-                        OleDbDataReader dr = cmd.ExecuteReader();
-                        if (dr.HasRows)
+                        var dr = cmd.ExecuteReader();
+                        if (dr != null && dr.HasRows)
                         {
                             while (dr.Read())
                             {
-                                empAttDetails.EmpID = empID;
-                                empAttDetails.ID = Convert.ToInt64(dr["ID"]);
+                                empAttDetails.EmpId = empId;
+                                empAttDetails.Id = Convert.ToInt64(dr["ID"]);
                                 empAttDetails.TotalDays = Convert.ToInt64(dr["TotalDays"]);
                                 empAttDetails.Month = month;
                                 empAttDetails.Year = year;
@@ -69,17 +69,17 @@ namespace MySales.DL
             var code = Utility.ActionStatus.SUCCESS;
             try
             {
-                using (var con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (var cmd = new OleDbCommand(INSERT_ATT, con))
+                    using (var cmd = new OleDbCommand(InsertAtt, con))
                     {
                         cmd.Parameters.Clear();
                         cmd.Parameters.Add(new OleDbParameter()
                         {
                             OleDbType = OleDbType.Numeric,
                             ParameterName = "@empid",
-                            Value = att.EmpID
+                            Value = att.EmpId
                         });
 
                         cmd.Parameters.Add(new OleDbParameter()
@@ -157,7 +157,7 @@ namespace MySales.DL
 
 
 
-                using (var con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
                     using (var cmd = new OleDbCommand())
@@ -186,8 +186,8 @@ namespace MySales.DL
                             {
                                 var empAttDetails = new EmpAttendance()
                                                         {
-                                                            EmpID = dr["EmpID"] == DBNull.Value ? 0 : Convert.ToInt64(dr["EmpID"]),
-                                                            ID = dr["ID"] == DBNull.Value ? 0 : Convert.ToInt64(dr["ID"]),
+                                                            EmpId = dr["EmpID"] == DBNull.Value ? 0 : Convert.ToInt64(dr["EmpID"]),
+                                                            Id = dr["ID"] == DBNull.Value ? 0 : Convert.ToInt64(dr["ID"]),
                                                             TotalDays = dr["TotalDays"] == DBNull.Value ? 0 : Convert.ToInt64(dr["TotalDays"]),
                                                             Month = month,
                                                             Year = year,
@@ -209,7 +209,7 @@ namespace MySales.DL
                         }
                         else
                         {
-                            dr.Close();
+                            if (dr != null) dr.Close();
                             cmd.Connection = con;
                             cmd.CommandText = InsertBlankAttendanceRecordsForCurrentPayroll;
                             foreach (var t in idParams)
@@ -259,7 +259,7 @@ namespace MySales.DL
             var state = Utility.ActionStatus.SUCCESS;
             try
             {
-                using (var con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
                     using (var cmd = new OleDbCommand(UpdateAttendance, con))
@@ -298,7 +298,7 @@ namespace MySales.DL
                         cmd.Parameters.Add(new OleDbParameter()
                         {
                             ParameterName = "@attId",
-                            Value = empAtt.ID,
+                            Value = empAtt.Id,
                             OleDbType = OleDbType.BigInt
                         });
                         var rowsEffected = cmd.ExecuteNonQuery();

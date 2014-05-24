@@ -41,7 +41,7 @@ namespace MySales
             dgSalesData.Columns["PurchaseDate"].DataPropertyName = "PurchaseDate";
 
 
-            ProductBL objProductBL = new ProductBL();
+            ProductBl objProductBL = new ProductBl();
             List<Product> lstProducts = new List<Product>();
             lstProducts = objProductBL.GetAllProducts();
             if (lstProducts.Count > 0)
@@ -62,7 +62,7 @@ namespace MySales
 
         private void FetchData()
         {
-            DBManager objDBManager = new DBManager();
+            DbManager objDBManager = new DbManager();
         }
 
         private void dgSalesData_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

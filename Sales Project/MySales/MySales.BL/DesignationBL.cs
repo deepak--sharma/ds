@@ -7,11 +7,11 @@ using MySales.DL;
 
 namespace MySales.BL
 {
-    public class DesignationBL
+    public class DesignationBl
     {
         public List<Designation> GetDesignations()
         {
-            return new DesignationDL().GetDesignations();
+            return new DesignationDl().GetDesignations();
         }
     }
 }

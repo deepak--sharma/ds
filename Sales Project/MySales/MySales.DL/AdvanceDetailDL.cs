@@ -9,22 +9,22 @@ using System.Data;
 
 namespace MySales.DL
 {
-    public class AdvanceDetailDL
+    public class AdvanceDetailDl
     {
-        const string GET_ADV_DETAIL = "SELECT [AdvanceDeduction],[TotalAdvance],[Balance] from [Emp_Advance_Details] where [EmpID] = @empID";
-        const string GET_ALL_ADV_DETAIL = "SELECT [AdvanceDeduction],[TotalAdvance],[Balance] from [Emp_Advance_Details]";
-        const string U_ADV_DETAIL = "UPDATE [Emp_Advance_Details] set [Balance]=@bal where [EmpID]=@empID";
-        private const string INSERT_ADVANCE_DETAIL = "Insert into Emp_Advance_Details (EmpID,TotalAdvance,AdvanceDeduction,Balance,CreateDate,ModifiedDate) values (@empid,@total,@deduct,@bal,@cd,@md);";
-        private const string DELETE_ADVANCE_DETAIL = "delete from Emp_Advance_Details where ";
+        const string GetAdvDetail = "SELECT [AdvanceDeduction],[TotalAdvance],[Balance] from [Emp_Advance_Details] where [EmpID] = @empID";
+        const string GetAllAdvDetail = "SELECT [AdvanceDeduction],[TotalAdvance],[Balance] from [Emp_Advance_Details]";
+        const string UAdvDetail = "UPDATE [Emp_Advance_Details] set [Balance]=@bal where [EmpID]=@empID";
+        private const string InsertAdvanceDetail = "Insert into Emp_Advance_Details (EmpID,TotalAdvance,AdvanceDeduction,Balance,CreateDate,ModifiedDate) values (@empid,@total,@deduct,@bal,@cd,@md);";
+        private const string DeleteAdvanceDetail = "delete from Emp_Advance_Details where ";
         public AdvanceDetail GetAdvDetails(Int64 empId)
         {
             var advanceDetail = new AdvanceDetail();
             try
             {
-                using (var con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (var cmd = new OleDbCommand(GET_ADV_DETAIL, con))
+                    using (var cmd = new OleDbCommand(GetAdvDetail, con))
                     {
                         cmd.Parameters.Clear();
                         cmd.Parameters.Add(new OleDbParameter("@empID", empId));
@@ -61,10 +61,10 @@ namespace MySales.DL
             var code = Utility.ActionStatus.SUCCESS;
             try
             {
-                using (var con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (var cmd = new OleDbCommand(U_ADV_DETAIL, con))
+                    using (var cmd = new OleDbCommand(UAdvDetail, con))
                     {
                         cmd.Parameters.Clear();
                         cmd.Parameters.Add(new OleDbParameter("@bal", emp.AdvanceDetails.Balance));
@@ -92,17 +92,17 @@ namespace MySales.DL
             var code = Utility.ActionStatus.SUCCESS;
             try
             {
-                using (var con = DBManager.GetConnection())
+                using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (var cmd = new OleDbCommand(INSERT_ADVANCE_DETAIL, con))
+                    using (var cmd = new OleDbCommand(InsertAdvanceDetail, con))
                     {
                         cmd.Parameters.Clear();
                         cmd.Parameters.Add(new OleDbParameter()
                                                {
                                                    OleDbType = OleDbType.Numeric,
                                                    ParameterName = "@empid",
-                                                   Value = adv.EmpID
+                                                   Value = adv.EmpId
                                                });
                         cmd.Parameters.Add(new OleDbParameter()
                         {

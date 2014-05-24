@@ -8,21 +8,21 @@ using MySales.Utils;
 
 namespace MySales.BL
 {
-    public class AddressBL
+    public class AddressBl
     {
         public Address GetAddress(Int64 id)
         {
-            return new AddressDL().GetAddress(id);
+            return new AddressDl().GetAddress(id);
         }
 
         public Utility.ActionStatus AddUpdateAddress(Address address)
         {
-            return new AddressDL().AddUpdateAddress(address);
+            return new AddressDl().AddUpdateAddress(address);
         }
 
         public void DeleteAddress(Int64 id)
         {
-            new AddressDL().DeleteAddress(id);
+            new AddressDl().DeleteAddress(id);
         }
 
         //public Utility.ActionStatus UpdateAdvanceDetails(Employee emp)

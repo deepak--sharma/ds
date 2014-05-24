@@ -25,18 +25,18 @@ namespace MySales
             InitializeComponent();
             _empID = empID;
         }
-        StateBL objStateBL = new StateBL();
-        CityBL objCityBL = new CityBL();
+        StateBl objStateBL = new StateBl();
+        CityBl objCityBL = new CityBl();
         private long _currentAddressId;
         private long _permanentAddressId;
         private long _salaryId;
 
         private void FillDesignation()
         {
-            List<Designation> lstDesignation = new DesignationBL().GetDesignations();
+            List<Designation> lstDesignation = new DesignationBl().GetDesignations();
             if (null != lstDesignation)
             {
-                lstDesignation.Insert(0, new Designation { Desc = "-select-", ID = -1 });
+                lstDesignation.Insert(0, new Designation { Desc = "-select-", Id = -1 });
                 ddlDesig.DataSource = lstDesignation;
                 ddlDesig.DisplayMember = "Desc";
                 ddlDesig.ValueMember = "ID";
@@ -50,7 +50,7 @@ namespace MySales
             var lstStatesP = new List<State>();
             if (null != lstStatesC)
             {
-                lstStatesC.Insert(0, new State { Name = "-select-", ID = -1 });
+                lstStatesC.Insert(0, new State { Name = "-select-", Id = -1 });
                 ddlStateC.DataSource = lstStatesC;
                 ddlStateC.DisplayMember = "Name";
                 ddlStateC.ValueMember = "ID";
@@ -67,10 +67,10 @@ namespace MySales
         {
             var lstCity = objCityBL.GetCityList();
             var lstFilteredCity = from city in lstCity
-                                  where city.StateID == stateId
+                                  where city.StateId == stateId
                                   select city;
             var lstCity1 = lstFilteredCity.ToList<City>();
-            lstCity1.Insert(0, new City { Name = "-select-", ID = -1 });
+            lstCity1.Insert(0, new City { Name = "-select-", Id = -1 });
 
             if (strType == "C")
             {
@@ -99,7 +99,7 @@ namespace MySales
 
         private void SetupForm()
         {
-            var emp = new EmployeeBL().GetSingleEmployee(_empID);
+            var emp = new EmployeeBl().GetSingleEmployee(_empID);
             if (emp == null) return;
             txtFN.Text = emp.FirstName;
             txtMN.Text = emp.MiddleName;
@@ -121,7 +121,7 @@ namespace MySales
             txtOtherNo.Text = emp.OtherNo;
             _currentAddressId = emp.AddressC.Id;
             _permanentAddressId = emp.AddressP.Id;
-            _salaryId = emp.SalDetails.ID;
+            _salaryId = emp.SalDetails.Id;
             txtMonthlyGross.Text = emp.SalDetails.MonthlyGross.ToString();
         }
 
@@ -187,7 +187,7 @@ namespace MySales
                 OtherNo = txtOtherNo.Text.Trim(),
                 DateOfJoining = DateTime.Now,
                 IsActive = true,
-                Designation = new Designation { ID = Convert.ToInt64(this.ddlDesig.SelectedValue) },
+                Designation = new Designation { Id = Convert.ToInt64(this.ddlDesig.SelectedValue) },
                 AddressC = new Address()
                                {
                                    Id = _currentAddressId,
@@ -207,13 +207,13 @@ namespace MySales
                ,
                 SalDetails = new SalaryDetail()
                                  {
-                                     ID = _salaryId,
+                                     Id = _salaryId,
                                      CreateDate = DateTime.Now,
                                      MonthlyGross = !string.IsNullOrEmpty(txtMonthlyGross.Text.Trim()) ?
                                      Convert.ToDecimal(txtMonthlyGross.Text.Trim()) : 0
                                  }
             };
-            MessageBox.Show(new EmployeeBL().AddUpdateEmployee(emp, 1) == Utility.ActionStatus.SUCCESS
+            MessageBox.Show(new EmployeeBl().AddUpdateEmployee(emp, 1) == Utility.ActionStatus.SUCCESS
                                 ? "Data saved successfully."
                                 : "Error: Please contact product support.");
             this.Close();

@@ -8,7 +8,7 @@ using MySales.Utils;
 
 namespace MySales.BL
 {
-    public class EmployeeBL
+    public class EmployeeBl
     {
         private readonly EmployeeDl _empDl = new EmployeeDl();
         public List<Employee> GetAllEmployees()
@@ -32,7 +32,7 @@ namespace MySales.BL
              * 3. Add Employee Salary Details (if any).
              * 4. Add Employee Advance Details (if any).             
              */
-            var addressBl = new AddressBL();
+            var addressBl = new AddressBl();
             var result = Utility.ActionStatus.SUCCESS;
             var cStatus = addressBl.AddUpdateAddress(employee.AddressC);
             var pStatus = addressBl.AddUpdateAddress(employee.AddressP);
@@ -43,7 +43,7 @@ namespace MySales.BL
                 addressBl.DeleteAddress(employee.AddressP.Id);
                 return Utility.ActionStatus.FAILURE;
             }
-            var salStatus = new SalaryDetailBL().AddUpdateSalaryDetails(employee);
+            var salStatus = new SalaryDetailBl().AddUpdateSalaryDetails(employee);
             result = _empDl.AddUpdateEmployee(employee, userId);
             if (result == Utility.ActionStatus.FAILURE)
             {
@@ -77,7 +77,7 @@ namespace MySales.BL
                 if (ctr < empList.Count)
                     empIds.Append(",");
             }
-            var attList = new EmpAttendanceDL().GetAllEmpAttendance(empIds.ToString(), month, year);
+            var attList = new EmpAttendanceDl().GetAllEmpAttendance(empIds.ToString(), month, year);
             if (attList.Count == 0)
             {
                 //Insert blank attendance records for each emp
@@ -87,7 +87,7 @@ namespace MySales.BL
                 }
             }
             var empAttList = from a in empList
-                             join b in attList on a.Id equals b.EmpID
+                             join b in attList on a.Id equals b.EmpId
                              select new Employee()
                                         {
                                             Attendance = b,

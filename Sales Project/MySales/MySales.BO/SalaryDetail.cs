@@ -7,9 +7,9 @@ namespace MySales.BO
 {
     public class SalaryDetail
     {
-        public long ID
+        public long Id
         { get; set; }
-        public long EmpID
+        public long EmpId
         { get; set; }
         public decimal MonthlyGross
         { get; set; }
