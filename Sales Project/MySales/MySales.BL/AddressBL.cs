@@ -14,7 +14,6 @@ namespace MySales.BL
         {
             return new AddressDl().GetAddress(id);
         }
-
         public Utility.ActionStatus AddUpdateAddress(Address address)
         {
             return new AddressDl().AddUpdateAddress(address);
