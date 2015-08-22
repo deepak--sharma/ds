@@ -78,14 +78,14 @@ namespace MySales.BL
                     empIds.Append(",");
             }
             var attList = new EmpAttendanceDl().GetAllEmpAttendance(empIds.ToString(), month, year);
-            if (attList.Count == 0)
-            {
-                //Insert blank attendance records for each emp
-                foreach (var employee in empList)
-                {
+            //if (attList.Count == 0)
+            //{
+            //    //Insert blank attendance records for each emp
+            //    foreach (var employee in empList)
+            //    {
 
-                }
-            }
+            //    }
+            //}
             var empAttList = from a in empList
                              join b in attList on a.Id equals b.EmpId
                              select new Employee()
