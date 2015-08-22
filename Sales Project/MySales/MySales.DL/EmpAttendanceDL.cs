@@ -242,7 +242,7 @@ namespace MySales.DL
 
                                 var status = cmd.ExecuteNonQuery();
                             }
-                            GetAllEmpAttendance(empIds, month, year);
+                            lstAtt = GetAllEmpAttendance(empIds, month, year);
                         }
                     }
                 }
