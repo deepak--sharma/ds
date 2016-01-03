@@ -468,6 +468,12 @@ namespace MySales
                 MessageBox.Show("Please enter a valid number");
                 dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = tmpVal;
             }
+            if (tmpVal<0)
+            {
+                MessageBox.Show("Only positive numbers are allowed");
+                dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0;
+            }
         }
+
     }
 }
