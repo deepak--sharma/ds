@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using MySales.BL;
 using MySales.BO;
+using MySales.DL;
 using MySales.Utils;
 
 namespace MySales
@@ -30,9 +31,26 @@ namespace MySales
         private void BindGrid()
         {
             var objEmployeeBl = new EmployeeBl();
-            var lst = objEmployeeBl.GetAllEmployees();
-            lst = lst.OrderBy(x => x.FirstName).ToList();
-            foreach (var emp in lst)
+            var lstEmp = objEmployeeBl.GetAllEmployees();
+            //var lstPayroll = new PayrollDl().FetchPayrollData(Convert.ToInt32(cbMonth.SelectedIndex) + 1 , Convert.ToInt32(cbYear.SelectedItem.ToString()), Utility.PayrollStatus.CALCULATED, true);
+            //filter out employess that have payroll already generated for the current month/yr
+            //var payrollData = from a in lstEmp
+            //                  join b in lstPayroll on a.Id equals b.EmpId
+            //                  select new Employee()
+            //                  {
+            //                      PayrollDetails = b,
+            //                      Id = a.Id,
+            //                      EmpCode = a.EmpCode,
+            //                      FirstName = a.FirstName,
+            //                      MiddleName = a.MiddleName,
+            //                      LastName = a.LastName,
+            //                      FullName = a.FullName
+
+            //                  };
+
+            
+            lstEmp = lstEmp.OrderBy(x => x.FirstName).ToList();
+            foreach (var emp in lstEmp)
             {
                 _lstEmployees.Add(emp);
             }

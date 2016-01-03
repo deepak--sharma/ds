@@ -152,7 +152,9 @@ namespace MySales
                         HeaderText = "OT Hours",
                         Name = OtHrs,
                         ReadOnly = false,
-                        DataPropertyName = "Attendance.Overtime"
+                        MaxInputLength = 2,
+                        DataPropertyName = "Attendance.Overtime",
+                        
                     });
                     /*dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
                     {
@@ -473,6 +475,7 @@ namespace MySales
                 MessageBox.Show("Only positive numbers are allowed");
                 dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0;
             }
+
         }
 
     }

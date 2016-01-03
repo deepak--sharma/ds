@@ -99,11 +99,13 @@ namespace MySales.Utils
                     return 0;
             }
         }
+
         /// <summary>
         /// This function sets month and year value to a value prior to current month.
         /// </summary>
         /// <param name="cbMonth">Object of month combobox</param>
         /// <param name="cbYear">Object of year combobox</param>
+        /// <param name="viewPayroll">Boolean variable to flag function invoked from view payroll page </param>
         public static void SetPayrollMonthYearDropdownList(ComboBox cbMonth, ComboBox cbYear, bool viewPayroll = false)
         {
             var year = DateTime.Now.Year;
