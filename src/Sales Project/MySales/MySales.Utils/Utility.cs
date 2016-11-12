@@ -150,7 +150,7 @@ namespace MySales.Utils
         private static string BindProperty(object property, string propertyName)
         {
             string retValue = "";
-
+            propertyName = propertyName.ToCamelCase();
             if (propertyName.Contains("."))
             {
                 string leftPropertyName;
