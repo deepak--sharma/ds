@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Map>
+  <Steps RootName="Parent">
+    <child name="child1" action="action1"/>
+    <child name="child2" action="action2"/>
+  </Steps>
+</Map>

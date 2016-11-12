@@ -40,6 +40,7 @@
             this.payrollDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.startPayrollGenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuPayroll.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -82,6 +83,7 @@
             // payrollToolStripMenuItem
             // 
             this.payrollToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startPayrollGenMenuItem,
             this.toolStripMenuItem1,
             this.monthlyToolStripMenuItem});
             this.payrollToolStripMenuItem.Name = "payrollToolStripMenuItem";
@@ -137,6 +139,13 @@
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "toolStripButton1";
             // 
+            // startPayrollGenMenuItem
+            // 
+            this.startPayrollGenMenuItem.Name = "startPayrollGenMenuItem";
+            this.startPayrollGenMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.startPayrollGenMenuItem.Text = "Start Payroll Generator";
+            this.startPayrollGenMenuItem.Click += new System.EventHandler(this.startPayrollGenMenuItem_Click);
+            // 
             // frmPayroll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -171,5 +180,6 @@
         private System.Windows.Forms.ToolStripMenuItem payrollDataToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripMenuItem startPayrollGenMenuItem;
     }
 }

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MySales.Utils;
 
 namespace MySales
 {
@@ -46,6 +47,12 @@ namespace MySales
         private void payrollDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new PayrollReport().ShowDialog();
+        }
+
+        private void startPayrollGenMenuItem_Click(object sender, EventArgs e)
+        {
+            var nav = new Navigator("string");
+            nav.Launch();
         }
     }
 }

@@ -49,8 +49,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBManager.cs" />
+    <Compile Include="Extension.cs" />
+    <Compile Include="Navigator.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="NavigatorDefaultSteps.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
