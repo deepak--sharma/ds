@@ -459,14 +459,14 @@ namespace MySales
 
         private void dgvEmp_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (!string.IsNullOrEmpty(_formMode) && _formMode != "att")
+            if (string.IsNullOrEmpty(_formMode) && _formMode != "att")
             {
                 return;
             }
             var payrollMonthDays = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1);
             var newVal = dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value ?? string.Empty;
             long tmpVal = 0;
-
+            var isNumber = Int64.TryParse(newVal.ToString(), out tmpVal);
             decimal otHours = 0;
             if (e.ColumnIndex == 6 && !decimal.TryParse(newVal.ToString(), out otHours))
             {
@@ -474,13 +474,13 @@ namespace MySales
                 dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0.0;
             }
 
-            if ((e.ColumnIndex == 4 || e.ColumnIndex == 5) && !Int64.TryParse(newVal.ToString(), out tmpVal))
+            if ((e.ColumnIndex == 4 || e.ColumnIndex == 5) && !isNumber)
             {
                 MessageBox.Show("Please enter a valid number");
                 dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = tmpVal;
             }
 
-            if ((e.ColumnIndex == 4 || e.ColumnIndex == 5) && Convert.ToInt32(newVal) > payrollMonthDays)
+            if ((e.ColumnIndex == 4 || e.ColumnIndex == 5) && isNumber && tmpVal > payrollMonthDays)
             {
                 MessageBox.Show("Value can't be greater than payroll month days");
                 dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0;
