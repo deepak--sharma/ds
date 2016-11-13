@@ -101,6 +101,7 @@
             this.dgvEmp.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmp_CellClick);
             this.dgvEmp.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvEmp_CellFormatting);
             this.dgvEmp.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmp_CellValueChanged);
+            this.dgvEmp.Enter += new System.EventHandler(this.dgvEmp_Enter);
             // 
             // ssMessage
             // 

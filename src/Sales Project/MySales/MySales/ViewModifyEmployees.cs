@@ -154,7 +154,7 @@ namespace MySales
                         ReadOnly = false,
                         MaxInputLength = 2,
                         DataPropertyName = "Attendance.Overtime",
-                        
+
                     });
                     /*dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
                     {
@@ -463,19 +463,61 @@ namespace MySales
             {
                 return;
             }
+            var payrollMonthDays = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1);
             var newVal = dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value ?? string.Empty;
             long tmpVal = 0;
-            if (!Int64.TryParse(newVal.ToString(), out tmpVal))
+
+            decimal otHours = 0;
+            if (e.ColumnIndex == 6 && !decimal.TryParse(newVal.ToString(), out otHours))
+            {
+                MessageBox.Show("Please enter valid overtime hours.");
+                dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0.0;
+            }
+
+            if ((e.ColumnIndex == 4 || e.ColumnIndex == 5) && !Int64.TryParse(newVal.ToString(), out tmpVal))
             {
                 MessageBox.Show("Please enter a valid number");
                 dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = tmpVal;
             }
-            if (tmpVal<0)
+
+            if ((e.ColumnIndex == 4 || e.ColumnIndex == 5) && Convert.ToInt32(newVal) > payrollMonthDays)
+            {
+                MessageBox.Show("Value can't be greater than payroll month days");
+                dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0;
+                return;
+            }
+            if (tmpVal < 0)
             {
                 MessageBox.Show("Only positive numbers are allowed");
                 dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = 0;
             }
 
+            ValidateAttendance(e, payrollMonthDays);
+
+        }
+
+        private void dgvEmp_Enter(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvEmp.Rows)
+            {
+                row.Cells[4].Value = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1);
+            }
+        }
+        private void ValidateAttendance(DataGridViewCellEventArgs e, int payrollMonthDays)
+        {
+            if (e.ColumnIndex == 4 || e.ColumnIndex == 5)
+            {
+                if (e.ColumnIndex == 4)
+                {
+                    var newVal = dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                    dgvEmp.Rows[e.RowIndex].Cells[5].Value = (int)payrollMonthDays - Convert.ToInt32(newVal);
+                }
+                if (e.ColumnIndex == 5)
+                {
+                    var newVal = dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                    dgvEmp.Rows[e.RowIndex].Cells[4].Value = (int)payrollMonthDays - Convert.ToInt32(newVal);
+                }
+            }
         }
 
     }

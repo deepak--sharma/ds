@@ -42,7 +42,7 @@ namespace MySales.DL
                                 empAttDetails.Year = year;
                                 empAttDetails.WorkDays = Convert.ToInt64(dr["WorkDays"]);
                                 empAttDetails.LeaveDays = Convert.ToInt64(dr["LeaveDays"]);
-                                empAttDetails.Overtime = Convert.ToInt64(dr["Overtime"]);
+                                empAttDetails.Overtime = Convert.ToDecimal(dr["Overtime"]);
                                 empAttDetails.CreateDate = dr["CreateDate"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(dr["CreateDate"]);
                                 empAttDetails.ModifiedDate = dr["ModifiedDate"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(dr["ModifiedDate"]);
 
@@ -193,7 +193,7 @@ namespace MySales.DL
                                                             Year = year,
                                                             WorkDays = dr["WorkDays"] == DBNull.Value ? 0 : Convert.ToInt64(dr["WorkDays"]),
                                                             LeaveDays = dr["LeaveDays"] == DBNull.Value ? 0 : Convert.ToInt64(dr["LeaveDays"]),
-                                                            Overtime = dr["Overtime"] == DBNull.Value ? 0 : Convert.ToInt64(dr["Overtime"]),
+                                                            Overtime = dr["Overtime"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["Overtime"]),
                                                             CreateDate =
                                                                 dr["CreateDate"] == DBNull.Value
                                                                     ? DateTime.MinValue
