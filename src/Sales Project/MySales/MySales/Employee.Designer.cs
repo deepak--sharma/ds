@@ -85,6 +85,12 @@
             this.btnClearForm = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtTotalAdvAmt = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtDeduction = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtBalAmt = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -571,6 +577,12 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.txtBalAmt);
+            this.groupBox3.Controls.Add(this.label16);
+            this.groupBox3.Controls.Add(this.txtDeduction);
+            this.groupBox3.Controls.Add(this.label15);
+            this.groupBox3.Controls.Add(this.txtTotalAdvAmt);
+            this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.txtMonthlyGross);
             this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Location = new System.Drawing.Point(20, 10);
@@ -582,7 +594,7 @@
             // 
             // txtMonthlyGross
             // 
-            this.txtMonthlyGross.Location = new System.Drawing.Point(112, 34);
+            this.txtMonthlyGross.Location = new System.Drawing.Point(186, 34);
             this.txtMonthlyGross.Name = "txtMonthlyGross";
             this.txtMonthlyGross.Size = new System.Drawing.Size(144, 20);
             this.txtMonthlyGross.TabIndex = 1;
@@ -644,6 +656,55 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // txtTotalAdvAmt
+            // 
+            this.txtTotalAdvAmt.Location = new System.Drawing.Point(186, 69);
+            this.txtTotalAdvAmt.Name = "txtTotalAdvAmt";
+            this.txtTotalAdvAmt.Size = new System.Drawing.Size(144, 20);
+            this.txtTotalAdvAmt.TabIndex = 3;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(33, 72);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(116, 13);
+            this.label14.TabIndex = 2;
+            this.label14.Text = "Total Advance Amount";
+            // 
+            // txtDeduction
+            // 
+            this.txtDeduction.Location = new System.Drawing.Point(186, 104);
+            this.txtDeduction.Name = "txtDeduction";
+            this.txtDeduction.Size = new System.Drawing.Size(144, 20);
+            this.txtDeduction.TabIndex = 5;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(33, 107);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(95, 13);
+            this.label15.TabIndex = 4;
+            this.label15.Text = "Deduction Amount";
+            // 
+            // txtBalAmt
+            // 
+            this.txtBalAmt.Location = new System.Drawing.Point(186, 139);
+            this.txtBalAmt.Name = "txtBalAmt";
+            this.txtBalAmt.ReadOnly = true;
+            this.txtBalAmt.Size = new System.Drawing.Size(144, 20);
+            this.txtBalAmt.TabIndex = 7;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(33, 142);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(85, 13);
+            this.label16.TabIndex = 6;
+            this.label16.Text = "Balance Amount";
             // 
             // FrmEmployee
             // 
@@ -740,5 +801,11 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox txtMonthlyGross;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtTotalAdvAmt;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtDeduction;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtBalAmt;
+        private System.Windows.Forms.Label label16;
     }
 }

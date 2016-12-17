@@ -123,6 +123,9 @@ namespace MySales
             _permanentAddressId = emp.AddressP.Id;
             _salaryId = emp.SalDetails.Id;
             txtMonthlyGross.Text = emp.SalDetails.MonthlyGross.ToString();
+            txtTotalAdvAmt.Text = emp.AdvanceDetails.TotalAdvance.ToString().Trim();
+            txtDeduction.Text = emp.AdvanceDetails.AdvanceDeduction.ToString().Trim();
+            txtBalAmt.Text = emp.AdvanceDetails.Balance.ToString().Trim();
         }
 
         private void ddlStateC_SelectedIndexChanged(object sender, EventArgs e)
@@ -211,7 +214,14 @@ namespace MySales
                                      CreateDate = DateTime.Now,
                                      MonthlyGross = !string.IsNullOrEmpty(txtMonthlyGross.Text.Trim()) ?
                                      Convert.ToDecimal(txtMonthlyGross.Text.Trim()) : 0
-                                 }
+                                 },
+                AdvanceDetails = new AdvanceDetail
+                {
+                    TotalAdvance = txtTotalAdvAmt.Text.Trim()==string.Empty ? 0 : Convert.ToDecimal(txtTotalAdvAmt.Text.Trim()),
+                    AdvanceDeduction = txtDeduction.Text.Trim() == string.Empty ? 0 : Convert.ToDecimal(txtDeduction.Text.Trim()),
+                    Balance = txtBalAmt.Text.Trim() == string.Empty ? 0 : Convert.ToDecimal(txtBalAmt.Text.Trim())
+                }
+
             };
             MessageBox.Show(new EmployeeBl().AddUpdateEmployee(emp, 1) == Utility.ActionStatus.SUCCESS
                                 ? "Data saved successfully."

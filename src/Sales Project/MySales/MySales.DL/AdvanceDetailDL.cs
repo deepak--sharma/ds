@@ -87,7 +87,7 @@ namespace MySales.DL
             return code;
         }
 
-        public Utility.ActionStatus AddAdvanceDetails(AdvanceDetail adv)
+        public Utility.ActionStatus AddAdvanceDetails(Employee emp)
         {
             var code = Utility.ActionStatus.SUCCESS;
             try
@@ -102,37 +102,37 @@ namespace MySales.DL
                                                {
                                                    OleDbType = OleDbType.Numeric,
                                                    ParameterName = "@empid",
-                                                   Value = adv.EmpId
+                                                   Value = emp.Id
                                                });
                         cmd.Parameters.Add(new OleDbParameter()
                         {
                             OleDbType = OleDbType.Numeric,
                             ParameterName = "@total",
-                            Value = adv.TotalAdvance
+                            Value = emp.AdvanceDetails.TotalAdvance
                         });
                         cmd.Parameters.Add(new OleDbParameter()
                                                {
                                                    OleDbType = OleDbType.Numeric,
                                                    ParameterName = "@deduct",
-                                                   Value = adv.AdvanceDeduction
+                                                   Value = emp.AdvanceDetails.AdvanceDeduction
                                                });
                         cmd.Parameters.Add(new OleDbParameter()
                                                {
                                                    OleDbType = OleDbType.Numeric,
                                                    ParameterName = "@bal",
-                                                   Value = adv.Balance
+                                                   Value = emp.AdvanceDetails.Balance
                                                });
                         cmd.Parameters.Add(new OleDbParameter()
                                                {
                                                    OleDbType = OleDbType.DBDate,
                                                    ParameterName = "@cd",
-                                                   Value = adv.CreateDate
+                                                   Value = emp.AdvanceDetails.CreateDate
                                                });
                         cmd.Parameters.Add(new OleDbParameter()
                                                {
                                                    OleDbType = OleDbType.DBDate,
                                                    ParameterName = "@md",
-                                                   Value = adv.CreateDate
+                                                   Value = emp.AdvanceDetails.CreateDate
                                                });
 
                         var rowsEffected = cmd.ExecuteNonQuery();

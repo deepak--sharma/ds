@@ -43,7 +43,7 @@ namespace MySales.BL
                 addressBl.DeleteAddress(employee.AddressP.Id);
                 return Utility.ActionStatus.FAILURE;
             }
-            var salStatus = new SalaryDetailBl().AddUpdateSalaryDetails(employee);
+            
             result = _empDl.AddUpdateEmployee(employee, userId);
             if (result == Utility.ActionStatus.FAILURE)
             {
@@ -51,6 +51,11 @@ namespace MySales.BL
                 addressBl.DeleteAddress(employee.AddressC.Id);
                 addressBl.DeleteAddress(employee.AddressP.Id);
                 return Utility.ActionStatus.FAILURE;
+            }
+            else
+            {
+                var salStatus = new SalaryDetailBl().AddUpdateSalaryDetails(employee);
+                var advStatus = new AdvanceDetailsBl().SetupAdvanceDetails(employee);
             }
             return result;
         }
