@@ -34,6 +34,11 @@ namespace MySales.BL
 
         public Utility.ActionStatus AddAdvanceDetails(Employee emp)
         {
+            if (emp.AdvanceDetails.TotalAdvance > 0)
+            {
+                //Add Advance History
+                var result = _advanceDetailDl.AddAdvanceHistory(emp);
+            }
             return _advanceDetailDl.AddAdvanceDetails(emp);
         }
         public Utility.ActionStatus SetupAdvanceDetails(Employee emp)
@@ -44,15 +49,15 @@ namespace MySales.BL
             * 3. Update if prev advance details exists.
             * 4. If prev advance detail exists and the new amt entered is less than the prev then don't add/update.
             */
-            var prevAdv = emp.AdvanceDetails ?? GetAdvDetails(emp.Id);
+            var prevAdv = emp.AdvanceDetails == null || emp.AdvanceDetails.Id <= 0 ? GetAdvDetails(emp.Id) : emp.AdvanceDetails;
             var result = Utility.ActionStatus.SUCCESS;
-            if (prevAdv.Balance > 0)
+            if (prevAdv.Id > 0)
             {
-                var newAdv = new AdvanceDetail {
+                var newAdv = new AdvanceDetail
+                {
                     TotalAdvance = prevAdv.TotalAdvance + emp.AdvanceDetails.TotalAdvance,
                     EmpId = emp.Id,
                     AdvanceDeduction = emp.AdvanceDetails.AdvanceDeduction == prevAdv.AdvanceDeduction ? prevAdv.AdvanceDeduction : emp.AdvanceDetails.AdvanceDeduction,
-                    Balance = emp.AdvanceDetails.Balance == prevAdv.Balance ? prevAdv.Balance : emp.AdvanceDetails.Balance,
                     ModifiedDate = DateTime.Now
                 };
                 result = UpdateAdvanceDetails(emp);
@@ -62,6 +67,12 @@ namespace MySales.BL
                 result = AddAdvanceDetails(emp);
             }
             return result;
+        }
+
+
+        public List<AdvanceDetail> GetEmployeeAdvHistory(Int64 empId)
+        {
+            return _advanceDetailDl.GetEmployeeAdvHistory(empId);
         }
     }
 }

@@ -77,6 +77,12 @@
             this.txtAddC = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtBalAmt = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtDeduction = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtTotalAdvAmt = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.txtMonthlyGross = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -85,12 +91,7 @@
             this.btnClearForm = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.txtTotalAdvAmt = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtDeduction = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.txtBalAmt = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -577,6 +578,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.linkLabel1);
             this.groupBox3.Controls.Add(this.txtBalAmt);
             this.groupBox3.Controls.Add(this.label16);
             this.groupBox3.Controls.Add(this.txtDeduction);
@@ -592,12 +594,65 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Salary Details";
             // 
+            // txtBalAmt
+            // 
+            this.txtBalAmt.Location = new System.Drawing.Point(186, 139);
+            this.txtBalAmt.Name = "txtBalAmt";
+            this.txtBalAmt.ReadOnly = true;
+            this.txtBalAmt.Size = new System.Drawing.Size(144, 20);
+            this.txtBalAmt.TabIndex = 7;
+            this.txtBalAmt.Text = "0.00";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(33, 142);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(85, 13);
+            this.label16.TabIndex = 6;
+            this.label16.Text = "Balance Amount";
+            // 
+            // txtDeduction
+            // 
+            this.txtDeduction.Location = new System.Drawing.Point(186, 104);
+            this.txtDeduction.Name = "txtDeduction";
+            this.txtDeduction.Size = new System.Drawing.Size(144, 20);
+            this.txtDeduction.TabIndex = 5;
+            this.txtDeduction.Text = "0.00";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(33, 107);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(95, 13);
+            this.label15.TabIndex = 4;
+            this.label15.Text = "Deduction Amount";
+            // 
+            // txtTotalAdvAmt
+            // 
+            this.txtTotalAdvAmt.Location = new System.Drawing.Point(186, 69);
+            this.txtTotalAdvAmt.Name = "txtTotalAdvAmt";
+            this.txtTotalAdvAmt.Size = new System.Drawing.Size(144, 20);
+            this.txtTotalAdvAmt.TabIndex = 3;
+            this.txtTotalAdvAmt.Text = "0.00";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(33, 72);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(116, 13);
+            this.label14.TabIndex = 2;
+            this.label14.Text = "Total Advance Amount";
+            // 
             // txtMonthlyGross
             // 
             this.txtMonthlyGross.Location = new System.Drawing.Point(186, 34);
             this.txtMonthlyGross.Name = "txtMonthlyGross";
             this.txtMonthlyGross.Size = new System.Drawing.Size(144, 20);
             this.txtMonthlyGross.TabIndex = 1;
+            this.txtMonthlyGross.Text = "0.00";
             // 
             // label13
             // 
@@ -657,54 +712,16 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // txtTotalAdvAmt
+            // linkLabel1
             // 
-            this.txtTotalAdvAmt.Location = new System.Drawing.Point(186, 69);
-            this.txtTotalAdvAmt.Name = "txtTotalAdvAmt";
-            this.txtTotalAdvAmt.Size = new System.Drawing.Size(144, 20);
-            this.txtTotalAdvAmt.TabIndex = 3;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(33, 72);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(116, 13);
-            this.label14.TabIndex = 2;
-            this.label14.Text = "Total Advance Amount";
-            // 
-            // txtDeduction
-            // 
-            this.txtDeduction.Location = new System.Drawing.Point(186, 104);
-            this.txtDeduction.Name = "txtDeduction";
-            this.txtDeduction.Size = new System.Drawing.Size(144, 20);
-            this.txtDeduction.TabIndex = 5;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(33, 107);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(95, 13);
-            this.label15.TabIndex = 4;
-            this.label15.Text = "Deduction Amount";
-            // 
-            // txtBalAmt
-            // 
-            this.txtBalAmt.Location = new System.Drawing.Point(186, 139);
-            this.txtBalAmt.Name = "txtBalAmt";
-            this.txtBalAmt.ReadOnly = true;
-            this.txtBalAmt.Size = new System.Drawing.Size(144, 20);
-            this.txtBalAmt.TabIndex = 7;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(33, 142);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(85, 13);
-            this.label16.TabIndex = 6;
-            this.label16.Text = "Balance Amount";
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(346, 72);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(143, 13);
+            this.linkLabel1.TabIndex = 8;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Click to see Advance History";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // FrmEmployee
             // 
@@ -807,5 +824,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtBalAmt;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

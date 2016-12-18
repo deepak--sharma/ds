@@ -300,7 +300,7 @@ namespace MySales.DL
                         }
 
                         var queryResult = cmd.ExecuteNonQuery();
-                        if (employee.Id == 0)
+                        if (employee.Id <= 0)
                         {
                             cmd.CommandText = "SELECT @@IDENTITY";
                             var eId = cmd.ExecuteScalar();

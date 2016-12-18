@@ -48,6 +48,7 @@ namespace MySales.BL
             if (result == Utility.ActionStatus.FAILURE)
             {
                 //Call DeleteAddress for both types
+                //Add check here for typr of operation below lines should only be executed in case of employee Insert and NOT Update
                 addressBl.DeleteAddress(employee.AddressC.Id);
                 addressBl.DeleteAddress(employee.AddressP.Id);
                 return Utility.ActionStatus.FAILURE;

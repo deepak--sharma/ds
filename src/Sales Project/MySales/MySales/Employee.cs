@@ -219,7 +219,7 @@ namespace MySales
                 {
                     TotalAdvance = txtTotalAdvAmt.Text.Trim()==string.Empty ? 0 : Convert.ToDecimal(txtTotalAdvAmt.Text.Trim()),
                     AdvanceDeduction = txtDeduction.Text.Trim() == string.Empty ? 0 : Convert.ToDecimal(txtDeduction.Text.Trim()),
-                    Balance = txtBalAmt.Text.Trim() == string.Empty ? 0 : Convert.ToDecimal(txtBalAmt.Text.Trim())
+                    Balance = txtBalAmt.Text.Trim() == string.Empty ? 0 : Convert.ToDecimal(txtBalAmt.Text.Trim())                    
                 }
 
             };
@@ -372,6 +372,15 @@ namespace MySales
                     }
                 }
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var historyForm = new AdvanceHistory
+            {
+                EmpId = _empID                
+            };
+            historyForm.ShowDialog();
         }
     }
 }
