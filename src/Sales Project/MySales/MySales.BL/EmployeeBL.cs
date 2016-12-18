@@ -32,6 +32,11 @@ namespace MySales.BL
              * 3. Add Employee Salary Details (if any).
              * 4. Add Employee Advance Details (if any).             
              */
+            var _mode = "add";
+            if (employee.Id > 0)
+            {
+                _mode = "update";
+            }
             var addressBl = new AddressBl();
             var result = Utility.ActionStatus.SUCCESS;
             var cStatus = addressBl.AddUpdateAddress(employee.AddressC);
@@ -48,9 +53,13 @@ namespace MySales.BL
             if (result == Utility.ActionStatus.FAILURE)
             {
                 //Call DeleteAddress for both types
-                //Add check here for typr of operation below lines should only be executed in case of employee Insert and NOT Update
-                addressBl.DeleteAddress(employee.AddressC.Id);
-                addressBl.DeleteAddress(employee.AddressP.Id);
+                // Add check here for type of operation below lines should only be executed in case of employee Insert and NOT Update
+
+                if (_mode == "add")
+                {
+                    addressBl.DeleteAddress(employee.AddressC.Id);
+                    addressBl.DeleteAddress(employee.AddressP.Id); 
+                }
                 return Utility.ActionStatus.FAILURE;
             }
             else

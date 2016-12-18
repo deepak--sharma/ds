@@ -94,6 +94,7 @@ namespace MySales
             FillDesignation();
             FillState();
             if (_empID != -1)
+                btnClearForm.Visible = false;
                 SetupForm();
         }
 
