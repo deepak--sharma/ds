@@ -48,6 +48,7 @@ namespace MySales.BL
             * 2. Add if no prev data found.
             * 3. Update if prev advance details exists.
             * 4. If prev advance detail exists and the new amt entered is less than the prev then don't add/update.
+            * TODO ADVANCE Balance logic implementation, update balance after payroll.
             */
             var prevAdv = emp.AdvanceDetails == null || emp.AdvanceDetails.Id <= 0 ? GetAdvDetails(emp.Id) : emp.AdvanceDetails;
             var result = Utility.ActionStatus.SUCCESS;

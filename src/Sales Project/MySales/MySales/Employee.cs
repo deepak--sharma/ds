@@ -271,6 +271,10 @@ namespace MySales
             {
                 _isFormValid = false;
             }
+            if(!IsAdvanceDataValid())
+            {
+                _isFormValid = false;
+            }
 
             return _isFormValid;
         }
@@ -382,6 +386,18 @@ namespace MySales
                 EmpId = _empID                
             };
             historyForm.ShowDialog();
+        }
+        private bool IsAdvanceDataValid()
+        {
+            var allGood = true;
+            var deductionAmt = Convert.ToDecimal(txtDeduction.Text.Trim());
+            var advanceAmt = Convert.ToDecimal(txtTotalAdvAmt.Text.Trim());
+            if (deductionAmt > advanceAmt)
+            {
+                errorProvider1.SetError(txtDeduction, "Deduction amount cannot be greater than Advance amount");
+                allGood = false;
+            }
+            return allGood;
         }
     }
 }
