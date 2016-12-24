@@ -92,7 +92,7 @@ namespace MySales.BL
                 if (ctr < empList.Count)
                     empIds.Append(",");
             }
-            var attList = new EmpAttendanceDl().GetAllEmpAttendance(empIds.ToString(), month, year);
+            var attList = new EmpAttendanceDl(month,year).GetAllEmpAttendance(empIds.ToString());
             var empAttList = from a in empList
                              join b in attList on a.Id equals b.EmpId
                              select new Employee()

@@ -10,13 +10,22 @@ namespace MySales.BL
 {
     public class EmpAttendanceBl
     {
-        private readonly EmpAttendanceDl _empAttendanceDl = new EmpAttendanceDl();
-        public EmpAttendance GetEmpAttendance(long empId, int month, int year)
+        private EmpAttendanceDl _empAttendanceDl;
+        public EmpAttendanceBl(int month,int year)
+        {
+            Month = month;
+            Year = year;
+            _empAttendanceDl = new EmpAttendanceDl(Month, Year);            
+        }
+        public int Month { get; set; }
+        public int Year { get; set; }
+        
+        public EmpAttendance GetEmpAttendance(long empId)
         {
             var empAttDetails = new EmpAttendance();
             try
             {
-                empAttDetails = _empAttendanceDl.GetEmpAttendance(empId, month, year);
+                empAttDetails = _empAttendanceDl.GetEmpAttendance(empId);
             }
             catch (Exception)
             {

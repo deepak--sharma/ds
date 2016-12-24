@@ -46,7 +46,7 @@ namespace MySales.BL
                 var objAdvanceDetailsBl = new AdvanceDetailsBl();
                 var objPayroll = new Payroll();
                 var lAdvDedAmt = emp.AdvanceDetails.AdvanceDeduction;
-                emp.Attendance = new EmpAttendanceBl().GetEmpAttendance(emp.Id, month, year);
+                emp.Attendance = new EmpAttendanceBl(month, year).GetEmpAttendance(emp.Id);
                 var lLeaveDays = emp.Attendance.LeaveDays;
                 var lOtHrs = emp.Attendance.Overtime;
                 emp.AdvanceDetails = objAdvanceDetailsBl.GetAdvDetails(emp.Id);

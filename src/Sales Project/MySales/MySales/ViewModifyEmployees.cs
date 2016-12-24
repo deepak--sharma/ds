@@ -441,7 +441,7 @@ namespace MySales
                     TotalDays = DateTime.DaysInMonth(year, month),
                     ModifiedDate = DateTime.Now
                 };
-                var attendanceDetailsAdded = new EmpAttendanceBl().UpdateAttendanceDetails(attendanceDetail) ==
+                var attendanceDetailsAdded = new EmpAttendanceBl(month, year).UpdateAttendanceDetails(attendanceDetail) ==
                                              Utility.ActionStatus.SUCCESS;
                 if (attendanceDetailsAdded)
                 {
@@ -496,13 +496,16 @@ namespace MySales
 
         }
 
-        private void dgvEmp_Enter(object sender, EventArgs e)
+        /*private void dgvEmp_Enter(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dgvEmp.Rows)
             {
-                row.Cells[4].Value = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1);
+                if (Convert.ToInt64(row.Cells[4].Value) == 0 && Convert.ToInt64(row.Cells[5].Value) == 0)
+                {
+                   // row.Cells[4].Value = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1);
+                }
             }
-        }
+        }*/
         private void ValidateAttendance(DataGridViewCellEventArgs e, int payrollMonthDays)
         {
             if (e.ColumnIndex == 4 || e.ColumnIndex == 5)
