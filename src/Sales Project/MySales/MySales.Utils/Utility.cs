@@ -10,6 +10,7 @@ namespace MySales.Utils
     {
         public enum PayrollStatus
         {
+            TOBECALCULATED,
             INPROCESS,
             CALCULATED,
             VERIFIED,

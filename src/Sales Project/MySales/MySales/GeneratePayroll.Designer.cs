@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGeneratePayroll));
             this.cbMonth = new System.Windows.Forms.ComboBox();
             this.lblMonth = new System.Windows.Forms.Label();
             this.lblYear = new System.Windows.Forms.Label();
@@ -43,9 +45,13 @@
             this.chAdvance = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chOt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ssPayroll = new System.Windows.Forms.StatusStrip();
+            this.lblCounter = new System.Windows.Forms.ToolStripStatusLabel();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.ssPayroll.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbMonth
@@ -164,6 +170,7 @@
             this.lvPayroll.Name = "lvPayroll";
             this.lvPayroll.ShowItemToolTips = true;
             this.lvPayroll.Size = new System.Drawing.Size(708, 312);
+            this.lvPayroll.SmallImageList = this.imageList1;
             this.lvPayroll.TabIndex = 9;
             this.lvPayroll.UseCompatibleStateImageBehavior = false;
             this.lvPayroll.View = System.Windows.Forms.View.Details;
@@ -193,11 +200,34 @@
             this.chStatus.Text = "Status";
             this.chStatus.Width = 150;
             // 
+            // ssPayroll
+            // 
+            this.ssPayroll.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblCounter});
+            this.ssPayroll.Location = new System.Drawing.Point(0, 464);
+            this.ssPayroll.Name = "ssPayroll";
+            this.ssPayroll.Size = new System.Drawing.Size(749, 22);
+            this.ssPayroll.TabIndex = 10;
+            // 
+            // lblCounter
+            // 
+            this.lblCounter.Name = "lblCounter";
+            this.lblCounter.Size = new System.Drawing.Size(0, 17);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "tick-icon-e1429734590379.png");
+            this.imageList1.Images.SetKeyName(1, "tick.jpg");
+            this.imageList1.Images.SetKeyName(2, "processing.gif");
+            // 
             // frmGeneratePayroll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(749, 486);
+            this.Controls.Add(this.ssPayroll);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
@@ -208,7 +238,10 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.ssPayroll.ResumeLayout(false);
+            this.ssPayroll.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -229,5 +262,8 @@
         private System.Windows.Forms.ColumnHeader chStatus;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.StatusStrip ssPayroll;
+        private System.Windows.Forms.ToolStripStatusLabel lblCounter;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
