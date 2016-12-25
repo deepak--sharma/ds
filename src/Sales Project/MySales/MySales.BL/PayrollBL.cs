@@ -45,11 +45,12 @@ namespace MySales.BL
                 decimal otAmt = 0;
                 var objAdvanceDetailsBl = new AdvanceDetailsBl();
                 var objPayroll = new Payroll();
-                var lAdvDedAmt = emp.AdvanceDetails.AdvanceDeduction;
                 emp.Attendance = new EmpAttendanceBl(month, year).GetEmpAttendance(emp.Id);
                 var lLeaveDays = emp.Attendance.LeaveDays;
                 var lOtHrs = emp.Attendance.Overtime;
                 emp.AdvanceDetails = objAdvanceDetailsBl.GetAdvDetails(emp.Id);
+                var lAdvDedAmt = emp.AdvanceDetails.AdvanceDeduction;
+
                 emp.SalDetails = new SalaryDetailBl().GetMonthlyGross(emp.Id);
                 var daysInMonth = DateTime.DaysInMonth(year, month);
                 emp.Attendance.WorkDays = daysInMonth - lLeaveDays;
@@ -109,18 +110,22 @@ namespace MySales.BL
             var payrollData = from a in lstEmp
                               join b in lstPayroll on a.Id equals b.EmpId
                               select new Employee()
-                                         {
-                                             PayrollDetails = b,
-                                             Id = a.Id,
-                                             EmpCode = a.EmpCode,
-                                             FirstName = a.FirstName,
-                                             MiddleName = a.MiddleName,
-                                             LastName = a.LastName,
-                                             FullName = a.FullName
+                              {
+                                  PayrollDetails = b,
+                                  Id = a.Id,
+                                  EmpCode = a.EmpCode,
+                                  FirstName = a.FirstName,
+                                  MiddleName = a.MiddleName,
+                                  LastName = a.LastName,
+                                  FullName = a.FullName
 
-                                         };
+                              };
             return payrollData.ToList();
         }
 
+        public List<Employee> GetPayrollGridData(int month, int year)
+        {
+            return new PayrollDl().GetPayrollGridData(month, year);
+        }
     }
 }

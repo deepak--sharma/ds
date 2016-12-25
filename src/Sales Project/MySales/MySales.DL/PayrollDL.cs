@@ -15,7 +15,7 @@ namespace MySales.DL
 
         private const String FetchPayroll =
             "select [ID],[EmpID],[OvertimeAmt],[AdvanceDedAmt],[DaysWorked],[NetPayable],[PMonth],[PYear],[Status],[IsActive],[CreateDate] from [Emp_Payroll] where [PMonth] = @pm AND [PYear] = @py AND [Status] = @st AND [IsActive] = @act";
-
+        private const string GetPayrollGridDataQuery = "SELECT Employee.ID,Employee.FirstName,Employee.MiddleName,Employee.LastName, Emp_Attendance.Overtime, Emp_Advance_Details.TotalAdvance FROM (Employee INNER JOIN Emp_Attendance ON ((Employee.ID = Emp_Attendance.EmpID) AND (Emp_Attendance.PayrollMonth=@pm) AND (Emp_Attendance.PayrollYear=@py)) ) LEFT JOIN Emp_Advance_Details ON (Employee.ID = Emp_Advance_Details.EmpID)";
         public Utility.ActionStatus AddPayroll(Payroll objPayroll)
         {
             var state = Utility.ActionStatus.SUCCESS;
@@ -94,6 +94,54 @@ namespace MySales.DL
             }
             return lst;
 
+        }
+
+        public List<Employee> GetPayrollGridData(int month,int year)
+        {
+            var lstPayrollGrid = new List<Employee>();
+
+            try
+            {
+                using (var con = DbManager.GetConnection())
+                {
+                    con.Open();
+                    using (var cmd = new OleDbCommand(GetPayrollGridDataQuery, con))
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add(new OleDbParameter("@pm", month));
+                        cmd.Parameters.Add(new OleDbParameter("@py", year));
+                        var dr = cmd.ExecuteReader();
+                        if (dr != null && dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                var emp = new Employee()
+                                {
+                                    Id = dr["ID"] == DBNull.Value || dr["ID"] == null ? 0 : long.Parse(dr["ID"].ToString()),
+                                    FirstName = dr["FirstName"] == DBNull.Value ? string.Empty : dr["FirstName"].ToString(),
+                                    MiddleName = dr["MiddleName"] == DBNull.Value ? string.Empty : dr["MiddleName"].ToString(),
+                                    LastName = dr["LastName"] == DBNull.Value ? string.Empty : dr["LastName"].ToString(),
+                                    Attendance = new EmpAttendance
+                                    {
+                                        Overtime = dr["Overtime"] == DBNull.Value || dr["Overtime"] == null ? 0 : decimal.Parse(dr["Overtime"].ToString())
+                                    },
+                                    AdvanceDetails = new AdvanceDetail
+                                    {
+                                        TotalAdvance = dr["TotalAdvance"] == DBNull.Value || dr["TotalAdvance"] == null ? 0 : decimal.Parse(dr["TotalAdvance"].ToString())
+                                    }
+                                };
+                                lstPayrollGrid.Add(emp);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return lstPayrollGrid;
         }
     }
 }
