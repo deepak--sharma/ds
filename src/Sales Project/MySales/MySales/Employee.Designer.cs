@@ -48,8 +48,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tpPersonal = new System.Windows.Forms.TabPage();
+            this.tpAddress = new System.Windows.Forms.TabPage();
             this.gbContact = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtOtherNo = new System.Windows.Forms.TextBox();
@@ -75,34 +75,47 @@
             this.ddlStateC = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtAddC = new System.Windows.Forms.TextBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tpSalary = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtMonthlyGross = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.tpAdvanceDetails = new System.Windows.Forms.TabPage();
+            this.gbAdvanceDetails = new System.Windows.Forms.GroupBox();
+            this.lvAdvance = new System.Windows.Forms.ListView();
+            this.chSNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chTotalAdvanceAmt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chDeduction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chBalanceAmt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.txtBalAmt = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txtDeduction = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.txtTotalAdvAmt = new System.Windows.Forms.TextBox();
+            this.txtAdvAmt = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.txtMonthlyGross = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tpBulk = new System.Windows.Forms.TabPage();
+            this.label17 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnClearForm = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tpPersonal.SuspendLayout();
+            this.tpAddress.SuspendLayout();
             this.gbContact.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.gbPerm.SuspendLayout();
             this.gbCurr.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            this.tpSalary.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.tpAdvanceDetails.SuspendLayout();
+            this.gbAdvanceDetails.SuspendLayout();
+            this.tpBulk.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -184,6 +197,7 @@
             this.groupBox1.Size = new System.Drawing.Size(557, 465);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Enter Employee\'s personel data";
             // 
             // label12
             // 
@@ -288,38 +302,39 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tpPersonal);
+            this.tabControl1.Controls.Add(this.tpAddress);
+            this.tabControl1.Controls.Add(this.tpSalary);
+            this.tabControl1.Controls.Add(this.tpAdvanceDetails);
+            this.tabControl1.Controls.Add(this.tpBulk);
             this.tabControl1.Location = new System.Drawing.Point(0, -2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(577, 503);
             this.tabControl1.TabIndex = 0;
             // 
-            // tabPage1
+            // tpPersonal
             // 
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(569, 477);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Personal Details";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tpPersonal.Controls.Add(this.groupBox1);
+            this.tpPersonal.Location = new System.Drawing.Point(4, 22);
+            this.tpPersonal.Name = "tpPersonal";
+            this.tpPersonal.Padding = new System.Windows.Forms.Padding(3);
+            this.tpPersonal.Size = new System.Drawing.Size(569, 477);
+            this.tpPersonal.TabIndex = 0;
+            this.tpPersonal.Text = "Personal Details";
+            this.tpPersonal.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // tpAddress
             // 
-            this.tabPage3.Controls.Add(this.gbContact);
-            this.tabPage3.Controls.Add(this.groupBox2);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(569, 477);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Address Details";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tpAddress.Controls.Add(this.gbContact);
+            this.tpAddress.Controls.Add(this.groupBox2);
+            this.tpAddress.Location = new System.Drawing.Point(4, 22);
+            this.tpAddress.Name = "tpAddress";
+            this.tpAddress.Padding = new System.Windows.Forms.Padding(3);
+            this.tpAddress.Size = new System.Drawing.Size(569, 477);
+            this.tpAddress.TabIndex = 2;
+            this.tpAddress.Text = "Address Details";
+            this.tpAddress.UseVisualStyleBackColor = true;
             // 
             // gbContact
             // 
@@ -332,7 +347,7 @@
             this.gbContact.Size = new System.Drawing.Size(274, 105);
             this.gbContact.TabIndex = 1;
             this.gbContact.TabStop = false;
-            this.gbContact.Text = "Contact details";
+            this.gbContact.Text = "Enter Contact details :";
             // 
             // label11
             // 
@@ -378,7 +393,7 @@
             this.groupBox2.Size = new System.Drawing.Size(555, 235);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Address Details:";
+            this.groupBox2.Text = "Enter address details :";
             // 
             // chkSame
             // 
@@ -565,26 +580,19 @@
             this.txtAddC.Size = new System.Drawing.Size(165, 69);
             this.txtAddC.TabIndex = 1;
             // 
-            // tabPage4
+            // tpSalary
             // 
-            this.tabPage4.Controls.Add(this.groupBox3);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(569, 477);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Salary Details";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tpSalary.Controls.Add(this.groupBox3);
+            this.tpSalary.Location = new System.Drawing.Point(4, 22);
+            this.tpSalary.Name = "tpSalary";
+            this.tpSalary.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSalary.Size = new System.Drawing.Size(569, 477);
+            this.tpSalary.TabIndex = 3;
+            this.tpSalary.Text = "Salary Details";
+            this.tpSalary.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.linkLabel1);
-            this.groupBox3.Controls.Add(this.txtBalAmt);
-            this.groupBox3.Controls.Add(this.label16);
-            this.groupBox3.Controls.Add(this.txtDeduction);
-            this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Controls.Add(this.txtTotalAdvAmt);
-            this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.txtMonthlyGross);
             this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Location = new System.Drawing.Point(20, 10);
@@ -592,59 +600,7 @@
             this.groupBox3.Size = new System.Drawing.Size(537, 358);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Salary Details";
-            // 
-            // txtBalAmt
-            // 
-            this.txtBalAmt.Location = new System.Drawing.Point(186, 139);
-            this.txtBalAmt.Name = "txtBalAmt";
-            this.txtBalAmt.ReadOnly = true;
-            this.txtBalAmt.Size = new System.Drawing.Size(144, 20);
-            this.txtBalAmt.TabIndex = 7;
-            this.txtBalAmt.Text = "0.00";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(33, 142);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(85, 13);
-            this.label16.TabIndex = 6;
-            this.label16.Text = "Balance Amount";
-            // 
-            // txtDeduction
-            // 
-            this.txtDeduction.Location = new System.Drawing.Point(186, 104);
-            this.txtDeduction.Name = "txtDeduction";
-            this.txtDeduction.Size = new System.Drawing.Size(144, 20);
-            this.txtDeduction.TabIndex = 5;
-            this.txtDeduction.Text = "0.00";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(33, 107);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(95, 13);
-            this.label15.TabIndex = 4;
-            this.label15.Text = "Deduction Amount";
-            // 
-            // txtTotalAdvAmt
-            // 
-            this.txtTotalAdvAmt.Location = new System.Drawing.Point(186, 69);
-            this.txtTotalAdvAmt.Name = "txtTotalAdvAmt";
-            this.txtTotalAdvAmt.Size = new System.Drawing.Size(144, 20);
-            this.txtTotalAdvAmt.TabIndex = 3;
-            this.txtTotalAdvAmt.Text = "0.00";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(33, 72);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(116, 13);
-            this.label14.TabIndex = 2;
-            this.label14.Text = "Total Advance Amount";
+            this.groupBox3.Text = "Enter Salary Details :";
             // 
             // txtMonthlyGross
             // 
@@ -663,15 +619,156 @@
             this.label13.TabIndex = 0;
             this.label13.Text = "Salary";
             // 
-            // tabPage2
+            // tpAdvanceDetails
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(569, 477);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Bulk Add";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tpAdvanceDetails.Controls.Add(this.gbAdvanceDetails);
+            this.tpAdvanceDetails.Location = new System.Drawing.Point(4, 22);
+            this.tpAdvanceDetails.Name = "tpAdvanceDetails";
+            this.tpAdvanceDetails.Padding = new System.Windows.Forms.Padding(3);
+            this.tpAdvanceDetails.Size = new System.Drawing.Size(569, 477);
+            this.tpAdvanceDetails.TabIndex = 4;
+            this.tpAdvanceDetails.Text = "Advance Details";
+            this.tpAdvanceDetails.UseVisualStyleBackColor = true;
+            // 
+            // gbAdvanceDetails
+            // 
+            this.gbAdvanceDetails.Controls.Add(this.btnRemove);
+            this.gbAdvanceDetails.Controls.Add(this.btnAdd);
+            this.gbAdvanceDetails.Controls.Add(this.lvAdvance);
+            this.gbAdvanceDetails.Controls.Add(this.linkLabel1);
+            this.gbAdvanceDetails.Controls.Add(this.txtBalAmt);
+            this.gbAdvanceDetails.Controls.Add(this.label16);
+            this.gbAdvanceDetails.Controls.Add(this.txtDeduction);
+            this.gbAdvanceDetails.Controls.Add(this.label15);
+            this.gbAdvanceDetails.Controls.Add(this.txtAdvAmt);
+            this.gbAdvanceDetails.Controls.Add(this.label14);
+            this.gbAdvanceDetails.Location = new System.Drawing.Point(8, 6);
+            this.gbAdvanceDetails.Name = "gbAdvanceDetails";
+            this.gbAdvanceDetails.Size = new System.Drawing.Size(555, 465);
+            this.gbAdvanceDetails.TabIndex = 0;
+            this.gbAdvanceDetails.TabStop = false;
+            this.gbAdvanceDetails.Text = "Add/View/Change Advance details :";
+            // 
+            // lvAdvance
+            // 
+            this.lvAdvance.CheckBoxes = true;
+            this.lvAdvance.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chSNo,
+            this.chTotalAdvanceAmt,
+            this.chDeduction,
+            this.chBalanceAmt});
+            this.lvAdvance.FullRowSelect = true;
+            this.lvAdvance.Location = new System.Drawing.Point(6, 175);
+            this.lvAdvance.Name = "lvAdvance";
+            this.lvAdvance.Size = new System.Drawing.Size(542, 255);
+            this.lvAdvance.TabIndex = 15;
+            this.lvAdvance.UseCompatibleStateImageBehavior = false;
+            this.lvAdvance.View = System.Windows.Forms.View.Details;
+            // 
+            // chSNo
+            // 
+            this.chSNo.Text = "S.No.";
+            this.chSNo.Width = 100;
+            // 
+            // chTotalAdvanceAmt
+            // 
+            this.chTotalAdvanceAmt.Text = "Advance Amount";
+            this.chTotalAdvanceAmt.Width = 150;
+            // 
+            // chDeduction
+            // 
+            this.chDeduction.Text = "Deduction Amount";
+            this.chDeduction.Width = 150;
+            // 
+            // chBalanceAmt
+            // 
+            this.chBalanceAmt.Text = "Balance";
+            this.chBalanceAmt.Width = 130;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(332, 100);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(143, 13);
+            this.linkLabel1.TabIndex = 14;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Click to see Advance History";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // txtBalAmt
+            // 
+            this.txtBalAmt.Location = new System.Drawing.Point(170, 93);
+            this.txtBalAmt.Name = "txtBalAmt";
+            this.txtBalAmt.ReadOnly = true;
+            this.txtBalAmt.Size = new System.Drawing.Size(144, 20);
+            this.txtBalAmt.TabIndex = 13;
+            this.txtBalAmt.Text = "0.00";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(17, 96);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(85, 13);
+            this.label16.TabIndex = 12;
+            this.label16.Text = "Balance Amount";
+            // 
+            // txtDeduction
+            // 
+            this.txtDeduction.Location = new System.Drawing.Point(170, 58);
+            this.txtDeduction.Name = "txtDeduction";
+            this.txtDeduction.Size = new System.Drawing.Size(144, 20);
+            this.txtDeduction.TabIndex = 11;
+            this.txtDeduction.Text = "0.00";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(17, 61);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(95, 13);
+            this.label15.TabIndex = 10;
+            this.label15.Text = "Deduction Amount";
+            // 
+            // txtAdvAmt
+            // 
+            this.txtAdvAmt.Location = new System.Drawing.Point(170, 23);
+            this.txtAdvAmt.Name = "txtAdvAmt";
+            this.txtAdvAmt.Size = new System.Drawing.Size(144, 20);
+            this.txtAdvAmt.TabIndex = 9;
+            this.txtAdvAmt.Text = "0.00";
+            this.txtAdvAmt.Leave += new System.EventHandler(this.txtAdvAmt_Leave);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(17, 26);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(89, 13);
+            this.label14.TabIndex = 8;
+            this.label14.Text = "Advance Amount";
+            // 
+            // tpBulk
+            // 
+            this.tpBulk.Controls.Add(this.label17);
+            this.tpBulk.Location = new System.Drawing.Point(4, 22);
+            this.tpBulk.Name = "tpBulk";
+            this.tpBulk.Padding = new System.Windows.Forms.Padding(3);
+            this.tpBulk.Size = new System.Drawing.Size(569, 477);
+            this.tpBulk.TabIndex = 1;
+            this.tpBulk.Text = "Bulk Add";
+            this.tpBulk.UseVisualStyleBackColor = true;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(94, 147);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(299, 33);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "Feature Coming Soon";
             // 
             // statusStrip1
             // 
@@ -712,16 +809,25 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // linkLabel1
+            // btnAdd
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(346, 72);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(143, 13);
-            this.linkLabel1.TabIndex = 8;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Click to see Advance History";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.btnAdd.Location = new System.Drawing.Point(20, 133);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 16;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(19, 436);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnRemove.TabIndex = 17;
+            this.btnRemove.Text = "Remove";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // FrmEmployee
             // 
@@ -739,8 +845,8 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
+            this.tpPersonal.ResumeLayout(false);
+            this.tpAddress.ResumeLayout(false);
             this.gbContact.ResumeLayout(false);
             this.gbContact.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -749,9 +855,14 @@
             this.gbPerm.PerformLayout();
             this.gbCurr.ResumeLayout(false);
             this.gbCurr.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
+            this.tpSalary.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.tpAdvanceDetails.ResumeLayout(false);
+            this.gbAdvanceDetails.ResumeLayout(false);
+            this.gbAdvanceDetails.PerformLayout();
+            this.tpBulk.ResumeLayout(false);
+            this.tpBulk.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
@@ -770,8 +881,8 @@
         private System.Windows.Forms.Label lblGender;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tpPersonal;
+        private System.Windows.Forms.TabPage tpBulk;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
@@ -780,7 +891,7 @@
         private System.Windows.Forms.RadioButton rbF;
         private System.Windows.Forms.RadioButton rbM;
         private System.Windows.Forms.TextBox txtMN;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tpAddress;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox chkSame;
         private System.Windows.Forms.GroupBox gbPerm;
@@ -813,17 +924,27 @@
         private System.Windows.Forms.TextBox txtMobileNo;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtFathersName;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tpSalary;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox txtMonthlyGross;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox txtTotalAdvAmt;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox txtDeduction;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TabPage tpAdvanceDetails;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.GroupBox gbAdvanceDetails;
+        private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.TextBox txtBalAmt;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.TextBox txtDeduction;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtAdvAmt;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ListView lvAdvance;
+        private System.Windows.Forms.ColumnHeader chSNo;
+        private System.Windows.Forms.ColumnHeader chTotalAdvanceAmt;
+        private System.Windows.Forms.ColumnHeader chDeduction;
+        private System.Windows.Forms.ColumnHeader chBalanceAmt;
+        private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.Button btnAdd;
     }
 }

@@ -124,7 +124,7 @@ namespace MySales
             _permanentAddressId = emp.AddressP.Id;
             _salaryId = emp.SalDetails.Id;
             txtMonthlyGross.Text = emp.SalDetails.MonthlyGross.ToString();
-            txtTotalAdvAmt.Text = emp.AdvanceDetails.TotalAdvance.ToString().Trim();
+            txtAdvAmt.Text = emp.AdvanceDetails.TotalAdvance.ToString().Trim();
             txtDeduction.Text = emp.AdvanceDetails.AdvanceDeduction.ToString().Trim();
             txtBalAmt.Text = emp.AdvanceDetails.Balance.ToString().Trim();
         }
@@ -218,7 +218,7 @@ namespace MySales
                                  },
                 AdvanceDetails = new AdvanceDetail
                 {
-                    TotalAdvance = txtTotalAdvAmt.Text.Trim()==string.Empty ? 0 : Convert.ToDecimal(txtTotalAdvAmt.Text.Trim()),
+                    TotalAdvance = txtAdvAmt.Text.Trim()==string.Empty ? 0 : Convert.ToDecimal(txtAdvAmt.Text.Trim()),
                     AdvanceDeduction = txtDeduction.Text.Trim() == string.Empty ? 0 : Convert.ToDecimal(txtDeduction.Text.Trim()),
                     Balance = txtBalAmt.Text.Trim() == string.Empty ? 0 : Convert.ToDecimal(txtBalAmt.Text.Trim())                    
                 }
@@ -379,25 +379,58 @@ namespace MySales
             }
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            var historyForm = new AdvanceHistory
-            {
-                EmpId = _empID                
-            };
-            historyForm.ShowDialog();
-        }
         private bool IsAdvanceDataValid()
         {
             var allGood = true;
             var deductionAmt = Convert.ToDecimal(txtDeduction.Text.Trim());
-            var advanceAmt = Convert.ToDecimal(txtTotalAdvAmt.Text.Trim());
+            var advanceAmt = Convert.ToDecimal(txtAdvAmt.Text.Trim());
             if (deductionAmt > advanceAmt)
             {
                 errorProvider1.SetError(txtDeduction, "Deduction amount cannot be greater than Advance amount");
                 allGood = false;
             }
             return allGood;
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+             var historyForm = new AdvanceHistory
+            {
+                EmpId = _empID                
+            };
+            historyForm.ShowDialog();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            var itemCount = lvAdvance.Items.Count;
+            var lvItem = new ListViewItem { Text = (itemCount + 1).ToString() };
+            lvItem.SubItems.Add(new ListViewItem.ListViewSubItem {
+                Text = txtAdvAmt.Text.Trim()
+            });
+            lvItem.SubItems.Add(new ListViewItem.ListViewSubItem
+            {
+                Text = txtDeduction.Text.Trim()
+            });
+            lvItem.SubItems.Add(new ListViewItem.ListViewSubItem
+            {
+                Text = txtBalAmt.Text.Trim()
+            });
+            lvAdvance.Items.Add(lvItem);
+            txtAdvAmt.Text = txtDeduction.Text = txtBalAmt.Text = "0.0";
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in lvAdvance.SelectedItems)
+            {
+                lvAdvance.Items.Remove(item);
+            }
+        }
+
+        private void txtAdvAmt_Leave(object sender, EventArgs e)
+        {
+            txtBalAmt.Text = txtAdvAmt.Text;
         }
     }
 }

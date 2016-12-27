@@ -15,7 +15,7 @@ namespace MySales.DL
         const string GetAllAdvDetail = "SELECT [AdvanceDeduction],[TotalAdvance],[Balance] from [Emp_Advance_Details]";
         const string InsertAdvanceHistory = "INSERT INTO Emp_Advance_History (EmpID,TotalAdvance,AdvanceDeduction,Balance,CreateDate) values (@empid,@total,@deduct,@bal,@cd);";
         const string GetEmployeeAdvanceHistory = "SELECT * FROM Emp_Advance_History WHERE [EmpID]=@empID";
-        const string UAdvDetail = "UPDATE [Emp_Advance_Details] set [Balance]=@bal where [EmpID]=@empID";
+        const string UAdvDetail = "UPDATE [Emp_Advance_Details] set [Balance]=@bal,[TotalAdvance]=@ta,[AdvanceDeduction]=@ded,[IsActive]=true,[ModifiedDate]=@md where [EmpID]=@empID";
         private const string InsertAdvanceDetail = "Insert into Emp_Advance_Details (EmpID,TotalAdvance,AdvanceDeduction,Balance,CreateDate,ModifiedDate) values (@empid,@total,@deduct,@bal,@cd,@md);";
         private const string DeleteAdvanceDetail = "delete from Emp_Advance_Details where ";
         public AdvanceDetail GetAdvDetails(Int64 empId)
@@ -75,8 +75,10 @@ namespace MySales.DL
                     {
                         cmd.Parameters.Clear();
                         cmd.Parameters.Add(new OleDbParameter("@bal", emp.AdvanceDetails.Balance));
+                        cmd.Parameters.Add(new OleDbParameter("@ta", emp.AdvanceDetails.TotalAdvance));
+                        cmd.Parameters.Add(new OleDbParameter("@ded", emp.AdvanceDetails.AdvanceDeduction));
+                        cmd.Parameters.Add(new OleDbParameter("@ded", DateTime.Now.ToString()));
                         cmd.Parameters.Add(new OleDbParameter("@empID", emp.Id));
-                        //advanceDatail.AdvanceDeduction = Convert.ToDecimal(cmd.ExecuteScalar());
                         var rowsEffected = cmd.ExecuteNonQuery();
                         code = rowsEffected > 0 ? Utility.ActionStatus.SUCCESS : Utility.ActionStatus.FAILURE;
                         if (con.State == ConnectionState.Open)
