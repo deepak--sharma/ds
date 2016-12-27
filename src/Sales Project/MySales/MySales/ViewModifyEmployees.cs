@@ -212,7 +212,7 @@ namespace MySales
             }
             if (_empList.Count == 0)
             {
-                MessageBox.Show("Something went wrong! Please try again later or contact application support");
+                MessageBox.Show("NO DATA!");
                 return;
             }
             _empList = _empList.OrderBy(e => e.FirstName).ToList();
