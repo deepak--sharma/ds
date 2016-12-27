@@ -55,7 +55,7 @@ namespace MySales.BL
                 var daysInMonth = DateTime.DaysInMonth(year, month);
                 emp.Attendance.WorkDays = daysInMonth - lLeaveDays;
                 salaryAmt1 = (emp.SalDetails.MonthlyGross / daysInMonth) * emp.Attendance.WorkDays;
-                otAmt = (emp.SalDetails.MonthlyGross / 8) * lOtHrs;
+                otAmt = (emp.SalDetails.MonthlyGross / (daysInMonth * 8)) * lOtHrs;
                 salaryAmt2 = salaryAmt1 + otAmt;
                 if (emp.AdvanceDetails.Balance > 0)
                 {
@@ -63,7 +63,7 @@ namespace MySales.BL
                     if (emp.AdvanceDetails.Balance >= lAdvDedAmt)
                     {
                         salaryAmt3 = salaryAmt2 - lAdvDedAmt;
-                        emp.AdvanceDetails.Balance = emp.AdvanceDetails.TotalAdvance - lAdvDedAmt;
+                        emp.AdvanceDetails.Balance = emp.AdvanceDetails.Balance - lAdvDedAmt;
                     }
                     else
                     {
