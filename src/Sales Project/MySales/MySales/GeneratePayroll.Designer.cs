@@ -45,9 +45,12 @@
             this.chAdvance = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chOt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.ssPayroll = new System.Windows.Forms.StatusStrip();
             this.lblCounter = new System.Windows.Forms.ToolStripStatusLabel();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.chNetPay = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtFilter = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -88,7 +91,7 @@
             // lblYear
             // 
             this.lblYear.AutoSize = true;
-            this.lblYear.Location = new System.Drawing.Point(17, 71);
+            this.lblYear.Location = new System.Drawing.Point(199, 31);
             this.lblYear.Name = "lblYear";
             this.lblYear.Size = new System.Drawing.Size(29, 13);
             this.lblYear.TabIndex = 2;
@@ -98,18 +101,18 @@
             // 
             this.cbYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbYear.FormattingEnabled = true;
-            this.cbYear.Location = new System.Drawing.Point(63, 68);
+            this.cbYear.Location = new System.Drawing.Point(245, 28);
             this.cbYear.Name = "cbYear";
             this.cbYear.Size = new System.Drawing.Size(121, 21);
             this.cbYear.TabIndex = 3;
             // 
             // btnGenPayroll
             // 
-            this.btnGenPayroll.Location = new System.Drawing.Point(230, 55);
+            this.btnGenPayroll.Location = new System.Drawing.Point(255, 67);
             this.btnGenPayroll.Name = "btnGenPayroll";
             this.btnGenPayroll.Size = new System.Drawing.Size(111, 34);
             this.btnGenPayroll.TabIndex = 5;
-            this.btnGenPayroll.Text = "Generate Payroll";
+            this.btnGenPayroll.Text = "Calculate";
             this.btnGenPayroll.UseVisualStyleBackColor = true;
             this.btnGenPayroll.Click += new System.EventHandler(this.btnGenPayroll_Click);
             // 
@@ -133,6 +136,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Controls.Add(this.txtFilter);
             this.groupBox3.Controls.Add(this.lblMonth);
             this.groupBox3.Controls.Add(this.cbMonth);
             this.groupBox3.Controls.Add(this.lblProcessing);
@@ -162,6 +167,7 @@
             this.chEmpName,
             this.chAdvance,
             this.chOt,
+            this.chNetPay,
             this.chStatus});
             this.lvPayroll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvPayroll.FullRowSelect = true;
@@ -183,22 +189,29 @@
             // chEmpName
             // 
             this.chEmpName.Text = "Name";
-            this.chEmpName.Width = 200;
+            this.chEmpName.Width = 190;
             // 
             // chAdvance
             // 
             this.chAdvance.Text = "Advance";
-            this.chAdvance.Width = 150;
+            this.chAdvance.Width = 70;
             // 
             // chOt
             // 
             this.chOt.Text = "Over Time (hrs.)";
-            this.chOt.Width = 150;
             // 
             // chStatus
             // 
             this.chStatus.Text = "Status";
             this.chStatus.Width = 150;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "tick-icon-e1429734590379.png");
+            this.imageList1.Images.SetKeyName(1, "tick.jpg");
+            this.imageList1.Images.SetKeyName(2, "processing.gif");
             // 
             // ssPayroll
             // 
@@ -214,13 +227,27 @@
             this.lblCounter.Name = "lblCounter";
             this.lblCounter.Size = new System.Drawing.Size(0, 17);
             // 
-            // imageList1
+            // chNetPay
             // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "tick-icon-e1429734590379.png");
-            this.imageList1.Images.SetKeyName(1, "tick.jpg");
-            this.imageList1.Images.SetKeyName(2, "processing.gif");
+            this.chNetPay.Text = "Net Payable Income";
+            this.chNetPay.Width = 150;
+            // 
+            // txtFilter
+            // 
+            this.txtFilter.Location = new System.Drawing.Point(63, 80);
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(121, 20);
+            this.txtFilter.TabIndex = 9;
+            this.txtFilter.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyUp);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(20, 86);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Name";
             // 
             // frmGeneratePayroll
             // 
@@ -265,5 +292,8 @@
         private System.Windows.Forms.StatusStrip ssPayroll;
         private System.Windows.Forms.ToolStripStatusLabel lblCounter;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ColumnHeader chNetPay;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtFilter;
     }
 }
