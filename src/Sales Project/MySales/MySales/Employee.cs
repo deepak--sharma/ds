@@ -403,6 +403,10 @@ namespace MySales
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (!ValidateAdvanceDetails())
+            {
+                return;
+            }
             var itemCount = lvAdvance.Items.Count;
             var lvItem = new ListViewItem { Text = (itemCount + 1).ToString() };
             lvItem.SubItems.Add(new ListViewItem.ListViewSubItem {
@@ -431,6 +435,47 @@ namespace MySales
         private void txtAdvAmt_Leave(object sender, EventArgs e)
         {
             txtBalAmt.Text = txtAdvAmt.Text;
+        }
+        private bool ValidateAdvanceDetails()
+        {
+            var allGood = true;
+            var advAmt = txtAdvAmt.Text.Trim();
+            var dedAmt = txtDeduction.Text.Trim();
+            decimal adv, ded;
+            errorProvider1.Clear();
+            if (string.IsNullOrEmpty(advAmt))
+            {
+                errorProvider1.SetError(txtAdvAmt, "Value cannot be blank.");
+                allGood = false;
+            }
+            if (string.IsNullOrEmpty(advAmt))
+            {
+                errorProvider1.SetError(txtDeduction, "Value cannot be blank.");
+                allGood = false;
+            }
+
+            if(!decimal.TryParse(advAmt,out adv))
+            {
+                errorProvider1.SetError(txtAdvAmt, "Invalid amount value");
+                allGood = false;
+            }
+            if (!decimal.TryParse(dedAmt, out ded))
+            {
+                errorProvider1.SetError(txtDeduction, "Invalid amount value");
+                allGood = false;
+            }
+            if (adv <= 0)
+            {
+                errorProvider1.SetError(txtAdvAmt, "Amount must be greater than zero");
+                allGood = false;
+            }
+            if (ded <= 0)
+            {
+                errorProvider1.SetError(txtDeduction, "Amount must be greater than zero");
+                allGood = false;
+            }
+            return allGood;
+
         }
     }
 }
