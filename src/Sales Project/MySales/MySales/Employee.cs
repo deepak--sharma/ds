@@ -474,6 +474,11 @@ namespace MySales
                 errorProvider1.SetError(txtDeduction, "Amount must be greater than zero");
                 allGood = false;
             }
+            if (ded > adv)
+            {
+                errorProvider1.SetError(txtDeduction, "Deduction amount cannot be greater than Advance amount");
+                allGood = false;
+            }
             return allGood;
 
         }
