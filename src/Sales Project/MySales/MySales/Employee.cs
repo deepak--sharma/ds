@@ -271,11 +271,6 @@ namespace MySales
             {
                 _isFormValid = false;
             }
-            if(!IsAdvanceDataValid())
-            {
-                _isFormValid = false;
-            }
-
             return _isFormValid;
         }
         private bool IsAgeValid(DateTime dtDob)
@@ -377,19 +372,6 @@ namespace MySales
                     }
                 }
             }
-        }
-
-        private bool IsAdvanceDataValid()
-        {
-            var allGood = true;
-            var deductionAmt = Convert.ToDecimal(txtDeduction.Text.Trim());
-            var advanceAmt = Convert.ToDecimal(txtAdvAmt.Text.Trim());
-            if (deductionAmt > advanceAmt)
-            {
-                errorProvider1.SetError(txtDeduction, "Deduction amount cannot be greater than Advance amount");
-                allGood = false;
-            }
-            return allGood;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
