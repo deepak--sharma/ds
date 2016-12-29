@@ -15,7 +15,7 @@ namespace MySales.DL
         const string GetAllAdvDetail = "SELECT [AdvanceDeduction],[TotalAdvance],[Balance] from [Emp_Advance_Details]";
         const string InsertAdvanceHistory = "INSERT INTO Emp_Advance_History (EmpID,TotalAdvance,AdvanceDeduction,Balance,CreateDate) values (@empid,@total,@deduct,@bal,@cd);";
         const string GetEmployeeAdvanceHistory = "SELECT * FROM Emp_Advance_History WHERE [EmpID]=@empID";
-        const string UAdvDetail = "UPDATE [Emp_Advance_Details] set [Balance]=@bal,[TotalAdvance]=@ta,[AdvanceDeduction]=@ded,[IsActive]=true,[ModifiedDate]=@md where [EmpID]=@empID";
+        const string UAdvDetail = "UPDATE [Emp_Advance_Details] set [Balance]=@bal,[TotalAdvance]=@ta,[AdvanceDeduction]=@ded,[ModifiedDate]=@md where [ID]=@aid";
         private const string InsertAdvanceDetail = "Insert into Emp_Advance_Details (EmpID,TotalAdvance,AdvanceDeduction,Balance,CreateDate,ModifiedDate) values (@empid,@total,@deduct,@bal,@cd,@md);";
         private const string DeleteAdvanceDetail = "delete from Emp_Advance_Details where ";
         public AdvanceDetail GetAdvDetails(Int64 empId)
@@ -77,8 +77,8 @@ namespace MySales.DL
                         cmd.Parameters.Add(new OleDbParameter("@bal", emp.AdvanceDetails.Balance));
                         cmd.Parameters.Add(new OleDbParameter("@ta", emp.AdvanceDetails.TotalAdvance));
                         cmd.Parameters.Add(new OleDbParameter("@ded", emp.AdvanceDetails.AdvanceDeduction));
-                        cmd.Parameters.Add(new OleDbParameter("@ded", DateTime.Now.ToString()));
-                        cmd.Parameters.Add(new OleDbParameter("@empID", emp.Id));
+                        cmd.Parameters.Add(new OleDbParameter("@md", DateTime.Now.ToString()));
+                        cmd.Parameters.Add(new OleDbParameter("@aid", emp.AdvanceDetails.Id));
                         var rowsEffected = cmd.ExecuteNonQuery();
                         code = rowsEffected > 0 ? Utility.ActionStatus.SUCCESS : Utility.ActionStatus.FAILURE;
                         if (con.State == ConnectionState.Open)
@@ -89,7 +89,7 @@ namespace MySales.DL
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
                 code = Utility.ActionStatus.FAILURE;
             }
@@ -223,7 +223,7 @@ namespace MySales.DL
 
         public List<AdvanceDetail> GetEmployeeAdvHistory(Int64 empId)
         {
-            var advanceDetail = new AdvanceDetail();
+            //var advanceDetail = new AdvanceDetail();
             var lstAdvHistory = new List<AdvanceDetail>();
             try
             {
@@ -239,13 +239,16 @@ namespace MySales.DL
                         {
                             while (dr.Read())
                             {
-                                advanceDetail.Id = Convert.ToInt32(dr["ID"]);
-                                advanceDetail.EmpId = Convert.ToInt32(dr["EmpID"]);
-                                advanceDetail.AdvanceDeduction = Convert.ToDecimal(dr["AdvanceDeduction"]);
-                                advanceDetail.TotalAdvance = Convert.ToDecimal(dr["TotalAdvance"]);
-                                advanceDetail.Balance = Convert.ToDecimal(dr["Balance"]);
-                                advanceDetail.IsActive = Convert.ToBoolean(dr["IsActive"]);
-                                advanceDetail.CreateDate = Convert.ToDateTime(dr["CreateDate"]);
+                                var advanceDetail = new AdvanceDetail
+                                {
+                                    Id = Convert.ToInt32(dr["ID"]),
+                                    EmpId = Convert.ToInt32(dr["EmpID"]),
+                                    AdvanceDeduction = Convert.ToDecimal(dr["AdvanceDeduction"]),
+                                    TotalAdvance = Convert.ToDecimal(dr["TotalAdvance"]),
+                                    Balance = Convert.ToDecimal(dr["Balance"]),
+                                    IsActive = Convert.ToBoolean(dr["IsActive"]),
+                                    CreateDate = Convert.ToDateTime(dr["CreateDate"])
+                                };
                                 lstAdvHistory.Add(advanceDetail);
                             }
                         }

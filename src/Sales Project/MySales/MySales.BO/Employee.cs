@@ -15,6 +15,7 @@ namespace MySales.BO
             AddressP = new Address();
             Attendance = new EmpAttendance();
             AdvanceDetails = new AdvanceDetail();
+            AdvanceHistory = new List<AdvanceDetail>();
             SalDetails = new SalaryDetail();
             PayrollDetails = new Payroll();
             Designation = new Designation();
@@ -26,7 +27,7 @@ namespace MySales.BO
         #endregion
 
         #region Public properties
-
+        public List<AdvanceDetail> AdvanceHistory { get; set; }
         public EmpAttendance Attendance { get; set; }
 
         public AdvanceDetail AdvanceDetails { get; set; }

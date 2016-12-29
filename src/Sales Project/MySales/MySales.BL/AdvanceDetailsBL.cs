@@ -43,31 +43,30 @@ namespace MySales.BL
         }
         public Utility.ActionStatus SetupAdvanceDetails(Employee emp)
         {
-            /*  Business rules 
-            * 1. Check if prev advance details exist or not.
-            * 2. Add if no prev data found.
-            * 3. Update if prev advance details exists.
-            * 4. If prev advance detail exists and the new amt entered is less than the prev then don't add/update.
-            * TODO ADVANCE Balance logic implementation, update balance after payroll.
-            
-            var prevAdv = emp.AdvanceDetails == null || emp.AdvanceDetails.Id <= 0 ? GetAdvDetails(emp.Id) : emp.AdvanceDetails;
-            
-            if (prevAdv.Id > 0)
+            var result = Utility.ActionStatus.SUCCESS;
+
+            if (emp.AdvanceDetails.Id <= 0)
             {
-                var newAdv = new AdvanceDetail
-                {
-                    TotalAdvance = prevAdv.TotalAdvance + emp.AdvanceDetails.TotalAdvance,
-                    EmpId = emp.Id,
-                    AdvanceDeduction = emp.AdvanceDetails.AdvanceDeduction == prevAdv.AdvanceDeduction ? prevAdv.AdvanceDeduction : emp.AdvanceDetails.AdvanceDeduction,
-                    ModifiedDate = DateTime.Now
-                };
-                result = UpdateAdvanceDetails(emp);
+                result = AddAdvanceDetails(emp);
             }
             else
             {
-                result = AddAdvanceDetails(emp);
-            }*/
-            var result = Utility.ActionStatus.SUCCESS;
+                result = UpdateAdvanceDetails(emp);
+                if(emp.AdvanceHistory.Count>0)
+                {
+                    var newHistory = emp.AdvanceHistory.FirstOrDefault(x => x.Id == 0);
+                    _advanceDetailDl.AddAdvanceHistory(new Employee
+                    {
+                        Id = emp.Id,
+                        AdvanceDetails = new AdvanceDetail
+                        {
+                            TotalAdvance = newHistory.TotalAdvance,
+                            Balance = newHistory.Balance,
+                            AdvanceDeduction = newHistory.AdvanceDeduction
+                        }
+                    });
+                }
+            }
 
             return result;
         }

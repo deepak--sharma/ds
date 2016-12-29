@@ -93,14 +93,17 @@ namespace MySales
             rbM.Checked = true;
             FillDesignation();
             FillState();
+            ShowHideAdvGrid("Hide");
             if (_empID != -1)
+            {
                 btnClearForm.Visible = false;
                 SetupForm();
+            }
         }
-
+        private Employee emp;
         private void SetupForm()
         {
-            var emp = new EmployeeBl().GetSingleEmployee(_empID);
+            emp = new EmployeeBl().GetSingleEmployee(_empID);
             if (emp == null) return;
             txtFN.Text = emp.FirstName;
             txtMN.Text = emp.MiddleName;
@@ -124,9 +127,22 @@ namespace MySales
             _permanentAddressId = emp.AddressP.Id;
             _salaryId = emp.SalDetails.Id;
             txtMonthlyGross.Text = emp.SalDetails.MonthlyGross.ToString();
-            txtAdvAmt.Text = emp.AdvanceDetails.TotalAdvance.ToString().Trim();
-            txtDeduction.Text = emp.AdvanceDetails.AdvanceDeduction.ToString().Trim();
-            txtBalAmt.Text = emp.AdvanceDetails.Balance.ToString().Trim();
+            if (emp.AdvanceDetails.TotalAdvance > 0)
+            {
+                ShowHideAdvGrid("Show");
+                emp.AdvanceDetails.AdvAction = emp.AdvanceDetails.Id > 0 ? "U" : "I";
+                lblTotalAdvValue.Text = emp.AdvanceDetails.TotalAdvance.ToString().Trim();
+                lblDeductionValue.Text = emp.AdvanceDetails.AdvanceDeduction.ToString().Trim();
+                lblBalanceValue.Text = emp.AdvanceDetails.Balance.ToString().Trim();
+                emp.AdvanceHistory = new AdvanceDetailsBl().GetEmployeeAdvHistory(_empID);
+                foreach (var item in emp.AdvanceHistory)
+                {
+                    var lvItem = new ListViewItem { Text = item.TotalAdvance.ToString(), ToolTipText = item.Id.ToString() };
+                    lvItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = item.AdvanceDeduction.ToString() });
+                    lvItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = item.Balance.ToString() });
+                    lvAdvance.Items.Add(lvItem);
+                }
+            }
         }
 
         private void ddlStateC_SelectedIndexChanged(object sender, EventArgs e)
@@ -218,18 +234,35 @@ namespace MySales
                                  },
                 AdvanceDetails = new AdvanceDetail
                 {
-                    TotalAdvance = txtAdvAmt.Text.Trim()==string.Empty ? 0 : Convert.ToDecimal(txtAdvAmt.Text.Trim()),
-                    AdvanceDeduction = txtDeduction.Text.Trim() == string.Empty ? 0 : Convert.ToDecimal(txtDeduction.Text.Trim()),
-                    Balance = txtBalAmt.Text.Trim() == string.Empty ? 0 : Convert.ToDecimal(txtBalAmt.Text.Trim())                    
-                }
+                    Id = this.emp.AdvanceDetails.Id,
+                    EmpId = this.emp.Id,
+                    AdvanceDeduction = string.IsNullOrEmpty(lblDeductionValue.Text) ? decimal.MinValue :  Convert.ToDecimal(lblDeductionValue.Text),
+                    TotalAdvance = string.IsNullOrEmpty(lblTotalAdvValue.Text) ? decimal.MinValue : Convert.ToDecimal(lblTotalAdvValue.Text),
+                    Balance = string.IsNullOrEmpty(lblBalanceValue.Text) ? decimal.MinValue : Convert.ToDecimal(lblBalanceValue.Text)                    
+                },
+                AdvanceHistory = this.emp.AdvanceHistory
+
 
             };
+            
             MessageBox.Show(new EmployeeBl().AddUpdateEmployee(emp, 1) == Utility.ActionStatus.SUCCESS
                                 ? "Data saved successfully."
                                 : "Error: Please contact product support.");
             this.Close();
         }
-
+        private void FillAdvanceDetails(Employee e)
+        {
+            foreach (ListViewItem item in lvAdvance.Items)
+            {
+                var adv = new AdvanceDetail {
+                    EmpId = e.Id,
+                    AdvanceDeduction = Convert.ToDecimal(item.SubItems[2].Text),
+                    TotalAdvance = Convert.ToDecimal(item.SubItems[1].Text),
+                    Balance = Convert.ToDecimal(item.SubItems[3].Text),
+                };
+                e.AdvanceDetails = adv;
+            }
+        }
         private void btnClearForm_Click(object sender, EventArgs e)
         {
             errorProvider1.Clear();
@@ -374,44 +407,31 @@ namespace MySales
             }
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-             var historyForm = new AdvanceHistory
-            {
-                EmpId = _empID                
-            };
-            historyForm.ShowDialog();
-        }
+     
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (!ValidateAdvanceDetails())
-            {
-                return;
-            }
-            var itemCount = lvAdvance.Items.Count;
-            var lvItem = new ListViewItem { Text = (itemCount + 1).ToString() };
-            lvItem.SubItems.Add(new ListViewItem.ListViewSubItem {
-                Text = txtAdvAmt.Text.Trim()
-            });
-            lvItem.SubItems.Add(new ListViewItem.ListViewSubItem
-            {
-                Text = txtDeduction.Text.Trim()
-            });
-            lvItem.SubItems.Add(new ListViewItem.ListViewSubItem
-            {
-                Text = txtBalAmt.Text.Trim()
-            });
-            lvAdvance.Items.Add(lvItem);
-            txtAdvAmt.Text = txtDeduction.Text = txtBalAmt.Text = "0.0";
+            gbAddAdv.Visible = true;
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
+            if (lvAdvance.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select an item to remove.");
+                return;
+            }
             foreach (ListViewItem item in lvAdvance.SelectedItems)
             {
                 lvAdvance.Items.Remove(item);
+                UpdateAdvanceTotals();
             }
+
+            if (lvAdvance.Items.Count == 0)
+            {
+                ShowHideAdvGrid("Hide");
+            }
+
         }
 
         private void txtAdvAmt_Leave(object sender, EventArgs e)
@@ -463,6 +483,91 @@ namespace MySales
             }
             return allGood;
 
+        }
+
+        private void btnSubmitAdv_Click(object sender, EventArgs e)
+        {
+            if (!ValidateAdvanceDetails())
+            {
+                return;
+            }
+            //var itemCount = lvAdvance.Items.Count;
+            var lvItem = new ListViewItem { Text = txtAdvAmt.Text.Trim() };         
+            lvItem.SubItems.Add(new ListViewItem.ListViewSubItem
+            {
+                Text = txtDeduction.Text.Trim()
+            });
+            lvItem.SubItems.Add(new ListViewItem.ListViewSubItem
+            {
+                Text = txtBalAmt.Text.Trim()
+            });
+            lvAdvance.Items.Add(lvItem);
+            emp.AdvanceHistory.Add(new AdvanceDetail
+            {
+                AdvanceDeduction = Convert.ToDecimal(txtDeduction.Text.Trim()),
+                Balance = Convert.ToDecimal(txtBalAmt.Text.Trim()),
+                EmpId = emp.Id,
+                TotalAdvance = Convert.ToDecimal(txtAdvAmt.Text.Trim()),
+                CreateDate = DateTime.Now,                
+                IsActive = true
+            });
+            txtAdvAmt.Text = txtDeduction.Text = txtBalAmt.Text = "0.0";
+            gbAddAdv.Visible = false;
+            ShowHideAdvGrid("Show");
+            UpdateAdvanceTotals();
+        }
+
+        private void btnCancelAdv_Click(object sender, EventArgs e)
+        {
+            errorProvider1.Clear();
+            gbAddAdv.Visible = false;
+        }
+        private void ShowHideAdvGrid(string action)
+        {
+            switch (action)
+            {
+                case "Show":
+                    lvAdvance.Visible = true;
+                    btnRemove.Visible = true;
+                    lnkAdvHistory.Visible = true;
+                    gbTotal.Visible = true;
+                    lblNoAdvData.Visible = false;
+                    break;
+                case "Hide":
+                    lvAdvance.Visible = false;
+                    btnRemove.Visible = false;
+                    lnkAdvHistory.Visible = false;
+                    gbTotal.Visible = false;
+                    lblNoAdvData.Visible = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void lnkAdvHistory_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var historyForm = new AdvanceHistory
+            {
+                EmpId = _empID
+            };
+            historyForm.ShowDialog();
+        }
+        private void UpdateAdvanceTotals()
+        {
+            lblTotalAdvValue.Text = string.Empty;
+            lblDeductionValue.Text = string.Empty;
+            lblBalanceValue.Text = string.Empty;
+            decimal adv=0, ded=0, bal=0;
+            foreach (ListViewItem item in lvAdvance.Items)
+            {
+                adv += Convert.ToDecimal(item.Text); 
+                bal += Convert.ToDecimal(item.SubItems[0].Text);
+                ded += Convert.ToDecimal(item.SubItems[1].Text);
+            }
+            lblTotalAdvValue.Text = adv.ToString();
+            lblDeductionValue.Text = ded.ToString();
+            lblBalanceValue.Text = bal.ToString();
         }
     }
 }

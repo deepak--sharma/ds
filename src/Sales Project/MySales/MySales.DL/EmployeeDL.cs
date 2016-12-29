@@ -138,10 +138,10 @@ namespace MySales.DL
                                     AdvanceDetails = new AdvanceDetail()
                                                          {
                                                              Id = dr["AdvID"] != DBNull.Value && !string.IsNullOrEmpty(dr["AdvID"].ToString()) ? long.Parse(dr["AdvID"].ToString().Trim()) : 0,
-                                                             TotalAdvance = dr["TotalAdvance"] != DBNull.Value ? decimal.Parse(dr["TotalAdvance"].ToString().Trim()) : 0,
-                                                             AdvanceDeduction = dr["AdvanceDeduction"] != DBNull.Value ? decimal.Parse(dr["AdvanceDeduction"].ToString().Trim()) : 0,
-                                                             Balance = dr["Balance"] != DBNull.Value ? decimal.Parse(dr["Balance"].ToString().Trim()) : 0,
-                                                             AdvAction = dr["AdvID"] == DBNull.Value ? 'I' : 'U'
+                                                             TotalAdvance = dr["TotalAdvance"] != DBNull.Value ? decimal.Parse(dr["TotalAdvance"].ToString().Trim()) : decimal.MinValue,
+                                                             AdvanceDeduction = dr["AdvanceDeduction"] != DBNull.Value ? decimal.Parse(dr["AdvanceDeduction"].ToString().Trim()) : decimal.MinValue,
+                                                             Balance = dr["Balance"] != DBNull.Value ? decimal.Parse(dr["Balance"].ToString().Trim()) : decimal.MinValue,
+                                                             AdvAction = dr["AdvID"] == DBNull.Value ? "I" : "U"
                                                          }
                                     ,
                                     Attendance = new EmpAttendance()

@@ -81,18 +81,28 @@
             this.label13 = new System.Windows.Forms.Label();
             this.tpAdvanceDetails = new System.Windows.Forms.TabPage();
             this.gbAdvanceDetails = new System.Windows.Forms.GroupBox();
+            this.gbAddAdv = new System.Windows.Forms.GroupBox();
+            this.btnSubmitAdv = new System.Windows.Forms.Button();
+            this.btnCancelAdv = new System.Windows.Forms.Button();
+            this.txtBalAmt = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtAdvAmt = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtDeduction = new System.Windows.Forms.TextBox();
+            this.gbRunningAdvance = new System.Windows.Forms.GroupBox();
+            this.gbTotal = new System.Windows.Forms.GroupBox();
+            this.lblTotalAdv = new System.Windows.Forms.Label();
+            this.lblTotalBalance = new System.Windows.Forms.Label();
+            this.lblTotalDeduction = new System.Windows.Forms.Label();
+            this.lblNoAdvData = new System.Windows.Forms.Label();
             this.lvAdvance = new System.Windows.Forms.ListView();
-            this.chSNo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chTotalAdvanceAmt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chDeduction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chBalanceAmt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.txtBalAmt = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.txtDeduction = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.txtAdvAmt = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.lnkAdvHistory = new System.Windows.Forms.LinkLabel();
             this.tpBulk = new System.Windows.Forms.TabPage();
             this.label17 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -100,8 +110,9 @@
             this.btnClearForm = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnRemove = new System.Windows.Forms.Button();
+            this.lblTotalAdvValue = new System.Windows.Forms.Label();
+            this.lblBalanceValue = new System.Windows.Forms.Label();
+            this.lblDeductionValue = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -115,6 +126,9 @@
             this.groupBox3.SuspendLayout();
             this.tpAdvanceDetails.SuspendLayout();
             this.gbAdvanceDetails.SuspendLayout();
+            this.gbAddAdv.SuspendLayout();
+            this.gbRunningAdvance.SuspendLayout();
+            this.gbTotal.SuspendLayout();
             this.tpBulk.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -632,16 +646,9 @@
             // 
             // gbAdvanceDetails
             // 
-            this.gbAdvanceDetails.Controls.Add(this.btnRemove);
-            this.gbAdvanceDetails.Controls.Add(this.btnAdd);
-            this.gbAdvanceDetails.Controls.Add(this.lvAdvance);
-            this.gbAdvanceDetails.Controls.Add(this.linkLabel1);
-            this.gbAdvanceDetails.Controls.Add(this.txtBalAmt);
-            this.gbAdvanceDetails.Controls.Add(this.label16);
-            this.gbAdvanceDetails.Controls.Add(this.txtDeduction);
-            this.gbAdvanceDetails.Controls.Add(this.label15);
-            this.gbAdvanceDetails.Controls.Add(this.txtAdvAmt);
-            this.gbAdvanceDetails.Controls.Add(this.label14);
+            this.gbAdvanceDetails.Controls.Add(this.gbAddAdv);
+            this.gbAdvanceDetails.Controls.Add(this.gbRunningAdvance);
+            this.gbAdvanceDetails.Controls.Add(this.lnkAdvHistory);
             this.gbAdvanceDetails.Location = new System.Drawing.Point(8, 6);
             this.gbAdvanceDetails.Name = "gbAdvanceDetails";
             this.gbAdvanceDetails.Size = new System.Drawing.Size(555, 465);
@@ -649,26 +656,181 @@
             this.gbAdvanceDetails.TabStop = false;
             this.gbAdvanceDetails.Text = "Add/View/Change Advance details :";
             // 
+            // gbAddAdv
+            // 
+            this.gbAddAdv.Controls.Add(this.btnSubmitAdv);
+            this.gbAddAdv.Controls.Add(this.btnCancelAdv);
+            this.gbAddAdv.Controls.Add(this.txtBalAmt);
+            this.gbAddAdv.Controls.Add(this.label14);
+            this.gbAddAdv.Controls.Add(this.txtAdvAmt);
+            this.gbAddAdv.Controls.Add(this.label15);
+            this.gbAddAdv.Controls.Add(this.label16);
+            this.gbAddAdv.Controls.Add(this.txtDeduction);
+            this.gbAddAdv.Location = new System.Drawing.Point(20, 273);
+            this.gbAddAdv.Name = "gbAddAdv";
+            this.gbAddAdv.Size = new System.Drawing.Size(517, 177);
+            this.gbAddAdv.TabIndex = 19;
+            this.gbAddAdv.TabStop = false;
+            this.gbAddAdv.Text = "Add advance details :";
+            this.gbAddAdv.Visible = false;
+            // 
+            // btnSubmitAdv
+            // 
+            this.btnSubmitAdv.Location = new System.Drawing.Point(11, 148);
+            this.btnSubmitAdv.Name = "btnSubmitAdv";
+            this.btnSubmitAdv.Size = new System.Drawing.Size(75, 23);
+            this.btnSubmitAdv.TabIndex = 19;
+            this.btnSubmitAdv.Text = "S&ubmit";
+            this.btnSubmitAdv.UseVisualStyleBackColor = true;
+            this.btnSubmitAdv.Click += new System.EventHandler(this.btnSubmitAdv_Click);
+            // 
+            // btnCancelAdv
+            // 
+            this.btnCancelAdv.Location = new System.Drawing.Point(92, 148);
+            this.btnCancelAdv.Name = "btnCancelAdv";
+            this.btnCancelAdv.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelAdv.TabIndex = 20;
+            this.btnCancelAdv.Text = "&Cancel";
+            this.btnCancelAdv.UseVisualStyleBackColor = true;
+            this.btnCancelAdv.Click += new System.EventHandler(this.btnCancelAdv_Click);
+            // 
+            // txtBalAmt
+            // 
+            this.txtBalAmt.Location = new System.Drawing.Point(168, 106);
+            this.txtBalAmt.Name = "txtBalAmt";
+            this.txtBalAmt.ReadOnly = true;
+            this.txtBalAmt.Size = new System.Drawing.Size(144, 20);
+            this.txtBalAmt.TabIndex = 13;
+            this.txtBalAmt.Text = "0.00";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(15, 39);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(89, 13);
+            this.label14.TabIndex = 8;
+            this.label14.Text = "Advance Amount";
+            // 
+            // txtAdvAmt
+            // 
+            this.txtAdvAmt.Location = new System.Drawing.Point(168, 36);
+            this.txtAdvAmt.Name = "txtAdvAmt";
+            this.txtAdvAmt.Size = new System.Drawing.Size(144, 20);
+            this.txtAdvAmt.TabIndex = 9;
+            this.txtAdvAmt.Text = "0.00";
+            this.txtAdvAmt.Leave += new System.EventHandler(this.txtAdvAmt_Leave);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(15, 74);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(95, 13);
+            this.label15.TabIndex = 10;
+            this.label15.Text = "Deduction Amount";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(15, 109);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(85, 13);
+            this.label16.TabIndex = 12;
+            this.label16.Text = "Balance Amount";
+            // 
+            // txtDeduction
+            // 
+            this.txtDeduction.Location = new System.Drawing.Point(168, 71);
+            this.txtDeduction.Name = "txtDeduction";
+            this.txtDeduction.Size = new System.Drawing.Size(144, 20);
+            this.txtDeduction.TabIndex = 11;
+            this.txtDeduction.Text = "0.00";
+            // 
+            // gbRunningAdvance
+            // 
+            this.gbRunningAdvance.Controls.Add(this.gbTotal);
+            this.gbRunningAdvance.Controls.Add(this.lblNoAdvData);
+            this.gbRunningAdvance.Controls.Add(this.lvAdvance);
+            this.gbRunningAdvance.Controls.Add(this.btnAdd);
+            this.gbRunningAdvance.Controls.Add(this.btnRemove);
+            this.gbRunningAdvance.Location = new System.Drawing.Point(20, 26);
+            this.gbRunningAdvance.Name = "gbRunningAdvance";
+            this.gbRunningAdvance.Size = new System.Drawing.Size(517, 241);
+            this.gbRunningAdvance.TabIndex = 18;
+            this.gbRunningAdvance.TabStop = false;
+            this.gbRunningAdvance.Text = "Active Advance";
+            // 
+            // gbTotal
+            // 
+            this.gbTotal.Controls.Add(this.lblTotalAdvValue);
+            this.gbTotal.Controls.Add(this.lblBalanceValue);
+            this.gbTotal.Controls.Add(this.lblDeductionValue);
+            this.gbTotal.Controls.Add(this.lblTotalAdv);
+            this.gbTotal.Controls.Add(this.lblTotalBalance);
+            this.gbTotal.Controls.Add(this.lblTotalDeduction);
+            this.gbTotal.Location = new System.Drawing.Point(184, 118);
+            this.gbTotal.Name = "gbTotal";
+            this.gbTotal.Size = new System.Drawing.Size(258, 117);
+            this.gbTotal.TabIndex = 22;
+            this.gbTotal.TabStop = false;
+            this.gbTotal.Text = "Total";
+            // 
+            // lblTotalAdv
+            // 
+            this.lblTotalAdv.AutoSize = true;
+            this.lblTotalAdv.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalAdv.Location = new System.Drawing.Point(6, 16);
+            this.lblTotalAdv.Name = "lblTotalAdv";
+            this.lblTotalAdv.Size = new System.Drawing.Size(139, 20);
+            this.lblTotalAdv.TabIndex = 19;
+            this.lblTotalAdv.Text = "Advance Amount :";
+            // 
+            // lblTotalBalance
+            // 
+            this.lblTotalBalance.AutoSize = true;
+            this.lblTotalBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalBalance.Location = new System.Drawing.Point(6, 84);
+            this.lblTotalBalance.Name = "lblTotalBalance";
+            this.lblTotalBalance.Size = new System.Drawing.Size(135, 20);
+            this.lblTotalBalance.TabIndex = 21;
+            this.lblTotalBalance.Text = "Balance Amount :";
+            // 
+            // lblTotalDeduction
+            // 
+            this.lblTotalDeduction.AutoSize = true;
+            this.lblTotalDeduction.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalDeduction.Location = new System.Drawing.Point(6, 50);
+            this.lblTotalDeduction.Name = "lblTotalDeduction";
+            this.lblTotalDeduction.Size = new System.Drawing.Size(150, 20);
+            this.lblTotalDeduction.TabIndex = 20;
+            this.lblTotalDeduction.Text = "Deduction Amount :";
+            // 
+            // lblNoAdvData
+            // 
+            this.lblNoAdvData.AutoSize = true;
+            this.lblNoAdvData.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoAdvData.Location = new System.Drawing.Point(7, 20);
+            this.lblNoAdvData.Name = "lblNoAdvData";
+            this.lblNoAdvData.Size = new System.Drawing.Size(417, 48);
+            this.lblNoAdvData.TabIndex = 18;
+            this.lblNoAdvData.Text = "There is no advance data.\r\nClick \"Add\" button below to add Advance details.";
+            // 
             // lvAdvance
             // 
-            this.lvAdvance.CheckBoxes = true;
+            this.lvAdvance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lvAdvance.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvAdvance.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.chSNo,
             this.chTotalAdvanceAmt,
             this.chDeduction,
             this.chBalanceAmt});
             this.lvAdvance.FullRowSelect = true;
-            this.lvAdvance.Location = new System.Drawing.Point(6, 175);
+            this.lvAdvance.Location = new System.Drawing.Point(6, 19);
             this.lvAdvance.Name = "lvAdvance";
-            this.lvAdvance.Size = new System.Drawing.Size(542, 255);
+            this.lvAdvance.Size = new System.Drawing.Size(436, 82);
             this.lvAdvance.TabIndex = 15;
             this.lvAdvance.UseCompatibleStateImageBehavior = false;
             this.lvAdvance.View = System.Windows.Forms.View.Details;
-            // 
-            // chSNo
-            // 
-            this.chSNo.Text = "S.No.";
-            this.chSNo.Width = 100;
             // 
             // chTotalAdvanceAmt
             // 
@@ -685,69 +847,36 @@
             this.chBalanceAmt.Text = "Balance";
             this.chBalanceAmt.Width = 130;
             // 
-            // linkLabel1
+            // btnAdd
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(332, 100);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(143, 13);
-            this.linkLabel1.TabIndex = 14;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Click to see Advance History";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.btnAdd.Location = new System.Drawing.Point(10, 118);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 16;
+            this.btnAdd.Text = "&Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // txtBalAmt
+            // btnRemove
             // 
-            this.txtBalAmt.Location = new System.Drawing.Point(170, 93);
-            this.txtBalAmt.Name = "txtBalAmt";
-            this.txtBalAmt.ReadOnly = true;
-            this.txtBalAmt.Size = new System.Drawing.Size(144, 20);
-            this.txtBalAmt.TabIndex = 13;
-            this.txtBalAmt.Text = "0.00";
+            this.btnRemove.Location = new System.Drawing.Point(91, 118);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnRemove.TabIndex = 17;
+            this.btnRemove.Text = "&Remove";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
-            // label16
+            // lnkAdvHistory
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(17, 96);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(85, 13);
-            this.label16.TabIndex = 12;
-            this.label16.Text = "Balance Amount";
-            // 
-            // txtDeduction
-            // 
-            this.txtDeduction.Location = new System.Drawing.Point(170, 58);
-            this.txtDeduction.Name = "txtDeduction";
-            this.txtDeduction.Size = new System.Drawing.Size(144, 20);
-            this.txtDeduction.TabIndex = 11;
-            this.txtDeduction.Text = "0.00";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(17, 61);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(95, 13);
-            this.label15.TabIndex = 10;
-            this.label15.Text = "Deduction Amount";
-            // 
-            // txtAdvAmt
-            // 
-            this.txtAdvAmt.Location = new System.Drawing.Point(170, 23);
-            this.txtAdvAmt.Name = "txtAdvAmt";
-            this.txtAdvAmt.Size = new System.Drawing.Size(144, 20);
-            this.txtAdvAmt.TabIndex = 9;
-            this.txtAdvAmt.Text = "0.00";
-            this.txtAdvAmt.Leave += new System.EventHandler(this.txtAdvAmt_Leave);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(17, 26);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(89, 13);
-            this.label14.TabIndex = 8;
-            this.label14.Text = "Advance Amount";
+            this.lnkAdvHistory.AutoSize = true;
+            this.lnkAdvHistory.Location = new System.Drawing.Point(406, 10);
+            this.lnkAdvHistory.Name = "lnkAdvHistory";
+            this.lnkAdvHistory.Size = new System.Drawing.Size(143, 13);
+            this.lnkAdvHistory.TabIndex = 14;
+            this.lnkAdvHistory.TabStop = true;
+            this.lnkAdvHistory.Text = "Click to see Advance History";
+            this.lnkAdvHistory.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdvHistory_LinkClicked);
             // 
             // tpBulk
             // 
@@ -791,7 +920,7 @@
             this.btnClearForm.Name = "btnClearForm";
             this.btnClearForm.Size = new System.Drawing.Size(75, 23);
             this.btnClearForm.TabIndex = 21;
-            this.btnClearForm.Text = "Clear Form";
+            this.btnClearForm.Text = "Clear &Form";
             this.btnClearForm.UseVisualStyleBackColor = true;
             this.btnClearForm.Click += new System.EventHandler(this.btnClearForm_Click);
             // 
@@ -801,7 +930,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 20;
-            this.btnSave.Text = "Save";
+            this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -809,25 +938,32 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // btnAdd
+            // lblTotalAdvValue
             // 
-            this.btnAdd.Location = new System.Drawing.Point(20, 133);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 16;
-            this.btnAdd.Text = "Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.lblTotalAdvValue.AutoSize = true;
+            this.lblTotalAdvValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalAdvValue.Location = new System.Drawing.Point(163, 16);
+            this.lblTotalAdvValue.Name = "lblTotalAdvValue";
+            this.lblTotalAdvValue.Size = new System.Drawing.Size(0, 20);
+            this.lblTotalAdvValue.TabIndex = 22;
             // 
-            // btnRemove
+            // lblBalanceValue
             // 
-            this.btnRemove.Location = new System.Drawing.Point(19, 436);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(75, 23);
-            this.btnRemove.TabIndex = 17;
-            this.btnRemove.Text = "Remove";
-            this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            this.lblBalanceValue.AutoSize = true;
+            this.lblBalanceValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBalanceValue.Location = new System.Drawing.Point(163, 84);
+            this.lblBalanceValue.Name = "lblBalanceValue";
+            this.lblBalanceValue.Size = new System.Drawing.Size(0, 20);
+            this.lblBalanceValue.TabIndex = 24;
+            // 
+            // lblDeductionValue
+            // 
+            this.lblDeductionValue.AutoSize = true;
+            this.lblDeductionValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDeductionValue.Location = new System.Drawing.Point(163, 50);
+            this.lblDeductionValue.Name = "lblDeductionValue";
+            this.lblDeductionValue.Size = new System.Drawing.Size(0, 20);
+            this.lblDeductionValue.TabIndex = 23;
             // 
             // FrmEmployee
             // 
@@ -861,6 +997,12 @@
             this.tpAdvanceDetails.ResumeLayout(false);
             this.gbAdvanceDetails.ResumeLayout(false);
             this.gbAdvanceDetails.PerformLayout();
+            this.gbAddAdv.ResumeLayout(false);
+            this.gbAddAdv.PerformLayout();
+            this.gbRunningAdvance.ResumeLayout(false);
+            this.gbRunningAdvance.PerformLayout();
+            this.gbTotal.ResumeLayout(false);
+            this.gbTotal.PerformLayout();
             this.tpBulk.ResumeLayout(false);
             this.tpBulk.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -932,7 +1074,7 @@
         private System.Windows.Forms.TabPage tpAdvanceDetails;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.GroupBox gbAdvanceDetails;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel lnkAdvHistory;
         private System.Windows.Forms.TextBox txtBalAmt;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txtDeduction;
@@ -940,11 +1082,22 @@
         private System.Windows.Forms.TextBox txtAdvAmt;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ListView lvAdvance;
-        private System.Windows.Forms.ColumnHeader chSNo;
         private System.Windows.Forms.ColumnHeader chTotalAdvanceAmt;
         private System.Windows.Forms.ColumnHeader chDeduction;
         private System.Windows.Forms.ColumnHeader chBalanceAmt;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.GroupBox gbRunningAdvance;
+        private System.Windows.Forms.GroupBox gbAddAdv;
+        private System.Windows.Forms.Label lblNoAdvData;
+        private System.Windows.Forms.Button btnSubmitAdv;
+        private System.Windows.Forms.Button btnCancelAdv;
+        private System.Windows.Forms.Label lblTotalAdv;
+        private System.Windows.Forms.Label lblTotalBalance;
+        private System.Windows.Forms.Label lblTotalDeduction;
+        private System.Windows.Forms.GroupBox gbTotal;
+        private System.Windows.Forms.Label lblTotalAdvValue;
+        private System.Windows.Forms.Label lblBalanceValue;
+        private System.Windows.Forms.Label lblDeductionValue;
     }
 }

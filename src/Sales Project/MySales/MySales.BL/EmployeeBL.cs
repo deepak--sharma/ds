@@ -65,7 +65,10 @@ namespace MySales.BL
             else
             {
                 var salStatus = new SalaryDetailBl().AddUpdateSalaryDetails(employee);
-                var advStatus = new AdvanceDetailsBl().SetupAdvanceDetails(employee);
+                if (employee.AdvanceDetails.TotalAdvance != decimal.MinValue)
+                {
+                    var advStatus = new AdvanceDetailsBl().SetupAdvanceDetails(employee);
+                }
             }
             return result;
         }

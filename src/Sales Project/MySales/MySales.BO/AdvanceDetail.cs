@@ -28,6 +28,6 @@ namespace MySales.BO
         public bool IsActive
         { get; set; }
 
-        public char AdvAction { get; set; }
+        public string AdvAction { get; set; }
     }
 }
