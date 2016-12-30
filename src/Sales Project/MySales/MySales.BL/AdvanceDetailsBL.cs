@@ -55,16 +55,25 @@ namespace MySales.BL
                 if(emp.AdvanceHistory.Count>0)
                 {
                     var newHistory = emp.AdvanceHistory.FirstOrDefault(x => x.Id == 0);
-                    _advanceDetailDl.AddAdvanceHistory(new Employee
+                    if (newHistory != null)
                     {
-                        Id = emp.Id,
-                        AdvanceDetails = new AdvanceDetail
+                        _advanceDetailDl.AddAdvanceHistory(new Employee
                         {
-                            TotalAdvance = newHistory.TotalAdvance,
-                            Balance = newHistory.Balance,
-                            AdvanceDeduction = newHistory.AdvanceDeduction
-                        }
-                    });
+                            Id = emp.Id,
+                            AdvanceDetails = new AdvanceDetail
+                            {
+                                TotalAdvance = newHistory.TotalAdvance,
+                                Balance = newHistory.Balance,
+                                AdvanceDeduction = newHistory.AdvanceDeduction
+                            }
+                        });
+                    }
+                    var inActiveAdv = emp.AdvanceHistory.FirstOrDefault(x => x.IsActive == false);
+                    if (inActiveAdv != null)
+                    {
+                        //Update advance history
+                        _advanceDetailDl.UpdateAdvanceHistoryDetails(inActiveAdv.Id);
+                    }                    
                 }
             }
 
@@ -72,9 +81,9 @@ namespace MySales.BL
         }
 
 
-        public List<AdvanceDetail> GetEmployeeAdvHistory(Int64 empId)
+        public List<AdvanceDetail> GetEmployeeAdvHistory(Int64 empId,bool activeOnly)
         {
-            return _advanceDetailDl.GetEmployeeAdvHistory(empId);
+            return _advanceDetailDl.GetEmployeeAdvHistory(empId, activeOnly);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace MySales
         private void AdvanceHistory_Load(object sender, EventArgs e)
         {
             var advHistoryBl = new AdvanceDetailsBl();
-            var advHistory = advHistoryBl.GetEmployeeAdvHistory(EmpId);
+            var advHistory = advHistoryBl.GetEmployeeAdvHistory(EmpId,false);
             var ctr = 0;
             foreach (var history in advHistory)
             {

@@ -134,7 +134,7 @@ namespace MySales
                 lblTotalAdvValue.Text = emp.AdvanceDetails.TotalAdvance.ToString().Trim();
                 lblDeductionValue.Text = emp.AdvanceDetails.AdvanceDeduction.ToString().Trim();
                 lblBalanceValue.Text = emp.AdvanceDetails.Balance.ToString().Trim();
-                emp.AdvanceHistory = new AdvanceDetailsBl().GetEmployeeAdvHistory(_empID);
+                emp.AdvanceHistory = new AdvanceDetailsBl().GetEmployeeAdvHistory(_empID, true);
                 foreach (var item in emp.AdvanceHistory)
                 {
                     var lvItem = new ListViewItem { Text = item.TotalAdvance.ToString(), ToolTipText = item.Id.ToString() };
@@ -421,8 +421,15 @@ namespace MySales
                 MessageBox.Show("Please select an item to remove.");
                 return;
             }
+            var dialogResult = MessageBox.Show("You are about to delete an Active advance record. Are you sure you want to continue as this action can't be undone?", "Confirm action", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
             foreach (ListViewItem item in lvAdvance.SelectedItems)
             {
+                var advItem = emp.AdvanceHistory.FirstOrDefault(x => x.Id == Convert.ToInt64(item.ToolTipText));
+                advItem.IsActive = false;
                 lvAdvance.Items.Remove(item);
                 UpdateAdvanceTotals();
             }

@@ -14,6 +14,8 @@ namespace MySales.DL
         const string GetAdvDetail = "SELECT [ID],[EmpID], [AdvanceDeduction],[TotalAdvance],[Balance],[IsActive],[CreateDate],[ModifiedDate] from [Emp_Advance_Details] where [EmpID] = @empID";
         const string GetAllAdvDetail = "SELECT [AdvanceDeduction],[TotalAdvance],[Balance] from [Emp_Advance_Details]";
         const string InsertAdvanceHistory = "INSERT INTO Emp_Advance_History (EmpID,TotalAdvance,AdvanceDeduction,Balance,CreateDate) values (@empid,@total,@deduct,@bal,@cd);";
+        const string UpdateAdvanceHistory = "UPDATE Emp_Advance_History SET IsActive=@ia WHERE Id=@id;";
+        const string GetActiveEmployeeAdvanceHistory = "SELECT * FROM Emp_Advance_History WHERE [EmpID]=@empID AND IsActive=true";
         const string GetEmployeeAdvanceHistory = "SELECT * FROM Emp_Advance_History WHERE [EmpID]=@empID";
         const string UAdvDetail = "UPDATE [Emp_Advance_Details] set [Balance]=@bal,[TotalAdvance]=@ta,[AdvanceDeduction]=@ded,[ModifiedDate]=@md where [ID]=@aid";
         private const string InsertAdvanceDetail = "Insert into Emp_Advance_Details (EmpID,TotalAdvance,AdvanceDeduction,Balance,CreateDate,ModifiedDate) values (@empid,@total,@deduct,@bal,@cd,@md);";
@@ -221,7 +223,7 @@ namespace MySales.DL
         }
 
 
-        public List<AdvanceDetail> GetEmployeeAdvHistory(Int64 empId)
+        public List<AdvanceDetail> GetEmployeeAdvHistory(Int64 empId, bool activeOnly)
         {
             //var advanceDetail = new AdvanceDetail();
             var lstAdvHistory = new List<AdvanceDetail>();
@@ -230,8 +232,10 @@ namespace MySales.DL
                 using (var con = DbManager.GetConnection())
                 {
                     con.Open();
-                    using (var cmd = new OleDbCommand(GetEmployeeAdvanceHistory, con))
+                    using (var cmd = new OleDbCommand())
                     {
+                        cmd.Connection = con;
+                        cmd.CommandText = activeOnly ? GetActiveEmployeeAdvanceHistory : GetEmployeeAdvanceHistory;
                         cmd.Parameters.Clear();
                         cmd.Parameters.Add(new OleDbParameter("@empID", empId));
                         var dr = cmd.ExecuteReader();
@@ -267,5 +271,44 @@ namespace MySales.DL
             return lstAdvHistory;
         }
 
+        public Utility.ActionStatus UpdateAdvanceHistoryDetails(Int64 id)
+        {
+            var code = Utility.ActionStatus.SUCCESS;
+            try
+            {
+                using (var con = DbManager.GetConnection())
+                {
+                    con.Open();
+                    using (var cmd = new OleDbCommand(UpdateAdvanceHistory, con))
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            OleDbType = OleDbType.Boolean,
+                            ParameterName = "@ia",
+                            Value = false
+                        });
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            OleDbType = OleDbType.Numeric,
+                            ParameterName = "@id",
+                            Value = id
+                        });
+                        var rowsEffected = cmd.ExecuteNonQuery();
+                        code = rowsEffected > 0 ? Utility.ActionStatus.SUCCESS : Utility.ActionStatus.FAILURE;
+                        if (con.State == ConnectionState.Open)
+                        {
+                            con.Close();
+                        }
+                    }
+                }
+
+            }
+            catch
+            {
+                code = Utility.ActionStatus.FAILURE;
+            }
+            return code;
+        }
     }
 }
