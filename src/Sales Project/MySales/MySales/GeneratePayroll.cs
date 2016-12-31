@@ -99,6 +99,7 @@ namespace MySales
                         );
                     if (status == Utility.ActionStatus.SUCCESS)
                     {
+                        item.SubItems[5].Text = Utility.PayrollStatus.CALCULATED.ToString();
                         item.ImageIndex = 1;
                         item.Font = new Font(item.Font, FontStyle.Bold);
                         Application.DoEvents();
