@@ -11,13 +11,14 @@ namespace MySales.DL
 {
     public class AdvanceDetailDl
     {
-        const string GetAdvDetail = "SELECT [ID],[EmpID], [AdvanceDeduction],[TotalAdvance],[Balance],[IsActive],[CreateDate],[ModifiedDate] from [Emp_Advance_Details] where [EmpID] = @empID";
+        const string GetAdvDetail = "SELECT [ID],[EmpID], [AdvanceDeduction],[TotalAdvance],[Balance],[IsActive],[CreateDate],[ModifiedDate] from [Emp_Advance_Details] where [EmpID] = @empID AND [IsActive] = true";
         const string GetAllAdvDetail = "SELECT [AdvanceDeduction],[TotalAdvance],[Balance] from [Emp_Advance_Details]";
         const string InsertAdvanceHistory = "INSERT INTO Emp_Advance_History (EmpID,TotalAdvance,AdvanceDeduction,Balance,CreateDate) values (@empid,@total,@deduct,@bal,@cd);";
         const string UpdateAdvanceHistory = "UPDATE Emp_Advance_History SET IsActive=@ia WHERE Id=@id;";
+        const string DeleteAdvanceHistory = "UPDATE Emp_Advance_History SET IsActive=false WHERE EmpID=@eid;";
         const string GetActiveEmployeeAdvanceHistory = "SELECT * FROM Emp_Advance_History WHERE [EmpID]=@empID AND IsActive=true";
         const string GetEmployeeAdvanceHistory = "SELECT * FROM Emp_Advance_History WHERE [EmpID]=@empID";
-        const string UAdvDetail = "UPDATE [Emp_Advance_Details] set [Balance]=@bal,[TotalAdvance]=@ta,[AdvanceDeduction]=@ded,[ModifiedDate]=@md where [ID]=@aid";
+        const string UAdvDetail = "UPDATE [Emp_Advance_Details] set [Balance]=@bal,[TotalAdvance]=@ta,[AdvanceDeduction]=@ded,[ModifiedDate]=@md,[IsActive] = @ia where [ID]=@aid";
         private const string InsertAdvanceDetail = "Insert into Emp_Advance_Details (EmpID,TotalAdvance,AdvanceDeduction,Balance,CreateDate,ModifiedDate) values (@empid,@total,@deduct,@bal,@cd,@md);";
         private const string DeleteAdvanceDetail = "delete from Emp_Advance_Details where ";
         public AdvanceDetail GetAdvDetails(Int64 empId)
@@ -80,6 +81,7 @@ namespace MySales.DL
                         cmd.Parameters.Add(new OleDbParameter("@ta", emp.AdvanceDetails.TotalAdvance));
                         cmd.Parameters.Add(new OleDbParameter("@ded", emp.AdvanceDetails.AdvanceDeduction));
                         cmd.Parameters.Add(new OleDbParameter("@md", DateTime.Now.ToString()));
+                        cmd.Parameters.Add(new OleDbParameter("@ia", emp.AdvanceDetails.IsActive));
                         cmd.Parameters.Add(new OleDbParameter("@aid", emp.AdvanceDetails.Id));
                         var rowsEffected = cmd.ExecuteNonQuery();
                         code = rowsEffected > 0 ? Utility.ActionStatus.SUCCESS : Utility.ActionStatus.FAILURE;
@@ -293,6 +295,40 @@ namespace MySales.DL
                             OleDbType = OleDbType.Numeric,
                             ParameterName = "@id",
                             Value = id
+                        });
+                        var rowsEffected = cmd.ExecuteNonQuery();
+                        code = rowsEffected > 0 ? Utility.ActionStatus.SUCCESS : Utility.ActionStatus.FAILURE;
+                        if (con.State == ConnectionState.Open)
+                        {
+                            con.Close();
+                        }
+                    }
+                }
+
+            }
+            catch
+            {
+                code = Utility.ActionStatus.FAILURE;
+            }
+            return code;
+        }
+
+        public Utility.ActionStatus DeactivateAllAdvanceHistoryDetails(Int64 empId)
+        {
+            var code = Utility.ActionStatus.SUCCESS;
+            try
+            {
+                using (var con = DbManager.GetConnection())
+                {
+                    con.Open();
+                    using (var cmd = new OleDbCommand(DeleteAdvanceHistory, con))
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add(new OleDbParameter()
+                        {
+                            OleDbType = OleDbType.Numeric,
+                            ParameterName = "@eid",
+                            Value = empId
                         });
                         var rowsEffected = cmd.ExecuteNonQuery();
                         code = rowsEffected > 0 ? Utility.ActionStatus.SUCCESS : Utility.ActionStatus.FAILURE;

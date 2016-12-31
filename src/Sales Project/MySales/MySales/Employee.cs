@@ -234,16 +234,17 @@ namespace MySales
                                  },
                 AdvanceDetails = new AdvanceDetail
                 {
-                    Id = this.emp.AdvanceDetails.Id,
-                    EmpId = this.emp.Id,
                     AdvanceDeduction = string.IsNullOrEmpty(lblDeductionValue.Text) ? decimal.MinValue :  Convert.ToDecimal(lblDeductionValue.Text),
                     TotalAdvance = string.IsNullOrEmpty(lblTotalAdvValue.Text) ? decimal.MinValue : Convert.ToDecimal(lblTotalAdvValue.Text),
-                    Balance = string.IsNullOrEmpty(lblBalanceValue.Text) ? decimal.MinValue : Convert.ToDecimal(lblBalanceValue.Text)                    
-                },
-                AdvanceHistory = this.emp.AdvanceHistory
-
-
+                    Balance = string.IsNullOrEmpty(lblBalanceValue.Text) ? decimal.MinValue : Convert.ToDecimal(lblBalanceValue.Text),
+                    IsActive = true                    
+                }                
             };
+            if (this.emp != null)
+            {
+                emp.AdvanceHistory = this.emp.AdvanceHistory;
+                emp.AdvanceDetails.Id = this.emp.AdvanceDetails.Id;
+            }
             
             MessageBox.Show(new EmployeeBl().AddUpdateEmployee(emp, 1) == Utility.ActionStatus.SUCCESS
                                 ? "Data saved successfully."
@@ -509,15 +510,18 @@ namespace MySales
                 Text = txtBalAmt.Text.Trim()
             });
             lvAdvance.Items.Add(lvItem);
-            emp.AdvanceHistory.Add(new AdvanceDetail
+            if (emp != null)
             {
-                AdvanceDeduction = Convert.ToDecimal(txtDeduction.Text.Trim()),
-                Balance = Convert.ToDecimal(txtBalAmt.Text.Trim()),
-                EmpId = emp.Id,
-                TotalAdvance = Convert.ToDecimal(txtAdvAmt.Text.Trim()),
-                CreateDate = DateTime.Now,                
-                IsActive = true
-            });
+                emp.AdvanceHistory.Add(new AdvanceDetail
+                {
+                    AdvanceDeduction = Convert.ToDecimal(txtDeduction.Text.Trim()),
+                    Balance = Convert.ToDecimal(txtBalAmt.Text.Trim()),
+                    EmpId = emp.Id,
+                    TotalAdvance = Convert.ToDecimal(txtAdvAmt.Text.Trim()),
+                    CreateDate = DateTime.Now,
+                    IsActive = true
+                });
+            }
             txtAdvAmt.Text = txtDeduction.Text = txtBalAmt.Text = "0.0";
             gbAddAdv.Visible = false;
             ShowHideAdvGrid("Show");

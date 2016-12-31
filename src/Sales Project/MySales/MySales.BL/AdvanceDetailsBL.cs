@@ -23,7 +23,7 @@ namespace MySales.BL
             var code = Utility.ActionStatus.SUCCESS;
             try
             {
-                code = _advanceDetailDl.UpdateAdvanceDetails(emp);
+                code = _advanceDetailDl.UpdateAdvanceDetails(emp);                
             }
             catch (Exception)
             {
@@ -84,6 +84,12 @@ namespace MySales.BL
         public List<AdvanceDetail> GetEmployeeAdvHistory(Int64 empId,bool activeOnly)
         {
             return _advanceDetailDl.GetEmployeeAdvHistory(empId, activeOnly);
+        }
+
+
+        public Utility.ActionStatus DeactivateAllAdvanceHistoryDetails(Int64 empId)
+        {
+            return _advanceDetailDl.DeactivateAllAdvanceHistoryDetails(empId);
         }
     }
 }

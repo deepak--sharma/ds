@@ -463,7 +463,9 @@ namespace MySales
             {
                 return;
             }
-            var payrollMonthDays = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1);
+            var payrollMonth = DateTime.Now.AddMonths(-1).Month;
+            var payrollYear = payrollMonth == 12 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+            var payrollMonthDays = DateTime.DaysInMonth(payrollYear, payrollMonth);
             var newVal = dgvEmp.Rows[e.RowIndex].Cells[e.ColumnIndex].Value ?? string.Empty;
             long tmpVal = 0;
             var isNumber = Int64.TryParse(newVal.ToString(), out tmpVal);

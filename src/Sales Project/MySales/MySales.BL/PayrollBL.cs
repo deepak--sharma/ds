@@ -70,6 +70,11 @@ namespace MySales.BL
                         salaryAmt3 = salaryAmt2 - emp.AdvanceDetails.Balance;
                         emp.AdvanceDetails.Balance = 0;
                     }
+                    if (emp.AdvanceDetails.Balance == 0)
+                    {
+                        emp.AdvanceDetails.IsActive = false;
+                        objAdvanceDetailsBl.DeactivateAllAdvanceHistoryDetails(emp.Id);
+                    }
                     objAdvanceDetailsBl.UpdateAdvanceDetails(emp);
                     netPayableSal = salaryAmt3;
                 }
