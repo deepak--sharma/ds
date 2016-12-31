@@ -34,13 +34,13 @@
             this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.payrollToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startPayrollGenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.monthlyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.payrollDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.startPayrollGenMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuPayroll.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -90,6 +90,14 @@
             this.payrollToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.payrollToolStripMenuItem.Text = "&Payroll";
             // 
+            // startPayrollGenMenuItem
+            // 
+            this.startPayrollGenMenuItem.Name = "startPayrollGenMenuItem";
+            this.startPayrollGenMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.startPayrollGenMenuItem.Text = "Start Payroll Generator";
+            this.startPayrollGenMenuItem.Visible = false;
+            this.startPayrollGenMenuItem.Click += new System.EventHandler(this.startPayrollGenMenuItem_Click);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
@@ -115,7 +123,7 @@
             // payrollDataToolStripMenuItem
             // 
             this.payrollDataToolStripMenuItem.Name = "payrollDataToolStripMenuItem";
-            this.payrollDataToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.payrollDataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.payrollDataToolStripMenuItem.Text = "Payroll Data";
             this.payrollDataToolStripMenuItem.Click += new System.EventHandler(this.payrollDataToolStripMenuItem_Click);
             // 
@@ -138,13 +146,6 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "toolStripButton1";
-            // 
-            // startPayrollGenMenuItem
-            // 
-            this.startPayrollGenMenuItem.Name = "startPayrollGenMenuItem";
-            this.startPayrollGenMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.startPayrollGenMenuItem.Text = "Start Payroll Generator";
-            this.startPayrollGenMenuItem.Click += new System.EventHandler(this.startPayrollGenMenuItem_Click);
             // 
             // frmPayroll
             // 

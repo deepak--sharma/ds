@@ -92,6 +92,9 @@
             this.txtDeduction = new System.Windows.Forms.TextBox();
             this.gbRunningAdvance = new System.Windows.Forms.GroupBox();
             this.gbTotal = new System.Windows.Forms.GroupBox();
+            this.lblTotalAdvValue = new System.Windows.Forms.Label();
+            this.lblBalanceValue = new System.Windows.Forms.Label();
+            this.lblDeductionValue = new System.Windows.Forms.Label();
             this.lblTotalAdv = new System.Windows.Forms.Label();
             this.lblTotalBalance = new System.Windows.Forms.Label();
             this.lblTotalDeduction = new System.Windows.Forms.Label();
@@ -103,16 +106,11 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
             this.lnkAdvHistory = new System.Windows.Forms.LinkLabel();
-            this.tpBulk = new System.Windows.Forms.TabPage();
-            this.label17 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnClearForm = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lblTotalAdvValue = new System.Windows.Forms.Label();
-            this.lblBalanceValue = new System.Windows.Forms.Label();
-            this.lblDeductionValue = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -129,7 +127,6 @@
             this.gbAddAdv.SuspendLayout();
             this.gbRunningAdvance.SuspendLayout();
             this.gbTotal.SuspendLayout();
-            this.tpBulk.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -320,7 +317,6 @@
             this.tabControl1.Controls.Add(this.tpAddress);
             this.tabControl1.Controls.Add(this.tpSalary);
             this.tabControl1.Controls.Add(this.tpAdvanceDetails);
-            this.tabControl1.Controls.Add(this.tpBulk);
             this.tabControl1.Location = new System.Drawing.Point(0, -2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -776,6 +772,33 @@
             this.gbTotal.TabStop = false;
             this.gbTotal.Text = "Total";
             // 
+            // lblTotalAdvValue
+            // 
+            this.lblTotalAdvValue.AutoSize = true;
+            this.lblTotalAdvValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalAdvValue.Location = new System.Drawing.Point(163, 16);
+            this.lblTotalAdvValue.Name = "lblTotalAdvValue";
+            this.lblTotalAdvValue.Size = new System.Drawing.Size(0, 20);
+            this.lblTotalAdvValue.TabIndex = 22;
+            // 
+            // lblBalanceValue
+            // 
+            this.lblBalanceValue.AutoSize = true;
+            this.lblBalanceValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBalanceValue.Location = new System.Drawing.Point(163, 84);
+            this.lblBalanceValue.Name = "lblBalanceValue";
+            this.lblBalanceValue.Size = new System.Drawing.Size(0, 20);
+            this.lblBalanceValue.TabIndex = 24;
+            // 
+            // lblDeductionValue
+            // 
+            this.lblDeductionValue.AutoSize = true;
+            this.lblDeductionValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDeductionValue.Location = new System.Drawing.Point(163, 50);
+            this.lblDeductionValue.Name = "lblDeductionValue";
+            this.lblDeductionValue.Size = new System.Drawing.Size(0, 20);
+            this.lblDeductionValue.TabIndex = 23;
+            // 
             // lblTotalAdv
             // 
             this.lblTotalAdv.AutoSize = true;
@@ -878,27 +901,6 @@
             this.lnkAdvHistory.Text = "Click to see Advance History";
             this.lnkAdvHistory.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdvHistory_LinkClicked);
             // 
-            // tpBulk
-            // 
-            this.tpBulk.Controls.Add(this.label17);
-            this.tpBulk.Location = new System.Drawing.Point(4, 22);
-            this.tpBulk.Name = "tpBulk";
-            this.tpBulk.Padding = new System.Windows.Forms.Padding(3);
-            this.tpBulk.Size = new System.Drawing.Size(569, 477);
-            this.tpBulk.TabIndex = 1;
-            this.tpBulk.Text = "Bulk Add";
-            this.tpBulk.UseVisualStyleBackColor = true;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(94, 147);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(299, 33);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "Feature Coming Soon";
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -938,33 +940,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // lblTotalAdvValue
-            // 
-            this.lblTotalAdvValue.AutoSize = true;
-            this.lblTotalAdvValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalAdvValue.Location = new System.Drawing.Point(163, 16);
-            this.lblTotalAdvValue.Name = "lblTotalAdvValue";
-            this.lblTotalAdvValue.Size = new System.Drawing.Size(0, 20);
-            this.lblTotalAdvValue.TabIndex = 22;
-            // 
-            // lblBalanceValue
-            // 
-            this.lblBalanceValue.AutoSize = true;
-            this.lblBalanceValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBalanceValue.Location = new System.Drawing.Point(163, 84);
-            this.lblBalanceValue.Name = "lblBalanceValue";
-            this.lblBalanceValue.Size = new System.Drawing.Size(0, 20);
-            this.lblBalanceValue.TabIndex = 24;
-            // 
-            // lblDeductionValue
-            // 
-            this.lblDeductionValue.AutoSize = true;
-            this.lblDeductionValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDeductionValue.Location = new System.Drawing.Point(163, 50);
-            this.lblDeductionValue.Name = "lblDeductionValue";
-            this.lblDeductionValue.Size = new System.Drawing.Size(0, 20);
-            this.lblDeductionValue.TabIndex = 23;
-            // 
             // FrmEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1003,8 +978,6 @@
             this.gbRunningAdvance.PerformLayout();
             this.gbTotal.ResumeLayout(false);
             this.gbTotal.PerformLayout();
-            this.tpBulk.ResumeLayout(false);
-            this.tpBulk.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
@@ -1024,7 +997,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tpPersonal;
-        private System.Windows.Forms.TabPage tpBulk;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
@@ -1072,7 +1044,6 @@
         private System.Windows.Forms.TextBox txtMonthlyGross;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TabPage tpAdvanceDetails;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.GroupBox gbAdvanceDetails;
         private System.Windows.Forms.LinkLabel lnkAdvHistory;
         private System.Windows.Forms.TextBox txtBalAmt;
