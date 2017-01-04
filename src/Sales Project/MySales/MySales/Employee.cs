@@ -147,12 +147,16 @@ namespace MySales
 
         private void ddlStateC_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FillCity(Convert.ToInt64(ddlStateC.SelectedIndex), "C");
+            if (ddlStateC.Items.Count == 0) { return; }
+            var item = (State)ddlStateC.Items[ddlStateC.SelectedIndex];
+            FillCity(Convert.ToInt64(item.Id), "C");
         }
 
         private void ddlStateP_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FillCity(Convert.ToInt64(ddlStateP.SelectedIndex), "P");
+            if (ddlStateP.Items.Count == 0) { return; }
+            var item = (State)ddlStateP.Items[ddlStateP.SelectedIndex];
+            FillCity(Convert.ToInt64(item.Id), "P");
         }
 
         private void chkCopyAddress_CheckedChanged(object sender, EventArgs e)
