@@ -13,7 +13,7 @@ namespace MySales.DL
     {
 
         #region Private Constants
-        const String SelectDesig = "SELECT [ID],[DESC] FROM [DESIGNATION]";
+        const String SelectDesig = "SELECT [ID],[DESC] FROM [DESIGNATION] WHERE ISACTIVE=TRUE";
         #endregion
 
         #region Public Methods

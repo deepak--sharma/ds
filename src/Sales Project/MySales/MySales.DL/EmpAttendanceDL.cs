@@ -16,7 +16,7 @@ namespace MySales.DL
         private const string InsertAtt = "Insert into Emp_Attendance (EmpID,PayrollMonth,PayrollYear,TotalDays,WorkDays,LeaveDays,Overtime,CreateDate,ModifiedDate) values (@empid,@mon,@yr,@td,@wd,@ld,@ot,@cd,@md);";
         private const string UpdateAttendance = "Update Emp_Attendance set TotalDays=@td,WorkDays=@wd,LeaveDays=@ld,Overtime=@ot,ModifiedDate=@md where [ID] = @attId";
         private const string InsertBlankAttendanceRecordsForCurrentPayroll = "Insert into Emp_Attendance (EmpID,PayrollMonth,PayrollYear,CreateDate) values (@eid,@pm,@py,@cd)";
-        private const string GetMissingAttendance = "SELECT Employee.Id FROM Employee LEFT JOIN Emp_Attendance ON ((Employee.ID = Emp_Attendance.EmpID) AND (Emp_Attendance.PayrollMonth=@pm) AND (Emp_Attendance.PayrollYear=@py)) WHERE Emp_Attendance.EmpID IS NULL";
+        private const string GetMissingAttendance = "SELECT e.Id FROM Employee e LEFT JOIN Emp_Attendance att ON ((e.ID = att.EmpID) AND (att.PayrollMonth=@pm) AND (att.PayrollYear=@py)) WHERE att.EmpID IS NULL AND e.IsActive=true";
         public int Month { get; set; }
         public int Year { get; set; }
         public EmpAttendanceDl(int month,int year)

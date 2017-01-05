@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySales", "MySales\MySales.csproj", "{183ECBDF-F867-4AA2-B66F-871B014E703C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySales.BL", "MySales.BL\MySales.BL.csproj", "{3887756E-140C-460A-894A-FF4AD3910A10}"
@@ -10,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySales.BO", "MySales.BO\MySales.BO.csproj", "{22E52C9C-AB0A-407D-B69B-89D801C65124}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySales.Utils", "MySales.Utils\MySales.Utils.csproj", "{868D9062-DA17-4F3C-88C4-9DE9A3AB1EC1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySales.Repository", "MySales.Repository\MySales.Repository.csproj", "{3CB2F092-5633-40A3-B610-8BA1881F0F16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,16 +81,6 @@ Global
 		{868D9062-DA17-4F3C-88C4-9DE9A3AB1EC1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{868D9062-DA17-4F3C-88C4-9DE9A3AB1EC1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{868D9062-DA17-4F3C-88C4-9DE9A3AB1EC1}.Release|x86.ActiveCfg = Release|Any CPU
-		{3CB2F092-5633-40A3-B610-8BA1881F0F16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CB2F092-5633-40A3-B610-8BA1881F0F16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CB2F092-5633-40A3-B610-8BA1881F0F16}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{3CB2F092-5633-40A3-B610-8BA1881F0F16}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{3CB2F092-5633-40A3-B610-8BA1881F0F16}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3CB2F092-5633-40A3-B610-8BA1881F0F16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CB2F092-5633-40A3-B610-8BA1881F0F16}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3CB2F092-5633-40A3-B610-8BA1881F0F16}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{3CB2F092-5633-40A3-B610-8BA1881F0F16}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{3CB2F092-5633-40A3-B610-8BA1881F0F16}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
