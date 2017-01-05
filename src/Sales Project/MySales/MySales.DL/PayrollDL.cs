@@ -15,7 +15,7 @@ namespace MySales.DL
 
         private const String FetchPayroll =
             "select [ID],[EmpID],[OvertimeAmt],[AdvanceDedAmt],[DaysWorked],[NetPayable],[PMonth],[PYear],[Status],[IsActive],[CreateDate] from [Emp_Payroll] where [PMonth] = @pm AND [PYear] = @py AND [Status] = @st AND [IsActive] = @act";
-        private const string GetPayrollGridDataQuery = "SELECT e.ID,e.FirstName,e.MiddleName,e.LastName, sal.MonthlyGross,att.TotalDays,att.LeaveDays,att.WorkDays,att.Overtime,adv.TotalAdvance,p.OvertimeAmt,p.AdvanceDedAmt,p.DaysWorked,p.NetPayable,p.Status AS PStatus FROM (((Employee e INNER JOIN Emp_Attendance att ON ((e.ID = att.EmpID) AND (att.PayrollMonth=@pm) AND (att.PayrollYear=@py)) ) LEFT JOIN Emp_Advance_Details adv ON ((e.ID = adv.EmpID) AND (adv.IsActive=true))) LEFT JOIN Emp_Salary_Details sal ON (e.ID = sal.EmpID)) LEFT JOIN Emp_Payroll p ON ((e.ID = p.EmpID) AND (p.PMonth = @pm) AND (p.PYear = @py)) WHERE e.IsActive=true";
+        private const string GetPayrollGridDataQuery = "SELECT e.ID,e.FirstName,e.MiddleName,e.LastName, sal.MonthlyGross,att.TotalDays,att.LeaveDays,att.WorkDays,att.Overtime,adv.TotalAdvance,adv.IsRunning,p.OvertimeAmt,p.AdvanceDedAmt,p.DaysWorked,p.NetPayable,p.Status AS PStatus FROM (((Employee e INNER JOIN Emp_Attendance att ON ((e.ID = att.EmpID) AND (att.PayrollMonth=@pm) AND (att.PayrollYear=@py)) ) LEFT JOIN Emp_Advance_Details adv ON ((e.ID = adv.EmpID) AND (adv.IsActive=true) AND (adv.IsRunning=true))) LEFT JOIN Emp_Salary_Details sal ON (e.ID = sal.EmpID)) LEFT JOIN Emp_Payroll p ON ((e.ID = p.EmpID) AND (p.PMonth = @pm) AND (p.PYear = @py)) WHERE e.IsActive=true";
         public Utility.ActionStatus AddPayroll(Payroll objPayroll)
         {
             var state = Utility.ActionStatus.SUCCESS;
@@ -134,7 +134,8 @@ namespace MySales.DL
                                     },
                                     AdvanceDetails = new AdvanceDetail
                                     {
-                                        TotalAdvance = dr["TotalAdvance"] == DBNull.Value || dr["TotalAdvance"] == null ? 0 : decimal.Parse(dr["TotalAdvance"].ToString())
+                                        TotalAdvance = dr["TotalAdvance"] == DBNull.Value || dr["TotalAdvance"] == null ? 0 : decimal.Parse(dr["TotalAdvance"].ToString()),
+                                        IsRunning = dr["IsRunning"] == DBNull.Value || dr["IsRunning"] == null ? false : bool.Parse(dr["IsRunning"].ToString())
                                     },
                                     PayrollDetails = new Payroll
                                     {

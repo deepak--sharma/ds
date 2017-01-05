@@ -27,6 +27,8 @@ namespace MySales.BO
         { get; set; }
         public bool IsActive
         { get; set; }
+        public bool IsRunning
+        { get; set; }
 
         public string AdvAction { get; set; }
     }

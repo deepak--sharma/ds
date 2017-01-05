@@ -31,7 +31,10 @@ namespace MySales.BL
             }
             return code;
         }
-
+        public Utility.ActionStatus DeleteAdvanceDetails(Int64 advId)
+        {
+            return _advanceDetailDl.DeleteAdvanceDetails(advId);
+        }
         public Utility.ActionStatus AddAdvanceDetails(Employee emp)
         {
             if (emp.AdvanceDetails.TotalAdvance > 0)

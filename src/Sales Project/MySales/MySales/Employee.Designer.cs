@@ -111,6 +111,7 @@
             this.btnClearForm = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.cbIsRunning = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -276,6 +277,7 @@
             // lnkAddPhoto
             // 
             this.lnkAddPhoto.AutoSize = true;
+            this.lnkAddPhoto.Enabled = false;
             this.lnkAddPhoto.Location = new System.Drawing.Point(367, 190);
             this.lnkAddPhoto.Name = "lnkAddPhoto";
             this.lnkAddPhoto.Size = new System.Drawing.Size(109, 13);
@@ -320,7 +322,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, -2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(577, 503);
+            this.tabControl1.Size = new System.Drawing.Size(583, 566);
             this.tabControl1.TabIndex = 0;
             // 
             // tpPersonal
@@ -341,7 +343,7 @@
             this.tpAddress.Location = new System.Drawing.Point(4, 22);
             this.tpAddress.Name = "tpAddress";
             this.tpAddress.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAddress.Size = new System.Drawing.Size(569, 477);
+            this.tpAddress.Size = new System.Drawing.Size(575, 540);
             this.tpAddress.TabIndex = 2;
             this.tpAddress.Text = "Address Details";
             this.tpAddress.UseVisualStyleBackColor = true;
@@ -635,19 +637,21 @@
             this.tpAdvanceDetails.Location = new System.Drawing.Point(4, 22);
             this.tpAdvanceDetails.Name = "tpAdvanceDetails";
             this.tpAdvanceDetails.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAdvanceDetails.Size = new System.Drawing.Size(569, 477);
+            this.tpAdvanceDetails.Size = new System.Drawing.Size(575, 540);
             this.tpAdvanceDetails.TabIndex = 4;
             this.tpAdvanceDetails.Text = "Advance Details";
             this.tpAdvanceDetails.UseVisualStyleBackColor = true;
             // 
             // gbAdvanceDetails
             // 
+            this.gbAdvanceDetails.Controls.Add(this.btnClearForm);
+            this.gbAdvanceDetails.Controls.Add(this.btnSave);
             this.gbAdvanceDetails.Controls.Add(this.gbAddAdv);
             this.gbAdvanceDetails.Controls.Add(this.gbRunningAdvance);
             this.gbAdvanceDetails.Controls.Add(this.lnkAdvHistory);
             this.gbAdvanceDetails.Location = new System.Drawing.Point(8, 6);
             this.gbAdvanceDetails.Name = "gbAdvanceDetails";
-            this.gbAdvanceDetails.Size = new System.Drawing.Size(555, 465);
+            this.gbAdvanceDetails.Size = new System.Drawing.Size(555, 528);
             this.gbAdvanceDetails.TabIndex = 0;
             this.gbAdvanceDetails.TabStop = false;
             this.gbAdvanceDetails.Text = "Add/View/Change Advance details :";
@@ -662,7 +666,7 @@
             this.gbAddAdv.Controls.Add(this.label15);
             this.gbAddAdv.Controls.Add(this.label16);
             this.gbAddAdv.Controls.Add(this.txtDeduction);
-            this.gbAddAdv.Location = new System.Drawing.Point(20, 273);
+            this.gbAddAdv.Location = new System.Drawing.Point(20, 316);
             this.gbAddAdv.Name = "gbAddAdv";
             this.gbAddAdv.Size = new System.Drawing.Size(517, 177);
             this.gbAddAdv.TabIndex = 19;
@@ -752,22 +756,23 @@
             this.gbRunningAdvance.Controls.Add(this.btnRemove);
             this.gbRunningAdvance.Location = new System.Drawing.Point(20, 26);
             this.gbRunningAdvance.Name = "gbRunningAdvance";
-            this.gbRunningAdvance.Size = new System.Drawing.Size(517, 241);
+            this.gbRunningAdvance.Size = new System.Drawing.Size(517, 284);
             this.gbRunningAdvance.TabIndex = 18;
             this.gbRunningAdvance.TabStop = false;
             this.gbRunningAdvance.Text = "Active Advance";
             // 
             // gbTotal
             // 
+            this.gbTotal.Controls.Add(this.cbIsRunning);
             this.gbTotal.Controls.Add(this.lblTotalAdvValue);
             this.gbTotal.Controls.Add(this.lblBalanceValue);
             this.gbTotal.Controls.Add(this.lblDeductionValue);
             this.gbTotal.Controls.Add(this.lblTotalAdv);
             this.gbTotal.Controls.Add(this.lblTotalBalance);
             this.gbTotal.Controls.Add(this.lblTotalDeduction);
-            this.gbTotal.Location = new System.Drawing.Point(184, 118);
+            this.gbTotal.Location = new System.Drawing.Point(11, 147);
             this.gbTotal.Name = "gbTotal";
-            this.gbTotal.Size = new System.Drawing.Size(258, 117);
+            this.gbTotal.Size = new System.Drawing.Size(500, 131);
             this.gbTotal.TabIndex = 22;
             this.gbTotal.TabStop = false;
             this.gbTotal.Text = "Total";
@@ -776,7 +781,7 @@
             // 
             this.lblTotalAdvValue.AutoSize = true;
             this.lblTotalAdvValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalAdvValue.Location = new System.Drawing.Point(163, 16);
+            this.lblTotalAdvValue.Location = new System.Drawing.Point(178, 23);
             this.lblTotalAdvValue.Name = "lblTotalAdvValue";
             this.lblTotalAdvValue.Size = new System.Drawing.Size(0, 20);
             this.lblTotalAdvValue.TabIndex = 22;
@@ -785,7 +790,7 @@
             // 
             this.lblBalanceValue.AutoSize = true;
             this.lblBalanceValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBalanceValue.Location = new System.Drawing.Point(163, 84);
+            this.lblBalanceValue.Location = new System.Drawing.Point(178, 69);
             this.lblBalanceValue.Name = "lblBalanceValue";
             this.lblBalanceValue.Size = new System.Drawing.Size(0, 20);
             this.lblBalanceValue.TabIndex = 24;
@@ -794,7 +799,7 @@
             // 
             this.lblDeductionValue.AutoSize = true;
             this.lblDeductionValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDeductionValue.Location = new System.Drawing.Point(163, 50);
+            this.lblDeductionValue.Location = new System.Drawing.Point(178, 46);
             this.lblDeductionValue.Name = "lblDeductionValue";
             this.lblDeductionValue.Size = new System.Drawing.Size(0, 20);
             this.lblDeductionValue.TabIndex = 23;
@@ -803,7 +808,7 @@
             // 
             this.lblTotalAdv.AutoSize = true;
             this.lblTotalAdv.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalAdv.Location = new System.Drawing.Point(6, 16);
+            this.lblTotalAdv.Location = new System.Drawing.Point(5, 23);
             this.lblTotalAdv.Name = "lblTotalAdv";
             this.lblTotalAdv.Size = new System.Drawing.Size(139, 20);
             this.lblTotalAdv.TabIndex = 19;
@@ -813,7 +818,7 @@
             // 
             this.lblTotalBalance.AutoSize = true;
             this.lblTotalBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalBalance.Location = new System.Drawing.Point(6, 84);
+            this.lblTotalBalance.Location = new System.Drawing.Point(5, 69);
             this.lblTotalBalance.Name = "lblTotalBalance";
             this.lblTotalBalance.Size = new System.Drawing.Size(135, 20);
             this.lblTotalBalance.TabIndex = 21;
@@ -823,7 +828,7 @@
             // 
             this.lblTotalDeduction.AutoSize = true;
             this.lblTotalDeduction.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalDeduction.Location = new System.Drawing.Point(6, 50);
+            this.lblTotalDeduction.Location = new System.Drawing.Point(5, 46);
             this.lblTotalDeduction.Name = "lblTotalDeduction";
             this.lblTotalDeduction.Size = new System.Drawing.Size(150, 20);
             this.lblTotalDeduction.TabIndex = 20;
@@ -905,9 +910,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 533);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 567);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(589, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(595, 22);
             this.statusStrip1.TabIndex = 12;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -918,7 +923,7 @@
             // 
             // btnClearForm
             // 
-            this.btnClearForm.Location = new System.Drawing.Point(279, 507);
+            this.btnClearForm.Location = new System.Drawing.Point(270, 499);
             this.btnClearForm.Name = "btnClearForm";
             this.btnClearForm.Size = new System.Drawing.Size(75, 23);
             this.btnClearForm.TabIndex = 21;
@@ -928,7 +933,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(190, 507);
+            this.btnSave.Location = new System.Drawing.Point(181, 499);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 20;
@@ -940,13 +945,21 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // cbIsRunning
+            // 
+            this.cbIsRunning.AutoSize = true;
+            this.cbIsRunning.Location = new System.Drawing.Point(10, 107);
+            this.cbIsRunning.Name = "cbIsRunning";
+            this.cbIsRunning.Size = new System.Drawing.Size(323, 17);
+            this.cbIsRunning.TabIndex = 23;
+            this.cbIsRunning.Text = "Check this to start Advance deduction during salary calculation";
+            this.cbIsRunning.UseVisualStyleBackColor = true;
+            // 
             // FrmEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 555);
-            this.Controls.Add(this.btnClearForm);
-            this.Controls.Add(this.btnSave);
+            this.ClientSize = new System.Drawing.Size(595, 589);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
             this.Name = "FrmEmployee";
@@ -1070,5 +1083,6 @@
         private System.Windows.Forms.Label lblTotalAdvValue;
         private System.Windows.Forms.Label lblBalanceValue;
         private System.Windows.Forms.Label lblDeductionValue;
+        private System.Windows.Forms.CheckBox cbIsRunning;
     }
 }

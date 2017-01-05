@@ -41,6 +41,10 @@ namespace MySales
                 ddlDesig.DisplayMember = "Desc";
                 ddlDesig.ValueMember = "ID";
             }
+            if (ddlDesig.Items.Count > 1)
+            {
+                ddlDesig.SelectedIndex = 1;
+            }
         }
 
         private void FillState()
@@ -134,6 +138,7 @@ namespace MySales
                 lblTotalAdvValue.Text = emp.AdvanceDetails.TotalAdvance.ToString().Trim();
                 lblDeductionValue.Text = emp.AdvanceDetails.AdvanceDeduction.ToString().Trim();
                 lblBalanceValue.Text = emp.AdvanceDetails.Balance.ToString().Trim();
+                cbIsRunning.Checked = emp.AdvanceDetails.IsRunning;
                 emp.AdvanceHistory = new AdvanceDetailsBl().GetEmployeeAdvHistory(_empID, true);
                 foreach (var item in emp.AdvanceHistory)
                 {
@@ -213,13 +218,13 @@ namespace MySales
                 IsActive = true,
                 Designation = new Designation { Id = Convert.ToInt64(this.ddlDesig.SelectedValue) },
                 AddressC = new Address()
-                               {
-                                   Id = _currentAddressId,
-                                   Line1 = txtAddC.Text.Trim(),
-                                   CityId = (long)ddlCityC.SelectedValue,
-                                   StateId = (long)ddlStateC.SelectedValue,
-                                   Pincode = Convert.ToInt64(string.IsNullOrEmpty(txtPincodeC.Text.Trim()) ? "0" : txtPincodeC.Text.Trim())
-                               },
+                {
+                    Id = _currentAddressId,
+                    Line1 = txtAddC.Text.Trim(),
+                    CityId = (long)ddlCityC.SelectedValue,
+                    StateId = (long)ddlStateC.SelectedValue,
+                    Pincode = Convert.ToInt64(string.IsNullOrEmpty(txtPincodeC.Text.Trim()) ? "0" : txtPincodeC.Text.Trim())
+                },
                 AddressP = new Address()
                 {
                     Id = _permanentAddressId,
@@ -230,18 +235,19 @@ namespace MySales
                 }
                ,
                 SalDetails = new SalaryDetail()
-                                 {
-                                     Id = _salaryId,
-                                     CreateDate = DateTime.Now,
-                                     MonthlyGross = !string.IsNullOrEmpty(txtMonthlyGross.Text.Trim()) ?
+                {
+                    Id = _salaryId,
+                    CreateDate = DateTime.Now,
+                    MonthlyGross = !string.IsNullOrEmpty(txtMonthlyGross.Text.Trim()) ?
                                      Convert.ToDecimal(txtMonthlyGross.Text.Trim()) : 0
-                                 },
+                },
                 AdvanceDetails = new AdvanceDetail
                 {
-                    AdvanceDeduction = string.IsNullOrEmpty(lblDeductionValue.Text) ? decimal.MinValue :  Convert.ToDecimal(lblDeductionValue.Text),
+                    AdvanceDeduction = string.IsNullOrEmpty(lblDeductionValue.Text) ? decimal.MinValue : Convert.ToDecimal(lblDeductionValue.Text),
                     TotalAdvance = string.IsNullOrEmpty(lblTotalAdvValue.Text) ? decimal.MinValue : Convert.ToDecimal(lblTotalAdvValue.Text),
                     Balance = string.IsNullOrEmpty(lblBalanceValue.Text) ? decimal.MinValue : Convert.ToDecimal(lblBalanceValue.Text),
-                    IsActive = true                    
+                    IsActive = true,
+                    IsRunning = cbIsRunning.Checked                                      
                 }                
             };
             if (this.emp != null)

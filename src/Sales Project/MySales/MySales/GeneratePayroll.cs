@@ -88,7 +88,7 @@ namespace MySales
             var dataToProcessExists = false;
             foreach (ListViewItem item in lvPayroll.Items)
             {
-                if (item.SubItems[5].Text == Utility.PayrollStatus.TOBECALCULATED.ToString())
+                if (item.SubItems[8].Text == Utility.PayrollStatus.TOBECALCULATED.ToString())
                 {
                     dataToProcessExists = true;
                     item.ImageIndex = 2;
@@ -104,8 +104,8 @@ namespace MySales
                         );
                     if (status == Utility.ActionStatus.SUCCESS)
                     {
-                        item.SubItems[5].Text = Utility.PayrollStatus.CALCULATED.ToString();
-                        item.SubItems[4].Text = empBeingProcessed.PayrollDetails.NetPayable.ToString();
+                        item.SubItems[8].Text = Utility.PayrollStatus.CALCULATED.ToString();
+                        item.SubItems[7].Text = empBeingProcessed.PayrollDetails.NetPayable.ToString();
                         item.ImageIndex = 1;
                         item.Font = new Font(item.Font, FontStyle.Bold);
                         Application.DoEvents();
@@ -115,6 +115,7 @@ namespace MySales
             if (!dataToProcessExists)
             {
                 MessageBox.Show("Monthly payroll for all employess has been processed, there is no new data for calculation");
+                btnGenPayroll.Enabled = true;
                 return;
             }
             btnGenPayroll.Enabled = true;

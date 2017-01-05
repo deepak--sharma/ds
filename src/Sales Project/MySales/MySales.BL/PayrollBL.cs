@@ -75,7 +75,15 @@ namespace MySales.BL
                         emp.AdvanceDetails.IsActive = false;
                         objAdvanceDetailsBl.DeactivateAllAdvanceHistoryDetails(emp.Id);
                     }
-                    objAdvanceDetailsBl.UpdateAdvanceDetails(emp);
+                    if (emp.AdvanceDetails.IsActive)
+                    {
+                        objAdvanceDetailsBl.UpdateAdvanceDetails(emp);
+                    }
+                    else
+                    {
+                        objAdvanceDetailsBl.DeleteAdvanceDetails(emp.AdvanceDetails.Id);
+                    }
+                    
                     netPayableSal = salaryAmt3;
                 }
                 else

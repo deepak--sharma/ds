@@ -13,11 +13,11 @@ namespace MySales.DL
     {
         #region Private constants
         //private const string SelectAllEmp = "SELECT Employee.*, Designation.ID AS Desig_ID, Designation.Desc AS Desig_Desc, Address.ID AS CID, Address.Line1 AS CLine1, Address.State AS CState, Address.City AS CCity, Address.Pincode AS CPincode, p.ID AS PID, p.Line1 AS PLine1, p.State AS PState, p.City AS PCity, p.Pincode AS PPincode, sal.ID AS SalID,sal.MonthlyGross FROM (((Address RIGHT JOIN Employee ON Address.ID = Employee.CAddressId) LEFT JOIN Designation ON Employee.Designation = Designation.ID) LEFT JOIN Address AS p ON Employee.PAddressId = p.ID) LEFT JOIN Emp_Salary_Details AS sal ON Employee.ID = sal.EmpID;";
-        private const string SelectAllEmp = "SELECT e.*, d.ID AS Desig_ID, d.Desc AS Desig_Desc, c.ID AS CID, c.Line1 AS CLine1, c.State AS CState, c.City AS CCity, c.Pincode AS CPincode, p.ID AS PID, p.Line1 AS PLine1, p.State AS PState, p.City AS PCity, p.Pincode AS PPincode, sal.ID AS SalID, sal.MonthlyGross, adv.ID AS ADVID, adv.TotalAdvance AS TotalAdv, adv.AdvanceDeduction AS Deduction, adv.Balance AS Balance, adv.IsActive AS AdvIsActive, adv.CreateDate AS AdvDateCreated, adv.ModifiedDate As AdvDateModified FROM (Address c RIGHT JOIN (((Employee e LEFT JOIN Designation d ON e.Designation = d.ID) LEFT JOIN Address p ON e.PAddressId = p.ID) LEFT JOIN Emp_Salary_Details sal ON e.ID = sal.EmpID) ON c.ID = e.CAddressId) LEFT JOIN Emp_Advance_Details adv ON e.ID = adv.EmpID WHERE e.IsActive = true;";
+        private const string SelectAllEmp = "SELECT e.*, d.ID AS Desig_ID, d.Desc AS Desig_Desc, c.ID AS CID, c.Line1 AS CLine1, c.State AS CState, c.City AS CCity, c.Pincode AS CPincode, p.ID AS PID, p.Line1 AS PLine1, p.State AS PState, p.City AS PCity, p.Pincode AS PPincode, sal.ID AS SalID, sal.MonthlyGross, adv.ID AS ADVID, adv.TotalAdvance AS TotalAdv, adv.AdvanceDeduction AS Deduction, adv.Balance AS Balance, adv.IsActive AS AdvIsActive, adv.CreateDate AS AdvDateCreated, adv.ModifiedDate As AdvDateModified, adv.IsRunning FROM (Address c RIGHT JOIN (((Employee e LEFT JOIN Designation d ON e.Designation = d.ID) LEFT JOIN Address p ON e.PAddressId = p.ID) LEFT JOIN Emp_Salary_Details sal ON e.ID = sal.EmpID) ON c.ID = e.CAddressId) LEFT JOIN Emp_Advance_Details adv ON e.ID = adv.EmpID WHERE e.IsActive = true;";
         private const string AddEmp = @"Insert into Employee (FirstName,MiddleName,LastName,FathersName,Gender,DateOfBirth,MobileNo,OtherNo,DateOfJoining,Designation,ModifiedBy,CAddressId,PAddressId,EmpCode,IsActive,CreateDate) values
                                          (@FirstName,@MiddleName,@LastName,@FathersName,@Gender,@DateOfBirth,@MobileNo,@OtherNo,@DateOfJoining,@Designation,@ModifiedBy,@CAddressId,@PAddressId,@EmpCode,@IsActive,@CreateDate)";
-        private const string SelectEmpById = "SELECT e.*, d.ID AS Desig_ID, d.Desc AS Desig_Desc, c.ID AS CID, c.Line1 AS CLine1, c.State AS CState, c.City AS CCity, c.Pincode AS CPincode, p.ID AS PID, p.Line1 AS PLine1, p.State AS PState, p.City AS PCity, p.Pincode AS PPincode, sal.ID AS SalID, sal.MonthlyGross, adv.ID AS ADVID, adv.TotalAdvance AS TotalAdv, adv.AdvanceDeduction AS Deduction, adv.Balance AS Balance, adv.IsActive AS AdvIsActive, adv.CreateDate AS AdvDateCreated, adv.ModifiedDate As AdvDateModified FROM (Address c RIGHT JOIN (((Employee e LEFT JOIN Designation d ON e.Designation = d.ID) LEFT JOIN Address p ON e.PAddressId = p.ID) LEFT JOIN Emp_Salary_Details sal ON e.ID = sal.EmpID) ON c.ID = e.CAddressId) LEFT JOIN Emp_Advance_Details adv ON ((e.ID = adv.EmpID) AND (adv.IsActive=true)) WHERE e.ID = @empid;";
-        private const string SelectEmpAdvDetails = "SELECT e.ID,e.EmpCode,e.FirstName,e.MiddleName,e.LastName, att.ID As AttID,att.WorkDays,att.LeaveDays,att.Overtime, adv.ID As AdvID,adv.TotalAdvance,adv.AdvanceDeduction,adv.Balance FROM (Employee e LEFT JOIN Emp_Advance_Details adv ON e.ID = adv.EmpID) LEFT JOIN Emp_Attendance att ON e.ID = att.EmpID WHERE att.PayrollMonth=@pm And att.PayrollYear=@yr AND e.IsActive=true;";
+        private const string SelectEmpById = "SELECT e.*, d.ID AS Desig_ID, d.Desc AS Desig_Desc, c.ID AS CID, c.Line1 AS CLine1, c.State AS CState, c.City AS CCity, c.Pincode AS CPincode, p.ID AS PID, p.Line1 AS PLine1, p.State AS PState, p.City AS PCity, p.Pincode AS PPincode, sal.ID AS SalID, sal.MonthlyGross, adv.ID AS ADVID, adv.TotalAdvance AS TotalAdv, adv.AdvanceDeduction AS Deduction, adv.Balance AS Balance, adv.IsActive AS AdvIsActive, adv.CreateDate AS AdvDateCreated, adv.ModifiedDate As AdvDateModified,adv.IsRunning FROM (Address c RIGHT JOIN (((Employee e LEFT JOIN Designation d ON e.Designation = d.ID) LEFT JOIN Address p ON e.PAddressId = p.ID) LEFT JOIN Emp_Salary_Details sal ON e.ID = sal.EmpID) ON c.ID = e.CAddressId) LEFT JOIN Emp_Advance_Details adv ON ((e.ID = adv.EmpID) AND (adv.IsActive=true)) WHERE e.ID = @empid;";
+        private const string SelectEmpAdvDetails = "SELECT e.ID,e.EmpCode,e.FirstName,e.MiddleName,e.LastName, att.ID As AttID,att.WorkDays,att.LeaveDays,att.Overtime, adv.ID As AdvID,adv.TotalAdvance,adv.AdvanceDeduction,adv.Balance,adv.IsRunning FROM (Employee e LEFT JOIN Emp_Advance_Details adv ON e.ID = adv.EmpID) LEFT JOIN Emp_Attendance att ON e.ID = att.EmpID WHERE att.PayrollMonth=@pm And att.PayrollYear=@yr AND e.IsActive=true;";
         private const string SelectAllActiveEmployees = "SELECT ID FROM EMPLOYEE WHERE ISACTIVE=TRUE";
         private const string UpdateEmployee = "Update Employee set FirstName=@FirstName,MiddleName=@MiddleName,LastName=@LastName,FathersName=@FathersName,Gender=@Gender,DateOfBirth=@DateOfBirth,MobileNo=@MobileNo,OtherNo=@OtherNo,DateOfJoining=@DateOfJoining,Designation=@Designation,ModifiedBy=@ModifiedBy,CAddressId=@CAddressId,PAddressId=@PAddressId,ModifiedDate=@ModifiedDate where ID=@ID";
         #endregion
@@ -83,7 +83,8 @@ namespace MySales.DL
                                         Balance = dr["Balance"] != DBNull.Value ? decimal.Parse(dr["Balance"].ToString().Trim()) : 0,
                                         IsActive = dr["AdvIsActive"] != DBNull.Value ? Convert.ToBoolean(dr["AdvIsActive"]) : false,
                                         CreateDate = DBNull.Value != dr["AdvDateCreated"] ? DateTime.Parse(Convert.ToString(dr["AdvDateCreated"])) : DateTime.MinValue,
-                                        ModifiedDate = DBNull.Value != dr["AdvDateModified"] ? DateTime.Parse(Convert.ToString(dr["AdvDateModified"])) : DateTime.MinValue
+                                        ModifiedDate = DBNull.Value != dr["AdvDateModified"] ? DateTime.Parse(Convert.ToString(dr["AdvDateModified"])) : DateTime.MinValue,
+                                        IsRunning = dr["IsRunning"] != DBNull.Value ? Convert.ToBoolean(dr["IsRunning"]) : false
                                     }
 
                                 };
@@ -132,13 +133,14 @@ namespace MySales.DL
                                     FullName = GetFullName(Convert.ToString(dr["FirstName"]), Convert.ToString(dr["MiddleName"]), Convert.ToString(dr["LastName"]))
                                     ,
                                     AdvanceDetails = new AdvanceDetail()
-                                                         {
-                                                             Id = dr["AdvID"] != DBNull.Value && !string.IsNullOrEmpty(dr["AdvID"].ToString()) ? long.Parse(dr["AdvID"].ToString().Trim()) : 0,
-                                                             TotalAdvance = dr["TotalAdvance"] != DBNull.Value ? decimal.Parse(dr["TotalAdvance"].ToString().Trim()) : decimal.MinValue,
-                                                             AdvanceDeduction = dr["AdvanceDeduction"] != DBNull.Value ? decimal.Parse(dr["AdvanceDeduction"].ToString().Trim()) : decimal.MinValue,
-                                                             Balance = dr["Balance"] != DBNull.Value ? decimal.Parse(dr["Balance"].ToString().Trim()) : decimal.MinValue,
-                                                             AdvAction = dr["AdvID"] == DBNull.Value ? "I" : "U"
-                                                         }
+                                    {
+                                        Id = dr["AdvID"] != DBNull.Value && !string.IsNullOrEmpty(dr["AdvID"].ToString()) ? long.Parse(dr["AdvID"].ToString().Trim()) : 0,
+                                        TotalAdvance = dr["TotalAdvance"] != DBNull.Value ? decimal.Parse(dr["TotalAdvance"].ToString().Trim()) : decimal.MinValue,
+                                        AdvanceDeduction = dr["AdvanceDeduction"] != DBNull.Value ? decimal.Parse(dr["AdvanceDeduction"].ToString().Trim()) : decimal.MinValue,
+                                        Balance = dr["Balance"] != DBNull.Value ? decimal.Parse(dr["Balance"].ToString().Trim()) : decimal.MinValue,
+                                        AdvAction = dr["AdvID"] == DBNull.Value ? "I" : "U",
+                                        IsRunning = dr["IsRunning"] != DBNull.Value ? Convert.ToBoolean(dr["IsRunning"]) : false
+                                    }
                                     ,
                                     Attendance = new EmpAttendance()
                                                      {
@@ -401,7 +403,8 @@ namespace MySales.DL
                                         Balance = dr["Balance"] != DBNull.Value ? decimal.Parse(dr["Balance"].ToString().Trim()) : 0,
                                         IsActive = dr["AdvIsActive"] != DBNull.Value ? Convert.ToBoolean(dr["AdvIsActive"]) : false,
                                         CreateDate = DBNull.Value != dr["AdvDateCreated"] ? DateTime.Parse(Convert.ToString(dr["AdvDateCreated"])) : DateTime.MinValue,
-                                        ModifiedDate = DBNull.Value != dr["AdvDateModified"] ? DateTime.Parse(Convert.ToString(dr["AdvDateModified"])) : DateTime.MinValue
+                                        ModifiedDate = DBNull.Value != dr["AdvDateModified"] ? DateTime.Parse(Convert.ToString(dr["AdvDateModified"])) : DateTime.MinValue,
+                                        IsRunning = dr["IsRunning"] != DBNull.Value ? Convert.ToBoolean(dr["IsRunning"]) : false
                                     }
 
                                 };
