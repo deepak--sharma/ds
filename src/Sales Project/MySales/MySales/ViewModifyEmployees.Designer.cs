@@ -101,7 +101,6 @@
             this.dgvEmp.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmp_CellClick);
             this.dgvEmp.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvEmp_CellFormatting);
             this.dgvEmp.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmp_CellValueChanged);
-            //this.dgvEmp.Enter += new System.EventHandler(this.dgvEmp_Enter);
             // 
             // ssMessage
             // 
@@ -140,6 +139,7 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Visible = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // label2
             // 
@@ -164,9 +164,11 @@
             // 
             // ViewModifyEmployees
             // 
+            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(874, 485);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);

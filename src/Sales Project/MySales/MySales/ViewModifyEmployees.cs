@@ -62,6 +62,7 @@ namespace MySales
             if (month == 1)
             {
                 month = 12;
+                year = DateTime.Now.AddYears(-1).Year;
             }
             else
             {
@@ -498,16 +499,11 @@ namespace MySales
 
         }
 
-        /*private void dgvEmp_Enter(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dgvEmp.Rows)
-            {
-                if (Convert.ToInt64(row.Cells[4].Value) == 0 && Convert.ToInt64(row.Cells[5].Value) == 0)
-                {
-                   // row.Cells[4].Value = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1);
-                }
-            }
-        }*/
+            this.Close();
+        }
+
         private void ValidateAttendance(DataGridViewCellEventArgs e, int payrollMonthDays)
         {
             if (e.ColumnIndex == 4 || e.ColumnIndex == 5)

@@ -28,12 +28,9 @@ namespace MySales
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            //if (IsUserValid())            
             if (new UserBl().IsUserValid(this.txtUsername.Text.Trim(), this.txtPassword.Text.Trim(), out UserBl.UserId))
             {
                 this.Hide();
-                //Home theHome = new Home();
-                //theHome.Show();
                 new frmMain().Show();
             }
             else
@@ -45,36 +42,12 @@ namespace MySales
         private void Login_Load(object sender, EventArgs e)
         {
             txtUsername.Text = WindowsIdentity.GetCurrent().Name;
-            txtUsername.ReadOnly = true;
             txtPassword.Focus();
         }
 
-        //private bool IsUserValid()
-        //{
-        //    bool _isUserValid = false;
-
-        //    using (OleDbConnection con = new OleDbConnection(connStr))
-        //    {
-        //        string cmdStr = "select * from [User Account] where Username=@un";
-        //        con.Open();
-        //        using (OleDbCommand cmd = new OleDbCommand())
-        //        {
-        //            cmd.CommandText = cmdStr;
-        //            cmd.Connection = con;
-        //            cmd.Parameters.Add(new OleDbParameter("@un", this.txtUsername.Text.Trim()));
-        //            //cmd.Parameters["@un"].Value = ;
-        //            //cmd.Parameters.Add(new OleDbParameter("@pwd", this.txtPassword.Text.Trim()));
-        //            //cmd.Parameters.Add("@pwd");
-        //            //cmd.Parameters["@pwd"].Value = this.txtPassword.Text.Trim();
-        //            using (OleDbDataAdapter adap = new OleDbDataAdapter(cmd))
-        //            {
-        //                DataSet ds = new DataSet();
-        //                adap.Fill(ds);
-        //                _isUserValid = ds.Tables[0].Rows[0]["Password"].ToString().Equals(this.txtPassword.Text);
-        //            }
-        //        }
-        //    }
-        //    return _isUserValid;
-        //}
+        private void lnkDefaultUser_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            txtUsername.Text = WindowsIdentity.GetCurrent().Name;
+        }
     }
 }

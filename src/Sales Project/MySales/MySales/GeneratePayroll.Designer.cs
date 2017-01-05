@@ -38,19 +38,22 @@
             this.lblProcessing = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtFilter = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lvPayroll = new System.Windows.Forms.ListView();
             this.chImg = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chEmpName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chAdvance = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chOt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chNetPay = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.ssPayroll = new System.Windows.Forms.StatusStrip();
             this.lblCounter = new System.Windows.Forms.ToolStripStatusLabel();
-            this.chNetPay = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.txtFilter = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.chSalary = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chDays = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chAbsent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -78,6 +81,7 @@
             this.cbMonth.Name = "cbMonth";
             this.cbMonth.Size = new System.Drawing.Size(121, 21);
             this.cbMonth.TabIndex = 0;
+            this.cbMonth.SelectedIndexChanged += new System.EventHandler(this.cbMonth_SelectedIndexChanged);
             // 
             // lblMonth
             // 
@@ -105,6 +109,7 @@
             this.cbYear.Name = "cbYear";
             this.cbYear.Size = new System.Drawing.Size(121, 21);
             this.cbYear.TabIndex = 3;
+            this.cbYear.SelectedIndexChanged += new System.EventHandler(this.cbYear_SelectedIndexChanged);
             // 
             // btnGenPayroll
             // 
@@ -150,6 +155,23 @@
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(20, 86);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Name";
+            // 
+            // txtFilter
+            // 
+            this.txtFilter.Location = new System.Drawing.Point(63, 80);
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(121, 20);
+            this.txtFilter.TabIndex = 9;
+            this.txtFilter.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyUp);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.lvPayroll);
@@ -165,6 +187,9 @@
             this.lvPayroll.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chImg,
             this.chEmpName,
+            this.chSalary,
+            this.chDays,
+            this.chAbsent,
             this.chAdvance,
             this.chOt,
             this.chNetPay,
@@ -175,7 +200,7 @@
             this.lvPayroll.MultiSelect = false;
             this.lvPayroll.Name = "lvPayroll";
             this.lvPayroll.ShowItemToolTips = true;
-            this.lvPayroll.Size = new System.Drawing.Size(708, 312);
+            this.lvPayroll.Size = new System.Drawing.Size(708, 307);
             this.lvPayroll.SmallImageList = this.imageList1;
             this.lvPayroll.TabIndex = 9;
             this.lvPayroll.UseCompatibleStateImageBehavior = false;
@@ -184,12 +209,11 @@
             // chImg
             // 
             this.chImg.Text = "";
-            this.chImg.Width = 70;
             // 
             // chEmpName
             // 
             this.chEmpName.Text = "Name";
-            this.chEmpName.Width = 190;
+            this.chEmpName.Width = 90;
             // 
             // chAdvance
             // 
@@ -199,6 +223,12 @@
             // chOt
             // 
             this.chOt.Text = "Over Time (hrs.)";
+            this.chOt.Width = 70;
+            // 
+            // chNetPay
+            // 
+            this.chNetPay.Text = "Net Payable Income";
+            this.chNetPay.Width = 100;
             // 
             // chStatus
             // 
@@ -227,27 +257,20 @@
             this.lblCounter.Name = "lblCounter";
             this.lblCounter.Size = new System.Drawing.Size(0, 17);
             // 
-            // chNetPay
+            // chSalary
             // 
-            this.chNetPay.Text = "Net Payable Income";
-            this.chNetPay.Width = 150;
+            this.chSalary.Text = "Salary";
+            this.chSalary.Width = 70;
             // 
-            // txtFilter
+            // chDays
             // 
-            this.txtFilter.Location = new System.Drawing.Point(63, 80);
-            this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(121, 20);
-            this.txtFilter.TabIndex = 9;
-            this.txtFilter.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyUp);
+            this.chDays.Text = "Days";
+            this.chDays.Width = 70;
             // 
-            // label1
+            // chAbsent
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 86);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Name";
+            this.chAbsent.Text = "Absent";
+            this.chAbsent.Width = 70;
             // 
             // frmGeneratePayroll
             // 
@@ -295,5 +318,8 @@
         private System.Windows.Forms.ColumnHeader chNetPay;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtFilter;
+        private System.Windows.Forms.ColumnHeader chSalary;
+        private System.Windows.Forms.ColumnHeader chDays;
+        private System.Windows.Forms.ColumnHeader chAbsent;
     }
 }

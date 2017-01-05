@@ -544,14 +544,12 @@ namespace MySales
                 case "Show":
                     lvAdvance.Visible = true;
                     btnRemove.Visible = true;
-                    lnkAdvHistory.Visible = true;
                     gbTotal.Visible = true;
                     lblNoAdvData.Visible = false;
                     break;
                 case "Hide":
                     lvAdvance.Visible = false;
                     btnRemove.Visible = false;
-                    lnkAdvHistory.Visible = false;
                     gbTotal.Visible = false;
                     lblNoAdvData.Visible = true;
                     break;

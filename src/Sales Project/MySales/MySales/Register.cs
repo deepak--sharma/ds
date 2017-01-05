@@ -68,7 +68,7 @@ namespace MySales
             {
                 MessageBox.Show("User created successfully.");
                 this.Hide();
-                new Home().Show();
+                new Login().Show();
             }
             else
             {

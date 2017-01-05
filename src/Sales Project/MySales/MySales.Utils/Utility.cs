@@ -131,12 +131,14 @@ namespace MySales.Utils
             if (month == 1)
             {
                 cbMonth.SelectedIndex = 11;
+                cbYear.SelectedIndex = cbYear.Items.Count - 2;
             }
             else
             {
                 cbMonth.SelectedIndex = month - 2;
+                cbYear.SelectedIndex = cbYear.Items.Count - 1;
             }
-            cbYear.SelectedIndex = cbYear.Items.Count - 1;
+            
         }
 
         public static void dgvEmp_CellFormatting(DataGridView dgvEmp, DataGridViewCellFormattingEventArgs e)

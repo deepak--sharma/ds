@@ -86,12 +86,13 @@ namespace MySales.BL
                 objPayroll.DaysWorked = emp.Attendance.WorkDays;
                 objPayroll.PYear = year;
                 objPayroll.PMonth = month;
-                objPayroll.NetPayable = decimal.Round(netPayableSal, 0);
+                objPayroll.NetPayable = decimal.Round(netPayableSal, 2);
                 objPayroll.CreateDate = DateTime.Now;
                 objPayroll.IsActive = true;
                 objPayroll.AdvanceDedAmt = lAdvDedAmt;
                 objPayroll.OvertimeAmt = otAmt;
                 objPayroll.Status = Utility.PayrollStatus.CALCULATED;
+                emp.PayrollDetails = objPayroll;
                 state = AddPayroll(objPayroll);
 
             }

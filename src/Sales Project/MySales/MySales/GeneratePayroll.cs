@@ -32,6 +32,7 @@ namespace MySales
         {
             lvPayroll.Items.Clear();
             var objEmployeeBl = new PayrollBl();
+            if (cbMonth.SelectedItem == null || cbYear.SelectedItem == null) { return; }
             var lstAllEmp = objEmployeeBl.GetPayrollGridData(Convert.ToInt32(cbMonth.SelectedIndex) + 1, Convert.ToInt32(cbYear.SelectedItem.ToString()));
             List<Employee> lstEmp;
             if (filter)
@@ -61,6 +62,9 @@ namespace MySales
                     ImageIndex = 0
                 };
                 lvItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = emp.EmployeeFullName() });
+                lvItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = emp.SalDetails.MonthlyGross.ToString() });
+                lvItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = emp.Attendance.TotalDays.ToString() });
+                lvItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = emp.Attendance.LeaveDays.ToString() });
                 lvItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = emp.AdvanceDetails.TotalAdvance.ToString() });
                 lvItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = emp.Attendance.Overtime.ToString() });
                 lvItem.SubItems.Add(new ListViewItem.ListViewSubItem { Text = emp.PayrollDetails.NetPayable.ToString() });
@@ -89,21 +93,22 @@ namespace MySales
                     dataToProcessExists = true;
                     item.ImageIndex = 2;
                     Application.DoEvents();
+                    var empBeingProcessed = new Employee
+                    {
+                        Id = Convert.ToInt64(item.ToolTipText)
+                    };
                     var status = new PayrollBl().PayrollCalculator(
-                        new Employee
-                        {
-                            Id = Convert.ToInt64(item.ToolTipText)
-                        },
+                        empBeingProcessed,
                         Convert.ToInt32(cbMonth.SelectedIndex) + 1,
                         Convert.ToInt32(cbYear.SelectedItem.ToString())
                         );
                     if (status == Utility.ActionStatus.SUCCESS)
                     {
                         item.SubItems[5].Text = Utility.PayrollStatus.CALCULATED.ToString();
+                        item.SubItems[4].Text = empBeingProcessed.PayrollDetails.NetPayable.ToString();
                         item.ImageIndex = 1;
                         item.Font = new Font(item.Font, FontStyle.Bold);
                         Application.DoEvents();
-
                     }
                 }                
             }
@@ -134,6 +139,16 @@ namespace MySales
         private void txtFilter_KeyUp(object sender, KeyEventArgs e)
         {
             BindGrid(true);
+        }
+
+        private void cbYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindGrid(false);
+        }
+
+        private void cbMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindGrid(false);
         }
     }
 }

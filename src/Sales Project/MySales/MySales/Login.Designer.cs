@@ -36,6 +36,7 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lnkDefaultUser = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -96,6 +97,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lnkDefaultUser);
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.btnLogin);
             this.groupBox1.Controls.Add(this.btnExit);
@@ -118,6 +120,17 @@
             this.pictureBox1.Size = new System.Drawing.Size(322, 227);
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
+            // 
+            // lnkDefaultUser
+            // 
+            this.lnkDefaultUser.AutoSize = true;
+            this.lnkDefaultUser.Location = new System.Drawing.Point(260, 291);
+            this.lnkDefaultUser.Name = "lnkDefaultUser";
+            this.lnkDefaultUser.Size = new System.Drawing.Size(66, 13);
+            this.lnkDefaultUser.TabIndex = 7;
+            this.lnkDefaultUser.TabStop = true;
+            this.lnkDefaultUser.Text = "Default User";
+            this.lnkDefaultUser.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkDefaultUser_LinkClicked);
             // 
             // Login
             // 
@@ -148,6 +161,7 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.LinkLabel lnkDefaultUser;
     }
 }
 
