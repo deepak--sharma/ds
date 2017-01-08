@@ -83,7 +83,7 @@ namespace MySales.BL
                     {
                         objAdvanceDetailsBl.DeleteAdvanceDetails(emp.AdvanceDetails.Id);
                     }
-                    
+
                     netPayableSal = salaryAmt3;
                 }
                 else
@@ -140,6 +140,11 @@ namespace MySales.BL
         public List<Employee> GetPayrollGridData(int month, int year)
         {
             return new PayrollDl().GetPayrollGridData(month, year);
+        }
+
+        public Utility.ActionStatus DeletePayroll(long eid, int month, int year)
+        {
+            return new PayrollDl().DeletePayroll(eid, month, year);
         }
     }
 }

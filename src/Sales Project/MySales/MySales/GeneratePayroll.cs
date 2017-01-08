@@ -47,7 +47,7 @@ namespace MySales
             {
                 lstEmp = lstAllEmp;
             }
-            if(lstEmp.Count == 0)
+            if (lstEmp.Count == 0)
             {
                 lblCounter.Text = string.Format("No data found for selected Month/Year");
                 return;
@@ -84,7 +84,9 @@ namespace MySales
 
         private void btnGenPayroll_Click(object sender, EventArgs e)
         {
+            VerifyInput();
             btnGenPayroll.Enabled = false;
+            lblCounter.Text = "Started calculating salary....";
             var dataToProcessExists = false;
             foreach (ListViewItem item in lvPayroll.Items)
             {
@@ -106,11 +108,13 @@ namespace MySales
                     {
                         item.SubItems[8].Text = Utility.PayrollStatus.CALCULATED.ToString();
                         item.SubItems[7].Text = empBeingProcessed.PayrollDetails.NetPayable.ToString();
+                        item.Tag = empBeingProcessed.PayrollDetails.Id.ToString();
                         item.ImageIndex = 1;
                         item.Font = new Font(item.Font, FontStyle.Bold);
                         Application.DoEvents();
                     }
-                }                
+                    lblCounter.Text = "Finished calculating salary....";
+                }
             }
             if (!dataToProcessExists)
             {
@@ -119,22 +123,6 @@ namespace MySales
                 return;
             }
             btnGenPayroll.Enabled = true;
-            //BindGrid();
-
-            //var lstEmp = lbSource.Items.Cast<Employee>().ToList();
-            //foreach (var emp in from emp in lstEmp let status = new PayrollBl().PayrollCalculator(emp, Convert.ToInt32(cbMonth.SelectedIndex) + 1, Convert.ToInt32(cbYear.SelectedItem.ToString())) where status == Utils.Utility.ActionStatus.SUCCESS select emp)
-            //{
-            //    _lstEmployees.Remove(emp);
-            //    Application.DoEvents();
-            //    lblProcessing.Text = "Processing payroll for " + emp.FirstName;
-            //    lblProcessing.Refresh();
-            //    lbTarget.Items.Add(emp);
-            //    lbTarget.DisplayMember = "FirstName";
-            //    lbTarget.ValueMember = "ID";
-            //    Application.DoEvents();
-            //}
-            //if (lbSource.Items.Count == 0)
-            //    lblProcessing.Text = "Process finished.";
         }
 
         private void txtFilter_KeyUp(object sender, KeyEventArgs e)
@@ -150,6 +138,46 @@ namespace MySales
         private void cbMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindGrid(false);
+        }
+        private void VerifyInput()
+        {
+            lblCounter.Text = "Verifying employee data before calculating salary....";
+            foreach (ListViewItem item in lvPayroll.Items)
+            {
+                var sal = decimal.Zero;
+                var days = 0;
+                var absent = 0;
+                if (
+                    (!decimal.TryParse(item.SubItems[2].Text, out sal) || sal == decimal.Zero) ||
+                     ((!Int32.TryParse(item.SubItems[3].Text, out days) || days == 0) &&
+                       (!Int32.TryParse(item.SubItems[4].Text, out absent) || absent == 0))
+                    )
+                {
+                    item.SubItems[8].Text = Utility.PayrollStatus.REJECTED.ToString();
+                    item.ImageIndex = 3;
+                    item.Font = new Font(item.Font, FontStyle.Bold);
+                    Application.DoEvents();
+                }
+                lblCounter.Text = "Finished verifying employee data before calculating salary....";
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (lvPayroll.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select an item to delete", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            var dialogResult = MessageBox.Show("Are you sure you want to delete the selected data?", "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.OK)
+            {
+                var status = new PayrollBl().DeletePayroll(Convert.ToInt64(lvPayroll.SelectedItems[0].ToolTipText),
+                                                           Convert.ToInt32(cbMonth.SelectedIndex) + 1,
+                                                           Convert.ToInt32(cbYear.SelectedItem.ToString())
+                                                          );
+                BindGrid(false);
+            }
         }
     }
 }

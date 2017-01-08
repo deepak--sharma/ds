@@ -92,6 +92,7 @@
             this.txtDeduction = new System.Windows.Forms.TextBox();
             this.gbRunningAdvance = new System.Windows.Forms.GroupBox();
             this.gbTotal = new System.Windows.Forms.GroupBox();
+            this.cbIsRunning = new System.Windows.Forms.CheckBox();
             this.lblTotalAdvValue = new System.Windows.Forms.Label();
             this.lblBalanceValue = new System.Windows.Forms.Label();
             this.lblDeductionValue = new System.Windows.Forms.Label();
@@ -106,12 +107,11 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
             this.lnkAdvHistory = new System.Windows.Forms.LinkLabel();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnClearForm = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.cbIsRunning = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -206,7 +206,7 @@
             this.groupBox1.Controls.Add(this.txtLN);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(557, 465);
+            this.groupBox1.Size = new System.Drawing.Size(557, 372);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Enter Employee\'s personel data";
@@ -322,7 +322,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, -2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(583, 566);
+            this.tabControl1.Size = new System.Drawing.Size(584, 566);
             this.tabControl1.TabIndex = 0;
             // 
             // tpPersonal
@@ -331,7 +331,7 @@
             this.tpPersonal.Location = new System.Drawing.Point(4, 22);
             this.tpPersonal.Name = "tpPersonal";
             this.tpPersonal.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPersonal.Size = new System.Drawing.Size(569, 477);
+            this.tpPersonal.Size = new System.Drawing.Size(576, 540);
             this.tpPersonal.TabIndex = 0;
             this.tpPersonal.Text = "Personal Details";
             this.tpPersonal.UseVisualStyleBackColor = true;
@@ -343,7 +343,7 @@
             this.tpAddress.Location = new System.Drawing.Point(4, 22);
             this.tpAddress.Name = "tpAddress";
             this.tpAddress.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAddress.Size = new System.Drawing.Size(575, 540);
+            this.tpAddress.Size = new System.Drawing.Size(576, 540);
             this.tpAddress.TabIndex = 2;
             this.tpAddress.Text = "Address Details";
             this.tpAddress.UseVisualStyleBackColor = true;
@@ -598,7 +598,7 @@
             this.tpSalary.Location = new System.Drawing.Point(4, 22);
             this.tpSalary.Name = "tpSalary";
             this.tpSalary.Padding = new System.Windows.Forms.Padding(3);
-            this.tpSalary.Size = new System.Drawing.Size(569, 477);
+            this.tpSalary.Size = new System.Drawing.Size(576, 540);
             this.tpSalary.TabIndex = 3;
             this.tpSalary.Text = "Salary Details";
             this.tpSalary.UseVisualStyleBackColor = true;
@@ -637,15 +637,13 @@
             this.tpAdvanceDetails.Location = new System.Drawing.Point(4, 22);
             this.tpAdvanceDetails.Name = "tpAdvanceDetails";
             this.tpAdvanceDetails.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAdvanceDetails.Size = new System.Drawing.Size(575, 540);
+            this.tpAdvanceDetails.Size = new System.Drawing.Size(576, 540);
             this.tpAdvanceDetails.TabIndex = 4;
             this.tpAdvanceDetails.Text = "Advance Details";
             this.tpAdvanceDetails.UseVisualStyleBackColor = true;
             // 
             // gbAdvanceDetails
             // 
-            this.gbAdvanceDetails.Controls.Add(this.btnClearForm);
-            this.gbAdvanceDetails.Controls.Add(this.btnSave);
             this.gbAdvanceDetails.Controls.Add(this.gbAddAdv);
             this.gbAdvanceDetails.Controls.Add(this.gbRunningAdvance);
             this.gbAdvanceDetails.Controls.Add(this.lnkAdvHistory);
@@ -777,6 +775,16 @@
             this.gbTotal.TabStop = false;
             this.gbTotal.Text = "Total";
             // 
+            // cbIsRunning
+            // 
+            this.cbIsRunning.AutoSize = true;
+            this.cbIsRunning.Location = new System.Drawing.Point(10, 107);
+            this.cbIsRunning.Name = "cbIsRunning";
+            this.cbIsRunning.Size = new System.Drawing.Size(323, 17);
+            this.cbIsRunning.TabIndex = 23;
+            this.cbIsRunning.Text = "Check this to start Advance deduction during salary calculation";
+            this.cbIsRunning.UseVisualStyleBackColor = true;
+            // 
             // lblTotalAdvValue
             // 
             this.lblTotalAdvValue.AutoSize = true;
@@ -906,24 +914,10 @@
             this.lnkAdvHistory.Text = "Click to see Advance History";
             this.lnkAdvHistory.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkAdvHistory_LinkClicked);
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 567);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(595, 22);
-            this.statusStrip1.TabIndex = 12;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
-            // 
             // btnClearForm
             // 
-            this.btnClearForm.Location = new System.Drawing.Point(270, 499);
+            this.btnClearForm.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnClearForm.Location = new System.Drawing.Point(248, 584);
             this.btnClearForm.Name = "btnClearForm";
             this.btnClearForm.Size = new System.Drawing.Size(75, 23);
             this.btnClearForm.TabIndex = 21;
@@ -933,7 +927,8 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(181, 499);
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnSave.Location = new System.Drawing.Point(159, 584);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 20;
@@ -941,27 +936,36 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 631);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(596, 22);
+            this.statusStrip1.TabIndex = 12;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // cbIsRunning
-            // 
-            this.cbIsRunning.AutoSize = true;
-            this.cbIsRunning.Location = new System.Drawing.Point(10, 107);
-            this.cbIsRunning.Name = "cbIsRunning";
-            this.cbIsRunning.Size = new System.Drawing.Size(323, 17);
-            this.cbIsRunning.TabIndex = 23;
-            this.cbIsRunning.Text = "Check this to start Advance deduction during salary calculation";
-            this.cbIsRunning.UseVisualStyleBackColor = true;
             // 
             // FrmEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(595, 589);
+            this.ClientSize = new System.Drawing.Size(596, 653);
+            this.Controls.Add(this.btnClearForm);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FrmEmployee";
             this.Text = "Employee";
             this.Load += new System.EventHandler(this.frmEmployee_Load);

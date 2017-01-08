@@ -11,11 +11,12 @@ namespace MySales.DL
     public class PayrollDl
     {
         private const String InsertPayroll =
-            "Insert into [Emp_Payroll] ([EmpID],[OvertimeAmt],[AdvanceDedAmt],[DaysWorked],[NetPayable],[PMonth],[PYear],[Status],[CreateDate]) values (@empid,@otamt,@adamt,@dw,@np,@pmonth,@pyear,@status,@created)";
+            "Insert into [Emp_Payroll] ([EmpID],[OvertimeAmt],[AdvanceDedAmt],[DaysWorked],[NetPayable],[PMonth],[PYear],[Status],[CreateDate]) values (@empid,@otamt,@adamt,@dw,@np,@pmonth,@pyear,@status,@created);";
 
         private const String FetchPayroll =
             "select [ID],[EmpID],[OvertimeAmt],[AdvanceDedAmt],[DaysWorked],[NetPayable],[PMonth],[PYear],[Status],[IsActive],[CreateDate] from [Emp_Payroll] where [PMonth] = @pm AND [PYear] = @py AND [Status] = @st AND [IsActive] = @act";
         private const string GetPayrollGridDataQuery = "SELECT e.ID,e.FirstName,e.MiddleName,e.LastName, sal.MonthlyGross,att.TotalDays,att.LeaveDays,att.WorkDays,att.Overtime,adv.TotalAdvance,adv.IsRunning,p.OvertimeAmt,p.AdvanceDedAmt,p.DaysWorked,p.NetPayable,p.Status AS PStatus FROM (((Employee e INNER JOIN Emp_Attendance att ON ((e.ID = att.EmpID) AND (att.PayrollMonth=@pm) AND (att.PayrollYear=@py)) ) LEFT JOIN Emp_Advance_Details adv ON ((e.ID = adv.EmpID) AND (adv.IsActive=true) AND (adv.IsRunning=true))) LEFT JOIN Emp_Salary_Details sal ON (e.ID = sal.EmpID)) LEFT JOIN Emp_Payroll p ON ((e.ID = p.EmpID) AND (p.PMonth = @pm) AND (p.PYear = @py)) WHERE e.IsActive=true";
+        private const string DeletePayrollQuery = "delete from Emp_Payroll where EmpId = @eid AND PMonth = @pm AND PYear = @py";
         public Utility.ActionStatus AddPayroll(Payroll objPayroll)
         {
             var state = Utility.ActionStatus.SUCCESS;
@@ -35,12 +36,14 @@ namespace MySales.DL
                         cmd.Parameters.Add(new OleDbParameter("@pmonth", objPayroll.PMonth));
                         cmd.Parameters.Add(new OleDbParameter("@pyear", objPayroll.PYear));
                         cmd.Parameters.Add(new OleDbParameter("@status", objPayroll.Status));
-                        //cmd.Parameters.Add(new OleDbParameter("@isactive", objPayroll.IsActive));
                         cmd.Parameters.Add(new OleDbParameter("@created", objPayroll.CreateDate.ToString()));
-                        if (cmd.ExecuteNonQuery() == 0)
+                        
+                        if (cmd.ExecuteNonQuery() <= 0)
                         {
                             state = Utility.ActionStatus.FAILURE;
                         }
+                        cmd.CommandText = "SELECT @@IDENTITY;";
+                        objPayroll.Id = Convert.ToInt64(cmd.ExecuteScalar());
                     }
                 }
             }
@@ -158,6 +161,35 @@ namespace MySales.DL
             }
 
             return lstPayrollGrid;
+        }
+
+        public Utility.ActionStatus DeletePayroll(long eid, int month, int year)
+        {
+            var state = Utility.ActionStatus.SUCCESS;
+            try
+            {
+                using (var con = DbManager.GetConnection())
+                {
+                    con.Open();
+                    using (var cmd = new OleDbCommand(DeletePayrollQuery, con))
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add(new OleDbParameter("@eid", eid));
+                        cmd.Parameters.Add(new OleDbParameter("@pm", month));
+                        cmd.Parameters.Add(new OleDbParameter("@py", year));
+                        if (cmd.ExecuteNonQuery() <= 0)
+                        {
+                            state = Utility.ActionStatus.FAILURE;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                state = Utility.ActionStatus.FAILURE;
+            }
+
+            return state;
         }
     }
 }
