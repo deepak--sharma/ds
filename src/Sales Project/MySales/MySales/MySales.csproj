@@ -166,6 +166,12 @@
     <Compile Include="PayrollReport.Designer.cs">
       <DependentUpon>PayrollReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="PrintPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrintPreview.Designer.cs">
+      <DependentUpon>PrintPreview.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SalesDataSet.Designer.cs">
@@ -221,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PayrollReport.resx">
       <DependentUpon>PayrollReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrintPreview.resx">
+      <DependentUpon>PrintPreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

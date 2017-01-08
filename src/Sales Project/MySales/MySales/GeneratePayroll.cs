@@ -10,7 +10,7 @@ using MySales.BL;
 using MySales.BO;
 using MySales.DL;
 using MySales.Utils;
-
+using System.IO;
 namespace MySales
 {
     public partial class frmGeneratePayroll : Form
@@ -27,12 +27,10 @@ namespace MySales
             Utility.SetPayrollMonthYearDropdownList(cbMonth, cbYear);
             BindGrid(false);
         }
-
-        private void BindGrid(bool filter)
+        private List<Employee> GetDataList(bool filter)
         {
-            lvPayroll.Items.Clear();
             var objEmployeeBl = new PayrollBl();
-            if (cbMonth.SelectedItem == null || cbYear.SelectedItem == null) { return; }
+
             var lstAllEmp = objEmployeeBl.GetPayrollGridData(Convert.ToInt32(cbMonth.SelectedIndex) + 1, Convert.ToInt32(cbYear.SelectedItem.ToString()));
             List<Employee> lstEmp;
             if (filter)
@@ -47,6 +45,13 @@ namespace MySales
             {
                 lstEmp = lstAllEmp;
             }
+            return lstEmp;
+        }
+        private void BindGrid(bool filter)
+        {
+            if (cbMonth.SelectedItem == null || cbYear.SelectedItem == null) { return; }
+            lvPayroll.Items.Clear();
+            var lstEmp = GetDataList(filter);
             if (lstEmp.Count == 0)
             {
                 lblCounter.Text = string.Format("No data found for selected Month/Year");
@@ -178,6 +183,37 @@ namespace MySales
                                                           );
                 BindGrid(false);
             }
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            var lstPayroll = GetDataList(false);
+
+            var htmlTableRows = Utility.List2HtmlTable(lstPayroll,
+                        x => x.EmployeeFullName(),
+                        x => x.SalDetails.MonthlyGross,
+                        x => x.Attendance.TotalDays,
+                        x => x.Attendance.LeaveDays,
+                        x => x.AdvanceDetails.TotalAdvance,
+                        x => x.Attendance.Overtime,
+                        x => x.PayrollDetails.NetPayable);
+            var style = @"<style>
+                        table {
+                            border-collapse: collapse;
+                        }
+
+                        table, th, td {
+                            border: 1px solid black;
+	                        padding: 5px;
+                        }
+                        </style>";
+            var html = string.Format("{0}<table><th>Name</th><th>Salary</th><th>Days</th><th>Absent</th><th>Advance</th><th>OverTime(hrs)</th><th>NetPayable</th>{1}</table>", style, htmlTableRows);
+            var dir = AppDomain.CurrentDomain.BaseDirectory;
+            var path = Directory.GetParent(dir).Root.ToString();
+            var fileName = path + @"report.html";            
+            File.WriteAllText(fileName, html);
+            var frmPrint = new PrintPreview { Url = @"file://" + fileName };
+            frmPrint.ShowDialog();
         }
     }
 }

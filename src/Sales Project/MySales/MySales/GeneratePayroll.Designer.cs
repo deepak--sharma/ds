@@ -55,6 +55,7 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.ssPayroll = new System.Windows.Forms.StatusStrip();
             this.lblCounter = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -142,6 +143,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnPrint);
             this.groupBox3.Controls.Add(this.btnDelete);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.txtFilter);
@@ -285,6 +287,16 @@
             this.lblCounter.Name = "lblCounter";
             this.lblCounter.Size = new System.Drawing.Size(0, 17);
             // 
+            // btnPrint
+            // 
+            this.btnPrint.Location = new System.Drawing.Point(436, 65);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(111, 34);
+            this.btnPrint.TabIndex = 12;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
             // frmGeneratePayroll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -335,5 +347,6 @@
         private System.Windows.Forms.ColumnHeader chDays;
         private System.Windows.Forms.ColumnHeader chAbsent;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnPrint;
     }
 }

@@ -176,6 +176,22 @@ namespace MySales.Utils
             }
             return retValue;
         }
-
+        //string HTML = GetMyTable(people, x => x.FirstName, x => x.LastName);
+        public static string List2HtmlTable<T>(IEnumerable<T> list, params Func<T, object>[] columns)
+        {
+            var sb = new StringBuilder();
+            foreach (var item in list)
+            {
+                sb.Append("<tr>");
+                foreach (var column in columns)
+                {
+                    sb.Append("<td>");
+                    sb.Append(column(item));
+                    sb.Append("</td>");
+                }
+                sb.Append("</tr>");
+            }
+            return sb.ToString();
+        }
     }
 }

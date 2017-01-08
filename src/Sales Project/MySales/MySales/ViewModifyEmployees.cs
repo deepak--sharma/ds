@@ -24,6 +24,7 @@ namespace MySales
         private const string Modify = "Modify";
         private const string Delete = "Delete";
         private const string Present = "Present";
+        private const string TotalDays = "TotalDays";
         private const string Absent = "Absent";
         private const string OtHrs = "OT";
         private const string AdvanceAmt = "AdvanceAmt";
@@ -279,15 +280,14 @@ namespace MySales
                     });
                     dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
                                            {
-                                               HeaderText = "Days Present",
-                                               Name = Present,
-                                               MaxInputLength = 2,
-                                               ReadOnly = false,
-                                               DataPropertyName = "Attendance.WorkDays"
+                                               HeaderText = "Days",
+                                               Name = TotalDays,
+                                               ReadOnly = true,
+                                               DataPropertyName = "Attendance.TotalDays"
                                            });
                     dgvEmp.Columns.Add(new DataGridViewTextBoxColumn
                                            {
-                                               HeaderText = "Days Absent",
+                                               HeaderText = "Absent Days",
                                                Name = Absent,
                                                MaxInputLength = 2,
                                                ReadOnly = false,
@@ -417,24 +417,10 @@ namespace MySales
             var successCtr = 0;
             foreach (DataGridViewRow dr in dgvEmp.Rows)
             {
-                /*var advanceDetails = new AdvanceDetail()
-                                         {
-                                             PMonth = month,
-                                             PYear = year,
-                                             TotalAdvance = Convert.ToDecimal(dr.Cells[AdvanceAmt].Value),
-                                             Balance = Convert.ToDecimal(dr.Cells[AdvanceAmt].Value),
-                                             AdvanceDeduction = Convert.ToDecimal(dr.Cells[AdvanceDeduct].Value),
-                                             EmpID = Convert.ToInt64(dr.Cells[EmpId].Value),
-                                             CreateDate = DateTime.Now
-                                         };
-                var advanceDetailsAdded = new AdvanceDetailsBL().AddAdvanceDetails(advanceDetails) ==
-                                          Utility.ActionStatus.SUCCESS;*/
-
                 var attendanceDetail = new EmpAttendance()
                 {
                     Id = Convert.ToInt64(dr.Cells[AttId].Value ?? dr.Cells[AttId].EditedFormattedValue),
                     EmpId = Convert.ToInt64(dr.Cells[EmpId].Value ?? dr.Cells[EmpId].EditedFormattedValue),
-                    WorkDays = Convert.ToInt64(dr.Cells[Present].Value ?? dr.Cells[Present].EditedFormattedValue),
                     LeaveDays = Convert.ToInt64(dr.Cells[Absent].Value ?? dr.Cells[Absent].EditedFormattedValue),
                     Overtime = Convert.ToDecimal(dr.Cells[OtHrs].Value ?? dr.Cells[OtHrs].EditedFormattedValue),
                     Month = month,
@@ -442,6 +428,7 @@ namespace MySales
                     TotalDays = DateTime.DaysInMonth(year, month),
                     ModifiedDate = DateTime.Now
                 };
+                attendanceDetail.WorkDays = attendanceDetail.TotalDays - attendanceDetail.LeaveDays;
                 var attendanceDetailsAdded = new EmpAttendanceBl(month, year).UpdateAttendanceDetails(attendanceDetail) ==
                                              Utility.ActionStatus.SUCCESS;
                 if (attendanceDetailsAdded)
